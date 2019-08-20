@@ -6,7 +6,6 @@ package utils;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import com.asml.automatalib.extensions.util.Dot2Dfa;
 
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import net.automatalib.words.impl.SimpleAlphabet;
