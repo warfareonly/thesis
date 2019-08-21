@@ -78,3 +78,5 @@ Require-Bundle: nl.tue.app.framework;bundle-version="1.0.0",
  nl.tue.tooldef.v2x0x0.website;bundle-version="1.0.0",
  nl.tue.wtb.se.changelog;bundle-version="1.0.0",
  nl.tue.wtb.se.perspective;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: thesis
