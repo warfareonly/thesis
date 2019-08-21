@@ -12,5 +12,6 @@ automaton processB:
     edge switchB goto s3;
   location s3:
     marked;
+    edge switchB;
     edge eatB goto s1;
 end
