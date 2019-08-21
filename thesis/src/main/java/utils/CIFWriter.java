@@ -7,6 +7,9 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
+
+import net.automatalib.automata.fsa.impl.FastDFA;
+import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 
 /**
@@ -44,32 +47,42 @@ public class CIFWriter {
 	/**
 	 * Used for writing the monitors in the guarded-decompositions
 	 * 
-	 * @param dfa
+	 * @param monitor2
 	 * @param writer
 	 * @param plantName
 	 * @throws IOException
 	 */
 
-	public static void writeMonitor(CompactDFA<String> dfa, Writer writer, String plantName) throws IOException {
+	public static void writeMonitor(FastDFA<String> monitor2, Writer writer, String plantName) throws IOException {
 		// try (writer) {
 		// Write header.
 		// Write some name for the plant
 		writer.write("automaton " + plantName + ":\n");
 		writer.write("\tmonitor;\n");
-		if (null == dfa.getStates()) {
+		if (null == monitor2.getStates()) {
 			System.out.println("INSANIIIIIIIIITY");
 		}
 		// System.out.println(dfa.getStates());
-		for (Integer state : dfa.getStates()) {
-			writer.write(createLocation(state + 1, dfa.isAccepting(state), dfa.getInitialState() == state,
-					isDeadlocked(dfa, state)).replace("loc_", "s"));
-			for (String input : dfa.getInputAlphabet()) {
-				if (null != dfa.getSuccessor(state, input))
-					writer.write(createTransition(dfa.getSuccessor(state, input) + 1, input).replace("loc_", "s"));
+		for (FastDFAState state : monitor2.getStates()) {
+			writer.write(createLocation(state.getId() + 1, monitor2.isAccepting(state),
+					monitor2.getInitialState() == state, isDeadlocked(monitor2, state)).replace("loc_", "s"));
+			for (String input : monitor2.getInputAlphabet()) {
+				if (null != monitor2.getSuccessor(state, input))
+					writer.write(createTransition(monitor2.getSuccessor(state, input).getId() + 1, input)
+							.replace("loc_", "s"));
 			}
 		}
 		writer.write("end\n");
 		// }
+	}
+
+	private static boolean isDeadlocked(FastDFA<String> dfa, FastDFAState state) {
+		for (String in : dfa.getInputAlphabet()) {
+			if (null != dfa.getSuccessor(state, in)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private static String createLocation(Integer state, boolean accepting, boolean initial, boolean deadlocked) {
@@ -110,7 +123,8 @@ public class CIFWriter {
 
 	// private static String createLocation(int num) {
 	// if (num == 0) {
-	// return "\t" + "location loc_" + num + ":\n" + "\t\tinitial;\n" + "\t\tmarked;\n";
+	// return "\t" + "location loc_" + num + ":\n" + "\t\tinitial;\n" +
+	// "\t\tmarked;\n";
 	// } else {
 	// return "\t" + "location loc_" + num + ":\n" + "\t\tmarked;\n";
 	//

@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 import org.javatuples.Pair;
 
+import net.automatalib.automata.fsa.impl.FastDFA;
+import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 
 /**
@@ -29,17 +31,17 @@ public class Constraints {
 	 * 
 	 * @param constraints
 	 * @param actionToSubSpecNames
-	 * @param subSpecNameMap
+	 * @param subSpecificationsMap
 	 */
 	public Constraints(Map<String, Map<Integer, Map<String, Set<Integer>>>> constraints,
-			Map<String, String> actionToSubSpecNames, Map<String, CompactDFA<String>> subSpecNameMap) {
+			Map<String, String> actionToSubSpecNames, Map<String, FastDFA<String>> subSpecificationsMap) {
 		this.constraints = constraints;
 		this.actionToSubSpecNames = actionToSubSpecNames;
 		this.subSpecificationSizeMap = new HashMap<String, Integer>();
-		for (String name : subSpecNameMap.keySet()) {
-			this.subSpecificationSizeMap.put(name, subSpecNameMap.get(name).size());
+		for (String name : subSpecificationsMap.keySet()) {
+			this.subSpecificationSizeMap.put(name, subSpecificationsMap.get(name).size());
 		}
-		this.unusedTransitionsInvariantStatements = constructUnusedTransitionsBlocker(constraints, subSpecNameMap);
+		this.unusedTransitionsInvariantStatements = constructUnusedTransitionsBlocker(constraints, subSpecificationsMap);
 	}
 
 	/**
@@ -86,13 +88,13 @@ public class Constraints {
 	 * 
 	 * @param constraints
 	 *            the constraints map
-	 * @param subSpecNameMap
+	 * @param subSpecificationsMap
 	 *            the sub-specification name to sub-specification map
 	 * @return set of invariant statements blocking unused transitions
 	 */
 	private Set<String> constructUnusedTransitionsBlocker(
 			Map<String, Map<Integer, Map<String, Set<Integer>>>> constraints,
-			Map<String, CompactDFA<String>> subSpecNameMap) {
+			Map<String, FastDFA<String>> subSpecificationsMap) {
 		/*
 		 * The gist of this function is as follows: construct a set of tuples of <action, state>, that is, which action
 		 * is valid at which state in a sub-specification for all actions and states. We call this the
@@ -102,13 +104,13 @@ public class Constraints {
 		 * put them all together in a set of strings.
 		 */
 		Set<Pair<String, Integer>> actionStateTuples = new HashSet<>();
-		for (String subSpecificationName : subSpecNameMap.keySet()) {
+		for (String subSpecificationName : subSpecificationsMap.keySet()) {
 			if (!subSpecificationName.equalsIgnoreCase("globalMonitor")) {
-				CompactDFA<String> subSpecification = subSpecNameMap.get(subSpecificationName);
-				for (Integer state : subSpecification.getStates()) {
+				FastDFA<String> subSpecification = subSpecificationsMap.get(subSpecificationName);
+				for (FastDFAState state : subSpecification.getStates()) {
 					for (String action : subSpecification.getInputAlphabet()) {
 						if (null != subSpecification.getSuccessor(state, action)) {
-							actionStateTuples.add(new Pair<String, Integer>(action, state));
+							actionStateTuples.add(new Pair<String, Integer>(action, state.getId()));
 						}
 					}
 				}

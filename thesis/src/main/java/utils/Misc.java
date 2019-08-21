@@ -22,7 +22,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.SystemUtils;
 
+import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import net.automatalib.words.Alphabet;
 import net.automatalib.words.Word;
@@ -36,8 +38,9 @@ import nl.tue.cif.v3x0x0.common.CifEvalException;
  */
 public class Misc {
 
-	public static Map<String, CompactDFA<String>> generateSubSpecificationsMap(List<String> inFiles) {
-		// We remove the first file as it is always the specification file, and not a sub-specification file
+	public static Map<String, FastDFA<String>> generateSubSpecificationsMap(List<String> inFiles) {
+		// We remove the first file as it is always the specification file, and not a
+		// sub-specification file
 		List<String> filesToRead = inFiles.subList(1, inFiles.size());
 		return zipToMap(stripIdentifierFromFilename(filesToRead), genListOfSubSpecifications(filesToRead));
 	}
@@ -57,7 +60,8 @@ public class Misc {
 	}
 
 	/**
-	 * Like the name suggests: gets the filenames (without extenstion) from the list of string of files.
+	 * Like the name suggests: gets the filenames (without extenstion) from the list
+	 * of string of files.
 	 * 
 	 * @param listFilenames
 	 * @return
@@ -65,7 +69,11 @@ public class Misc {
 	private static List<String> stripIdentifierFromFilename(List<String> listFilenames) {
 		List<String> ret = new LinkedList<>();
 		for (String x : listFilenames) {
-			x = x.split("\\\\")[x.split("\\\\").length - 1].replace(".cif", "");
+			if (SystemUtils.IS_OS_WINDOWS) {
+				x = x.split("\\\\")[x.split("\\\\").length - 1].replace(".cif", "");
+			} else {
+				x = x.split("/")[x.split("/").length - 1].replace(".cif", "");
+			}
 			ret.add(x);
 		}
 		return ret;
@@ -77,8 +85,8 @@ public class Misc {
 	 * @param inFiles
 	 * @return
 	 */
-	private static List<CompactDFA<String>> genListOfSubSpecifications(List<String> inFiles) {
-		List<CompactDFA<String>> ret = new LinkedList<>();
+	private static List<FastDFA<String>> genListOfSubSpecifications(List<String> inFiles) {
+		List<FastDFA<String>> ret = new LinkedList<>();
 		for (String x : inFiles) {
 			try {
 				ret.add(BharatCustomCIFReader.readCIF(x));
@@ -101,7 +109,7 @@ public class Misc {
 	 * @return
 	 */
 	public static Map<String, String> computeActionToSubSpecNames(
-			Map<String, CompactDFA<String>> subSpecificationsMap) {
+			Map<String, FastDFA<String>> subSpecificationsMap) {
 		Map<String, String> ret = new HashMap<>();
 		for (String subSpecName : subSpecificationsMap.keySet()) {
 			for (String action : subSpecificationsMap.get(subSpecName).getInputAlphabet()) {
@@ -112,8 +120,8 @@ public class Misc {
 	}
 
 	/**
-	 * Write the computed automata, monitor, invariants etc. I should probably re-write this properly, but it is low
-	 * priority.
+	 * Write the computed automata, monitor, invariants etc. I should probably
+	 * re-write this properly, but it is low priority.
 	 * 
 	 * @param options
 	 * @param constraints
@@ -142,7 +150,7 @@ public class Misc {
 		}
 	}
 
-	public static boolean writeToOutput(Args options, Set<String> constraints, CompactDFA<String> monitor)
+	public static boolean writeToOutput(Args options, Set<String> constraints, FastDFA<String> monitor)
 			throws Exception {
 		FileOutputStream stream = new FileOutputStream(options.getOutFile(), false);
 		writeDecomposition(options, options.getInFiles().subList(1, options.getInFiles().size()), stream, constraints,
@@ -166,7 +174,7 @@ public class Misc {
 	}
 
 	private static void writeDecomposition(Args options, List<String> outNames, FileOutputStream stream,
-			Set<String> constraints, boolean monitor, CompactDFA<String> globalMonitor) throws IOException {
+			Set<String> constraints, boolean monitor, FastDFA<String> monitor2) throws IOException {
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(stream))) {
 			for (String inFile : outNames) {
 				List<String> fileContents = FileUtils.readLines(new File(inFile), "utf-8");
@@ -176,7 +184,7 @@ public class Misc {
 				writer.write("\n");
 			}
 			if (monitor) {
-				CIFWriter.writeMonitor(globalMonitor, writer, "globalMonitor");
+				CIFWriter.writeMonitor(monitor2, writer, "globalMonitor");
 				for (String x : constraints) {
 					writer.write(x + "\n");
 				}
@@ -189,7 +197,8 @@ public class Misc {
 	}
 
 	/**
-	 * I have no clue how this works, but it works! I am also <b>not</b> the original author.
+	 * I have no clue how this works, but it works! I am also <b>not</b> the
+	 * original author.
 	 * 
 	 * @param original
 	 *            the map to which we will merge <b>newMap</b>
@@ -232,7 +241,8 @@ public class Misc {
 	}
 
 	/**
-	 * Obtains the projection of an input sequence over an alphabet and returns it as a new list.
+	 * Obtains the projection of an input sequence over an alphabet and returns it
+	 * as a new list.
 	 * 
 	 * @param input
 	 * @param alphabet

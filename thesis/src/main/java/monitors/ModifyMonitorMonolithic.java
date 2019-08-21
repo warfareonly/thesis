@@ -8,6 +8,7 @@ import java.util.Set;
 import org.javatuples.Pair;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
+import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import net.automatalib.automata.fsa.impl.compact.CompactNFA;
 import net.automatalib.commons.util.mappings.Mapping;
@@ -35,33 +36,33 @@ public class ModifyMonitorMonolithic {
 	 * other method. Simply call the constructor and then call the {@link #getMonitor()} method. This could possibly be
 	 * re-factored as a single method and then simply have an anonymous object of this class.
 	 * 
-	 * @param monitor
+	 * @param monitor2
 	 *            the monitor
 	 * @param transition
 	 *            the transition
 	 */
-	public ModifyMonitorMonolithic(CompactDFA<String> monitor, Word<String> transition) {
-		copyMonitorInit(monitor);
+	public ModifyMonitorMonolithic(FastDFA<String> monitor2, Word<String> transition) {
+		copyMonitorInit(monitor2);
 		deleteTransition(transition);
 	}
 
 	/**
 	 * Copy the monitor into the object.
 	 * 
-	 * @param inMonitor
+	 * @param monitor2
 	 *            the monitor to be copied
 	 */
-	private void copyMonitorInit(CompactDFA<String> inMonitor) {
-		this.monitor = new CompactNFA<String>(inMonitor.getInputAlphabet());
-		Mapping<Integer, Integer> x = AutomatonLowLevelCopy.copy(AutomatonCopyMethod.BFS, inMonitor,
-				inMonitor.getInputAlphabet(), this.monitor);
-		for (Integer st : this.monitor) {
-			if (!x.get(0).equals(st)) {
-				this.monitor.setInitial(st, false);
-			} else {
-				this.monitor.setInitial(st, true);
-			}
-		}
+	private void copyMonitorInit(FastDFA<String> monitor2) {
+		this.monitor = new CompactNFA<String>(monitor2.getInputAlphabet());
+		Mapping<FastDFAState, Integer> x = AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE, monitor2,
+				monitor2.getInputAlphabet(), this.monitor);
+//		for (Integer st : this.monitor) {
+//			if (!x.get(0).equals(st)) {
+//				this.monitor.setInitial(st, false);
+//			} else {
+//				this.monitor.setInitial(st, true);
+//			}
+//		}
 	}
 
 	/**

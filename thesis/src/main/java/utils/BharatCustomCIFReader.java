@@ -11,7 +11,10 @@ import java.util.Scanner;
 
 import com.google.common.base.Preconditions;
 
+import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
+import net.automatalib.util.automata.copy.AutomatonCopyMethod;
+import net.automatalib.util.automata.copy.AutomatonLowLevelCopy;
 import net.automatalib.words.impl.SimpleAlphabet;
 import nl.tue.app.framework.AppEnv;
 import nl.tue.cif.v3x0x0.common.CifEdgeUtils;
@@ -42,7 +45,7 @@ public class BharatCustomCIFReader {
 	 * @throws CifEvalException
 	 * @throws IOException
 	 */
-	public static CompactDFA<String> readCIF(java.lang.String file) throws CifEvalException, IOException {
+	public static FastDFA<String> readCIF(java.lang.String file) throws CifEvalException, IOException {
 		CompactDFA<String> dfa = new CompactDFA<String>(new SimpleAlphabet<String>());
 		dfa.addIntInitialState();
 		Map<java.lang.String, Integer> cifLocationAutoamatonMap = new HashMap<java.lang.String, Integer>();
@@ -85,7 +88,10 @@ public class BharatCustomCIFReader {
 			}
 		}
 		AppEnv.unregisterThread();
-		return dfa;
+		FastDFA<String>  ret = new FastDFA<>(dfa.getInputAlphabet());
+		ret.clear();
+		AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE, dfa, dfa.getInputAlphabet(), ret);
+		return ret;
 	}
 
 }

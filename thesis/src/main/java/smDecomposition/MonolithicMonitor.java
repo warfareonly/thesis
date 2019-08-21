@@ -15,6 +15,8 @@ import invariant.Constraints;
 import monitors.ModifyMonitor;
 import monitors.ModifyMonitorMonolithic;
 import monitors.GlobalMonitor.IterationOrder;
+import net.automatalib.automata.fsa.impl.FastDFA;
+import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import net.automatalib.util.automata.copy.AutomatonCopyMethod;
 import net.automatalib.util.automata.copy.AutomatonLowLevelCopy;
@@ -28,24 +30,24 @@ public class MonolithicMonitor {
 	private Args options;
 	private Map<String, Map<Integer, Map<String, Set<Integer>>>> memorylessConstraints;
 	private CompactDFA<String> specification;
-	private CompactDFA<String> monitor;
-	private Map<String, CompactDFA<String>> subSpecificationsMap;
+	private FastDFA<String> monitor;
+	private Map<String, FastDFA<String>> subSpecificationsMap;
 	private Map<Integer, Integer> specificationToMonitorMap = new HashMap<Integer, Integer>();
 	private Iterator<Word<String>> transitionCoverIterator;
 	private Map<Pair<String, Integer>, Set<Integer>> subSpecficationActionComboToSpecificationMap;
 	private CompactDFA<String> monitorSafe;
 
-	public MonolithicMonitor(Args options, CompactDFA<String> dfaSpecification, Constraints cons,
-			Map<String, CompactDFA<String>> subSpecificationsMap, IterationOrder iterationOrder,
+	public MonolithicMonitor(Args options, FastDFA<String> dfaSpecification, Constraints cons,
+			Map<String, FastDFA<String>> subSpecificationsMap, IterationOrder iterationOrder,
 			Set<String> preferredActions) {
 		this.options = options;
 		this.memorylessConstraints = cons.getConstraints();
 		this.specification = new CompactDFA<String>(dfaSpecification.getInputAlphabet());
-		this.monitor = new CompactDFA<String>(dfaSpecification.getInputAlphabet());
+		this.monitor = new FastDFA<String>(dfaSpecification.getInputAlphabet());
 		this.subSpecificationsMap = subSpecificationsMap;
-		AutomatonLowLevelCopy.copy(AutomatonCopyMethod.BFS, dfaSpecification, dfaSpecification.getInputAlphabet(),
+		AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE, dfaSpecification, dfaSpecification.getInputAlphabet(),
 				this.specification);
-		AutomatonLowLevelCopy.copy(AutomatonCopyMethod.BFS, specification, dfaSpecification.getInputAlphabet(),
+		AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE, specification, dfaSpecification.getInputAlphabet(),
 				this.monitor);
 		this.transitionCoverIterator = prepareTransitionCover(dfaSpecification, iterationOrder, preferredActions);
 		this.subSpecficationActionComboToSpecificationMap = generateActionComboMap(subSpecificationsMap);
@@ -69,11 +71,11 @@ public class MonolithicMonitor {
 			System.out.println("Iteration #" + count + " of " + specification.size());
 			System.out.println("Size of monitor =" + this.monitor.size());
 			this.monitorSafe = new CompactDFA<String>(this.monitor.getInputAlphabet());
-			AutomatonLowLevelCopy.copy(AutomatonCopyMethod.BFS, this.monitor, this.monitor.getInputAlphabet(),
+			AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE, this.monitor, this.monitor.getInputAlphabet(),
 					this.monitorSafe);
 			ModifyMonitorMonolithic mod = new ModifyMonitorMonolithic(this.monitor, null);
-			this.monitor = new CompactDFA<String>(this.specification.getInputAlphabet());
-			AutomatonLowLevelCopy.copy(AutomatonCopyMethod.BFS, mod.getMonitor(), this.specification.getInputAlphabet(),
+			this.monitor = new FastDFA<String>(this.specification.getInputAlphabet());
+			AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE, mod.getMonitor(), this.specification.getInputAlphabet(),
 					this.monitor);
 			invariants = computeMonitorConstraints();
 			/*
@@ -81,8 +83,8 @@ public class MonolithicMonitor {
 			 */
 			try {
 				if (!Misc.writeToOutput(options, invariants, this.monitor)) {
-					this.monitor = new CompactDFA<String>(this.monitorSafe.getInputAlphabet());
-					AutomatonLowLevelCopy.copy(AutomatonCopyMethod.BFS, this.monitorSafe,
+					this.monitor = new FastDFA<String>(this.monitorSafe.getInputAlphabet());
+					AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE, this.monitorSafe,
 							this.monitorSafe.getInputAlphabet(), this.monitor);
 					invariants = computeMonitorConstraints();
 					Misc.writeToOutput(options, invariants, this.monitor);
@@ -177,7 +179,7 @@ public class MonolithicMonitor {
 		Misc.deepMerge(completeConstraints, constraintsMonitor);
 		Misc.deepMerge(completeConstraints, memorylessConstraints);
 
-		Map<String, CompactDFA<String>> subSpecwithMonitorMap = new HashMap<>();
+		Map<String, FastDFA<String>> subSpecwithMonitorMap = new HashMap<>();
 		subSpecwithMonitorMap.putAll(subSpecificationsMap);
 		subSpecwithMonitorMap.put("globalMonitor", this.monitor);
 		Constraints cons = new Constraints(completeConstraints, Misc.computeActionToSubSpecNames(subSpecificationsMap),
@@ -238,16 +240,16 @@ public class MonolithicMonitor {
 	 * the specification.
 	 * 
 	 * @param specification
-	 * @param mapSubSpecifications
+	 * @param subSpecificationsMap2
 	 *            map of string to sub-specification
 	 * @return
 	 */
 	private Map<Pair<String, Integer>, Set<Integer>> generateActionComboMap(
-			Map<String, CompactDFA<String>> mapSubSpecifications) {
+			Map<String, FastDFA<String>> subSpecificationsMap2) {
 		Map<Pair<String, Integer>, Set<Integer>> ret = new HashMap<>();
 		Iterator<Word<String>> tcIterator = Covers.transitionCoverIterator(specification,
 				specification.getInputAlphabet()); // Compute transition cover of the specification
-		Map<String, String> actionToSubSpecificationNameMap = Misc.computeActionToSubSpecNames(mapSubSpecifications);
+		Map<String, String> actionToSubSpecificationNameMap = Misc.computeActionToSubSpecNames(subSpecificationsMap2);
 		// Got the map of action -> sub-specification names
 		while (tcIterator.hasNext()) {
 			Word<String> input = tcIterator.next();
@@ -257,15 +259,15 @@ public class MonolithicMonitor {
 				List<String> possibleInputs = getPossibleInputs(specification, specificationState);
 				// Get all the outgoing actions, we don't care where they lead
 				for (String pInput : possibleInputs) {
-					CompactDFA<String> subSpec = mapSubSpecifications.get(actionToSubSpecificationNameMap.get(pInput));
+					FastDFA<String> subSpec = subSpecificationsMap2.get(actionToSubSpecificationNameMap.get(pInput));
 					List<String> subSpecificationInput = Misc.projectToAlphabet(input, subSpec.getInputAlphabet());
-					if (ret.containsKey(new Pair<String, Integer>(pInput, subSpec.getState(subSpecificationInput)))) {
-						ret.get(new Pair<String, Integer>(pInput, subSpec.getState(subSpecificationInput)))
+					if (ret.containsKey(new Pair<String, Integer>(pInput, subSpec.getState(subSpecificationInput).getId()))) {
+						ret.get(new Pair<String, Integer>(pInput, subSpec.getState(subSpecificationInput).getId()))
 								.add(specificationState);
 					} else {
 						Set<Integer> x = new HashSet<>();
 						x.add(specificationState);
-						ret.put(new Pair<String, Integer>(pInput, subSpec.getState(subSpecificationInput)), x);
+						ret.put(new Pair<String, Integer>(pInput, subSpec.getState(subSpecificationInput).getId()), x);
 					}
 				}
 			}
@@ -284,15 +286,15 @@ public class MonolithicMonitor {
 			Word<String> input = tc.next();
 			Integer specState = this.specification.getState(input);
 			if (null != specState) {
-				Integer monitorState = monitorGetState(this.monitor, input);
-				this.specificationToMonitorMap.put(specState, monitorState);
+				FastDFAState monitorState = monitorGetState(this.monitor, input);
+				this.specificationToMonitorMap.put(specState, monitorState.getId());
 			}
 		}
 	}
 
-	private Integer monitorGetState(CompactDFA<String> monitor2, Word<String> input) {
-		Integer state = monitor2.getInitialState();
-		Integer destState = state;
+	private FastDFAState monitorGetState(FastDFA<String> monitor2, Word<String> input) {
+		FastDFAState state = monitor2.getInitialState();
+		FastDFAState destState = state;
 		for (String in : input) {
 			destState = monitor2.getSuccessor(state, in);
 			if (null != destState) {
@@ -315,7 +317,7 @@ public class MonolithicMonitor {
 	/**
 	 * Prepare the transition cover of the DFA according to our specified order and set of preferred actions.
 	 * 
-	 * @param dfa
+	 * @param dfaSpecification
 	 *            the monitor DFA
 	 * @param ord
 	 *            the order in which to iterate through the transition cover
@@ -323,28 +325,28 @@ public class MonolithicMonitor {
 	 *            set of actions that should be preserved in the monitor
 	 * @return iterator for the transition cover
 	 */
-	private Iterator<Word<String>> prepareTransitionCover(CompactDFA<String> dfa, IterationOrder ord,
+	private Iterator<Word<String>> prepareTransitionCover(FastDFA<String> dfaSpecification, IterationOrder ord,
 			Set<String> preferredActions) {
 		Set<String> removableActions = new HashSet<>();
-		removableActions.addAll(dfa.getInputAlphabet());
+		removableActions.addAll(dfaSpecification.getInputAlphabet());
 		if (null != preferredActions) {
 			removableActions.removeAll(preferredActions);
 		}
-		Iterator<Word<String>> tc = Covers.transitionCoverIterator(dfa, dfa.getInputAlphabet());
+		Iterator<Word<String>> tc = Covers.transitionCoverIterator(dfaSpecification, dfaSpecification.getInputAlphabet());
 		List<Word<String>> ret = new LinkedList<>();
 		if (null != preferredActions) {
 			while (tc.hasNext()) {
 				Word<String> input = tc.next();
 				// System.out.println(input);
 				// System.out.println(input.lastSymbol());
-				if (null != dfa.getState(input) && removableActions.contains(input.lastSymbol())) {
+				if (null != dfaSpecification.getState(input) && removableActions.contains(input.lastSymbol())) {
 					ret.add(input);
 				}
 			}
 		} else {
 			while (tc.hasNext()) {
 				Word<String> input = tc.next();
-				if (null != dfa.getState(input))
+				if (null != dfaSpecification.getState(input))
 					ret.add(input);
 
 			}

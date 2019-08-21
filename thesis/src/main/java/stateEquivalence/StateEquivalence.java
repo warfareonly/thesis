@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.automatalib.automata.fsa.impl.FastDFA;
+import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import net.automatalib.util.automata.cover.Covers;
 import net.automatalib.words.Alphabet;
@@ -22,40 +24,41 @@ import net.automatalib.words.Word;
 public class StateEquivalence {
 
 	/**
-	 * Provides a map from a state in the specification to a map of the name of the sub-specification and the equivalent
-	 * state in that sub-specification.
+	 * Provides a map from a state in the specification to a map of the name of the
+	 * sub-specification and the equivalent state in that sub-specification.
 	 * 
-	 * @param specification
+	 * @param dfaSpecification
 	 *            The specification {@link CompactDFA} of "String"
-	 * @param mapSubSpecifications
-	 *            The subSpecifications of type {@link Map}, indexed by a <i>name</i>
+	 * @param subSpecificationsMap
+	 *            The subSpecifications of type {@link Map}, indexed by a
+	 *            <i>name</i>
 	 * @return a map of type integer to a map of type string to integer
 	 */
-	public static Map<Integer, Map<String, Integer>> calculateEquivalentStates(CompactDFA<String> specification,
-			Map<String, CompactDFA<String>> mapSubSpecifications) {
+	public static Map<Integer, Map<String, Integer>> calculateEquivalentStates(FastDFA<String> dfaSpecification,
+			Map<String, FastDFA<String>> subSpecificationsMap) {
 		Map<Integer, Map<String, Integer>> ret = new HashMap<>();
-		Iterator<Word<String>> transitionCoverIterator = Covers.stateCoverIterator(specification,
-				specification.getInputAlphabet()); // Compute the transition cover
+		Iterator<Word<String>> transitionCoverIterator = Covers.stateCoverIterator(dfaSpecification,
+				dfaSpecification.getInputAlphabet()); // Compute the transition cover
 		while (transitionCoverIterator.hasNext()) {
 			Word<String> input = transitionCoverIterator.next();
-//			System.out.println("Transition: " + input);
-			Integer state = specification.getState(input);
+			// System.out.println("Transition: " + input);
+			FastDFAState state = dfaSpecification.getState(input);
 			// We need the condition to ignore the generated "transitions" which do not end
 			// at a state.
 			if (null != state) {
-				Set<String> subSpecificationNames = mapSubSpecifications.keySet();
+				Set<String> subSpecificationNames = subSpecificationsMap.keySet();
 				Map<String, Integer> mapForState = new HashMap<String, Integer>();
 				for (String subSpecName : subSpecificationNames) {
-					CompactDFA<String> subSpecification = mapSubSpecifications.get(subSpecName);
-					Integer subSpecficiationState = getSubSpecificationState(input, subSpecification);
-					mapForState.put(subSpecName, subSpecficiationState);
+					FastDFA<String> subSpecification = subSpecificationsMap.get(subSpecName);
+					FastDFAState subSpecficiationState = getSubSpecificationState(input, subSpecification);
+					mapForState.put(subSpecName, subSpecficiationState.getId());
 				}
-				ret.put(state, mapForState);
+				ret.put(state.getId(), mapForState);
 			}
 		}
 		// Hard-coding for the initial state
 		Map<String, Integer> initialStateMap = new HashMap<>();
-		for(String x : mapSubSpecifications.keySet()) {
+		for (String x : subSpecificationsMap.keySet()) {
 			initialStateMap.put(x, 0);
 		}
 		ret.put(0, initialStateMap);
@@ -63,7 +66,8 @@ public class StateEquivalence {
 	}
 
 	/**
-	 * Given an input sequence and a DFA, returns the final state of the DFA over the projected input.
+	 * Given an input sequence and a DFA, returns the final state of the DFA over
+	 * the projected input.
 	 * 
 	 * @param input
 	 *            : A {@link Word} of type "String"
@@ -71,7 +75,7 @@ public class StateEquivalence {
 	 *            : A {@link CompactDFA} of type "String"
 	 * @return finalState Integer
 	 */
-	private static Integer getSubSpecificationState(Word<String> input, CompactDFA<String> subSpecification) {
+	private static FastDFAState getSubSpecificationState(Word<String> input, FastDFA<String> subSpecification) {
 		List<String> projectedInput = new LinkedList<>();
 		Alphabet<String> subSpecificationAlphabet = subSpecification.getInputAlphabet();
 		input.forEach(x -> {

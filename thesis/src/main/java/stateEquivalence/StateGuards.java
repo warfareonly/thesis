@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import net.automatalib.automata.fsa.impl.FastDFA;
+import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import utils.Misc;
 
@@ -22,15 +24,15 @@ public class StateGuards {
 	/**
 	 * Generate state-guards for the given specification and sub-specifications.
 	 * 
-	 * @param specification
-	 * @param subSpecificationNamesMap
+	 * @param dfaSpecification
+	 * @param subSpecificationsMap
 	 * @return
 	 */
-	public static Map<String, Map<Integer, Map<String, Set<Integer>>>> execStateGuards(CompactDFA<String> specification,
-			Map<String, CompactDFA<String>> subSpecificationNamesMap) {
+	public static Map<String, Map<Integer, Map<String, Set<Integer>>>> execStateGuards(FastDFA<String> dfaSpecification,
+			Map<String, FastDFA<String>> subSpecificationsMap) {
 		Map<Integer, Map<String, Integer>> equivalentStateMap = StateEquivalence
-				.calculateEquivalentStates(specification, subSpecificationNamesMap);
-		return computeStateGuards(specification, subSpecificationNamesMap, equivalentStateMap);
+				.calculateEquivalentStates(dfaSpecification, subSpecificationsMap);
+		return computeStateGuards(dfaSpecification, subSpecificationsMap, equivalentStateMap);
 	}
 
 	/**
@@ -38,7 +40,7 @@ public class StateGuards {
 	 * answers the question: which states from which sub-specifications does any arbitrary combination of an action and
 	 * a state need? (Within the limits as allowed by the (sub-)specification(s))
 	 * 
-	 * @param specification
+	 * @param dfaSpecification
 	 *            the specification automaton, as a {@literal CompactDFA<String>}
 	 * @param subSpecificationsMap
 	 *            the map of name to sub-specification automaton
@@ -47,24 +49,24 @@ public class StateGuards {
 	 * @return
 	 */
 	public static Map<String, Map<Integer, Map<String, Set<Integer>>>> computeStateGuards(
-			CompactDFA<String> specification, Map<String, CompactDFA<String>> subSpecificationsMap,
+			FastDFA<String> dfaSpecification, Map<String, FastDFA<String>> subSpecificationsMap,
 			Map<Integer, Map<String, Integer>> equivalentStateMaps) {
 		Map<String, String> actionToSubSpecificationNameMap = Misc.computeActionToSubSpecNames(subSpecificationsMap);
 		Map<String, Map<Integer, Map<String, Set<Integer>>>> ret = new HashMap<String, Map<Integer, Map<String, Set<Integer>>>>();
 
 		// Initializes the entire map, as Java insists on it...
 		// Makes sense, but still!
-		ret = initializeConstraintsMap(ret, specification, subSpecificationsMap, equivalentStateMaps,
+		ret = initializeConstraintsMap(ret, dfaSpecification, subSpecificationsMap, equivalentStateMaps,
 				actionToSubSpecificationNameMap);
 		// After we initialize the entire data-structure, we need not "put" back in a modification ever,
 		// as the "getOrDefault" method does not return a view if the value is present.
 
-		for (Integer state : specification.getStates()) {
-			for (String action : specification.getInputAlphabet()) {
-				if (null != specification.getSuccessor(state, action)) {
+		for (FastDFAState state : dfaSpecification.getStates()) {
+			for (String action : dfaSpecification.getInputAlphabet()) {
+				if (null != dfaSpecification.getSuccessor(state, action)) {
 					String subSpecificationName = actionToSubSpecificationNameMap.get(action);
 					Map<Integer, Map<String, Set<Integer>>> constraintsMap = ret.getOrDefault(action, new HashMap<>());
-					Map<String, Integer> equivalentStates = equivalentStateMaps.get(state);
+					Map<String, Integer> equivalentStates = equivalentStateMaps.get(state.getId());
 					Map<String, Set<Integer>> cons = constraintsMap.getOrDefault(
 							equivalentStates.get(subSpecificationName), new HashMap<String, Set<Integer>>());
 					for (String subSpecName : subSpecificationsMap.keySet()) {
@@ -83,25 +85,25 @@ public class StateGuards {
 	 * Initializes the entire data structure, as I do not like putting in a bunch of if-statements.
 	 * 
 	 * @param ret
-	 * @param specification
+	 * @param dfaSpecification
 	 * @param subSpecificationsMap
 	 * @param equivalentStateMaps
 	 * @param actionToSubSpecificationNameMap
 	 * @return
 	 */
 	private static Map<String, Map<Integer, Map<String, Set<Integer>>>> initializeConstraintsMap(
-			Map<String, Map<Integer, Map<String, Set<Integer>>>> ret, CompactDFA<String> specification,
-			Map<String, CompactDFA<String>> subSpecificationsMap,
+			Map<String, Map<Integer, Map<String, Set<Integer>>>> ret, FastDFA<String> dfaSpecification,
+			Map<String, FastDFA<String>> subSpecificationsMap,
 			Map<Integer, Map<String, Integer>> equivalentStateMaps,
 			Map<String, String> actionToSubSpecificationNameMap) {
 //		System.out.println(actionToSubSpecificationNameMap);
-		for (Integer state : specification.getStates()) {
-			for (String action : specification.getInputAlphabet()) {
-				if (null != specification.getSuccessor(state, action)) {
+		for (FastDFAState state : dfaSpecification.getStates()) {
+			for (String action : dfaSpecification.getInputAlphabet()) {
+				if (null != dfaSpecification.getSuccessor(state, action)) {
 //					System.out.println(action);
 					String subSpecName = actionToSubSpecificationNameMap.get(action);
 //					System.out.println(equivalentStateMaps + " " + state + " " + subSpecName);
-					Integer subSpecState = equivalentStateMaps.get(state).get(subSpecName);
+					Integer subSpecState = equivalentStateMaps.get(state.getId()).get(subSpecName);
 					Map<Integer, Map<String, Set<Integer>>> actionConstraints = ret.getOrDefault(action,
 							new HashMap<Integer, Map<String, Set<Integer>>>());
 					Map<String, Set<Integer>> actionStateConstraints = actionConstraints.getOrDefault(subSpecState,
