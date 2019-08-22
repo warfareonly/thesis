@@ -37,61 +37,69 @@ import nl.tue.cif.v3x0x0.metamodel.cif.automata.Automaton;
  */
 public class BharatCustomCIFReader {
 
-	/**
-	 * Read and parse the (deterministic) automaton stored in the parameter file.
-	 * 
-	 * @param file
-	 * @return the DFA stored in the specified file
-	 * @throws CifEvalException
-	 * @throws IOException
-	 */
-	public static FastDFA<String> readCIF(java.lang.String file) throws CifEvalException, IOException {
-		CompactDFA<String> dfa = new CompactDFA<String>(new SimpleAlphabet<String>());
-		dfa.addIntInitialState();
-		Map<java.lang.String, Integer> cifLocationAutoamatonMap = new HashMap<java.lang.String, Integer>();
-		CifReader reader = new CifReader();
-		AppEnv.registerSimple();
-		reader.init(file, file, false);
-		@SuppressWarnings("resource")
-		String text = new Scanner(new File(file)).useDelimiter("\\Z").next();
-		Specification spec = reader.read(text);
-		Automaton aut = (Automaton) spec.getComponents().get(0);
-		for (Location loc : aut.getLocations()) {
-			boolean initial = loc.getInitials().size() == 1 ? true : false;
-			boolean marked = loc.getMarkeds().size() != 1 ? false : true;
-			for (Edge edge : loc.getEdges()) {
-//				Preconditions.checkArgument(edge.getEvents().size() == 1);
-				Event event = CifEventUtils.getEventFromEdgeEvent(edge.getEvents().get(0));
-				String eventName = CifTextUtils.getName(event);
-				if (!dfa.getInputAlphabet().containsSymbol(eventName)) {
-					dfa.addAlphabetSymbol(eventName);
-				}
-			}
-			if (initial) {
-				dfa.setAccepting(dfa.getIntInitialState(), marked);
-				cifLocationAutoamatonMap.put(CifTextUtils.getName(loc), dfa.getInitialState());
-			} else {
-				Integer number = dfa.addState(marked);
-				cifLocationAutoamatonMap.put(CifTextUtils.getName(loc), number);
-			}
+    /**
+     * Read and parse the (deterministic) automaton stored in the parameter
+     * file.
+     * 
+     * @param file
+     * @return the DFA stored in the specified file
+     * @throws CifEvalException
+     * @throws IOException
+     */
+    public static FastDFA<String> readCIF(java.lang.String file)
+            throws CifEvalException, IOException {
+        CompactDFA<String> dfa = new CompactDFA<String>(
+                new SimpleAlphabet<String>());
+        dfa.addIntInitialState();
+        Map<java.lang.String, Integer> cifLocationAutoamatonMap = new HashMap<java.lang.String, Integer>();
+        CifReader reader = new CifReader();
+        AppEnv.registerSimple();
+        reader.init(file, file, false);
+        @SuppressWarnings("resource")
+        String text = new Scanner(new File(file)).useDelimiter("\\Z").next();
+        Specification spec = reader.read(text);
+        Automaton aut = (Automaton) spec.getComponents().get(0);
+        for (Location loc : aut.getLocations()) {
+            boolean initial = loc.getInitials().size() == 1 ? true : false;
+            boolean marked = loc.getMarkeds().size() != 1 ? false : true;
+            for (Edge edge : loc.getEdges()) {
+                // Preconditions.checkArgument(edge.getEvents().size() == 1);
+                Event event = CifEventUtils
+                        .getEventFromEdgeEvent(edge.getEvents().get(0));
+                String eventName = CifTextUtils.getName(event);
+                if (!dfa.getInputAlphabet().containsSymbol(eventName)) {
+                    dfa.addAlphabetSymbol(eventName);
+                }
+            }
+            if (initial) {
+                dfa.setAccepting(dfa.getIntInitialState(), marked);
+                cifLocationAutoamatonMap.put(CifTextUtils.getName(loc),
+                        dfa.getInitialState());
+            } else {
+                Integer number = dfa.addState(marked);
+                cifLocationAutoamatonMap.put(CifTextUtils.getName(loc), number);
+            }
 
-		}
+        }
 
-		for (Location loc : aut.getLocations()) {
-			for (Edge edge : loc.getEdges()) {
-				Location targetLoc = CifEdgeUtils.getTarget(edge);
-//				Preconditions.checkArgument(edge.getEvents().size() == 1);
-				Event event = CifEventUtils.getEventFromEdgeEvent(edge.getEvents().get(0));
-				String eventName = CifTextUtils.getName(event);
-				dfa.addTransition(cifLocationAutoamatonMap.get(loc.getName()), eventName,
-						cifLocationAutoamatonMap.get(targetLoc.getName()));
-			}
-		}
-		AppEnv.unregisterThread();
-		FastDFA<String>  ret = new FastDFA<>(dfa.getInputAlphabet());
-		ret.clear();
-		AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE, dfa, dfa.getInputAlphabet(), ret);
-		return ret;
-	}
+        for (Location loc : aut.getLocations()) {
+            for (Edge edge : loc.getEdges()) {
+                Location targetLoc = CifEdgeUtils.getTarget(edge);
+                // Preconditions.checkArgument(edge.getEvents().size() == 1);
+                Event event = CifEventUtils
+                        .getEventFromEdgeEvent(edge.getEvents().get(0));
+                String eventName = CifTextUtils.getName(event);
+                dfa.addTransition(cifLocationAutoamatonMap.get(loc.getName()),
+                        eventName,
+                        cifLocationAutoamatonMap.get(targetLoc.getName()));
+            }
+        }
+        AppEnv.unregisterThread();
+        FastDFA<String> ret = new FastDFA<>(dfa.getInputAlphabet());
+        ret.clear();
+        AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE, dfa,
+                dfa.getInputAlphabet(), ret);
+        return ret;
+    }
 
 }

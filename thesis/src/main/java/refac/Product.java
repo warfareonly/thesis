@@ -16,18 +16,19 @@ import utils.CIF3operations;
  */
 public class Product {
 
-	/**
-	 * Computes the parallel composition of the specificed files
-	 * 
-	 * @param inFiles
-	 *            the list of input files provided as a list of Strings
-	 * @return {@literal FastDFA<String>} of the product
-	 * @throws Exception
-	 */
-	public static FastDFA<String> computeProduct(List<String> inFiles) throws Exception {
-		CIF3operations.parallelCompositionCIF(inFiles, "product.cif");
-		FastDFA<String> ret = BharatCustomCIFReader.readCIF("product.cif");
-		assert ret != null;
-		return ret;
-	}
+    /**
+     * Computes the parallel composition of the specificed files
+     * 
+     * @param inFiles
+     *            the list of input files provided as a list of Strings
+     * @return {@literal FastDFA<String>} of the product
+     * @throws Exception
+     */
+    public static FastDFA<String> computeProduct(List<String> inFiles)
+            throws Exception {
+        CIF3operations.parallelCompositionCIF(inFiles, "product.cif");
+        FastDFA<String> ret = BharatCustomCIFReader.readCIF("product.cif");
+        assert ret != null;
+        return ret;
+    }
 }
