@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
+import refac.Injection;
 import smDecomposition.MonolithicMonitor;
 import stateEquivalence.StateGuards;
 import utils.Args;
@@ -40,41 +41,46 @@ public class Main {
 	}
 
 	public static void performCommand(Args options) throws Exception {
-		switch (options.getCommand()) {
+		// switch (options.getCommand()) {
+		//
+		// case ("xguards"): {
+		FastDFA<String> dfaSpecification = BharatCustomCIFReader.readCIF(options.getInFiles().get(0));
+		Map<String, FastDFA<String>> subSpecificationsMap = Misc.generateSubSpecificationsMap(options.getInFiles());
+		Map<String, Map<Integer, Map<String, Set<Integer>>>> constraints = StateGuards.execStateGuards(dfaSpecification,
+				subSpecificationsMap);
+		// Put the constraints in the "Constraints" class
+		Constraints cons = new Constraints(constraints, Misc.computeActionToSubSpecNames(subSpecificationsMap),
+				subSpecificationsMap);
+		// Get the set of invariant statements (strings)
+		// cons.constructInvariantStatements().forEach(x -> System.out.print(x));
+		// Now check if it is a sufficient solution, or do we need a monitor?
+		// boolean equal = Misc.writeToOutput(options, cons.constructInvariantStatements());
+		// If it is equal, then we need not bother with anything, we are done.
+		// If not, then start with the decomposition with memory solution.
 
-		case ("xguards"): {
-			FastDFA<String> dfaSpecification = BharatCustomCIFReader.readCIF(options.getInFiles().get(0));
-			Map<String, FastDFA<String>> subSpecificationsMap = Misc.generateSubSpecificationsMap(options.getInFiles());
-			Map<String, Map<Integer, Map<String, Set<Integer>>>> constraints = StateGuards
-					.execStateGuards(dfaSpecification, subSpecificationsMap);
-			// Put the constraints in the "Constraints" class
-			Constraints cons = new Constraints(constraints, Misc.computeActionToSubSpecNames(subSpecificationsMap),
-					subSpecificationsMap);
-			// Get the set of invariant statements (strings)
-			// cons.constructInvariantStatements().forEach(x -> System.out.print(x));
-			// Now check if it is a sufficient solution, or do we need a monitor?
-			boolean equal = Misc.writeToOutput(options, cons.constructInvariantStatements());
-			// If it is equal, then we need not bother with anything, we are done.
-			// If not, then start with the decomposition with memory solution.
-			if (!equal) {
-				System.out.println("Just state guards are not enough, beginning with monitor computation");
-				// System.out.println(nonInjectionMapping(
-				// StateEquivalence.calculateEquivalentStates(dfaSpecification,
-				// subSpecificationsMap)));
-				// System.in.read();
-				Set<String> prefActions = new HashSet<>();
-				// prefActions.add("switchA");
-				// prefActions.add("switchB");
-				// GlobalMonitor gm = new GlobalMonitor(options, dfaSpecification, cons,
-				// subSpecificationsMap,
-				// options.getIterationOrder(), null);
-				//
-				MonolithicMonitor mm = new MonolithicMonitor(options, dfaSpecification, cons, subSpecificationsMap,
-						options.getIterationOrder(), prefActions);
-				mm.computeMonitor();
-			}
+		// If false, then the mapping from the specification to the product is not injective, that is,
+		// we need a monitor!
+		if (!Injection.checkInjectionFromSpecificationToProduct(dfaSpecification,
+				options.getInFiles().subList(1, options.getInFiles().size()))) {
+			System.out.println("Just state guards are not enough, beginning with monitor computation");
+			// System.out.println(nonInjectionMapping(
+			// StateEquivalence.calculateEquivalentStates(dfaSpecification,
+			// subSpecificationsMap)));
+			// System.in.read();
+			System.exit(0);
+			Set<String> prefActions = new HashSet<>();
+			// prefActions.add("switchA");
+			// prefActions.add("switchB");
+			// GlobalMonitor gm = new GlobalMonitor(options, dfaSpecification, cons,
+			// subSpecificationsMap,
+			// options.getIterationOrder(), null);
+			//
+			MonolithicMonitor mm = new MonolithicMonitor(options, dfaSpecification, cons, subSpecificationsMap,
+					options.getIterationOrder(), prefActions);
+			mm.computeMonitor();
 		}
-			break;
-		}
+		// }
+		// break;
+		// }
 	}
 }

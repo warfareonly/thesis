@@ -33,29 +33,29 @@ public class CIF3operations {
 		return cif3SingleFileOperationInPlace(cif3SingleFileOperationInPlace(fileToExplore, "cif3explorer.bat"),
 				"cif3dfamin.bat");
 	}
-
-	@SuppressWarnings("restriction")
-	public static void directCIF() {
-		List<String> x = new LinkedList<>();
-		x.add("--gui=off");
-		x.add("-report=xyz");
-		// x.add("~/Desktop/thesis/git/chefs/decomposedgen.cif");
-		x.add("chefs/decomposedgen.cif");
-		x.add("-o");
-		// x.add("~/Desktop/thesis/git/chefs/decomposed.cif");
-		x.add("chefs/decomposed.cif");
-		try {
-			nl.tue.cif.v3x0x0.explorer.app.ExplorerApplication.main(x.toArray(new String[x.size()]));
-		} catch (Exception e) {
-		}
-		List<String> p = new LinkedList<>();
-		p.add("-h");
-		// p.add("chefs/decomposed.cif");
-		// p.add("chefs/specification.cif");
-		nl.tue.cif.v3x0x0.eventbased.apps.LanguageEquivalenceCheckApplication.main(p.toArray(new String[p.size()]));
-		return;
-	}
-
+//
+//	@SuppressWarnings("restriction")
+//	public static void directCIF() {
+//		List<String> x = new LinkedList<>();
+//		x.add("--gui=off");
+//		x.add("-report=xyz");
+//		// x.add("~/Desktop/thesis/git/chefs/decomposedgen.cif");
+//		x.add("chefs/decomposedgen.cif");
+//		x.add("-o");
+//		// x.add("~/Desktop/thesis/git/chefs/decomposed.cif");
+//		x.add("chefs/decomposed.cif");
+//		try {
+//			nl.tue.cif.v3x0x0.explorer.app.ExplorerApplication.main(x.toArray(new String[x.size()]));
+//		} catch (Exception e) {
+//		}
+//		List<String> p = new LinkedList<>();
+//		p.add("-h");
+//		// p.add("chefs/decomposed.cif");
+//		// p.add("chefs/specification.cif");
+//		nl.tue.cif.v3x0x0.eventbased.apps.LanguageEquivalenceCheckApplication.main(p.toArray(new String[p.size()]));
+//		return;
+//	}
+//
 	/**
 	 * Check if the two input files have the same language.
 	 * 
@@ -145,7 +145,7 @@ public class CIF3operations {
 	 */
 	private static String cif3SingleFileOperationInPlace(String file, String command) throws Exception {
 		ProcessBuilder pbCommand = new ProcessBuilder(command, file, "-o", file);
-		directCIF();
+//		directCIF();
 		System.err.println(command);
 		if (command.contains("dfamin")) {
 			String[] nameOfResult = file.split("\\\\");
