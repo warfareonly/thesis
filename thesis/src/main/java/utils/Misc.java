@@ -37,6 +37,34 @@ import nl.tue.cif.v3x0x0.common.CifEvalException;
  */
 public class Misc {
 
+    /**
+     * Invert a non-injective map.
+     * 
+     * @param map
+     *            the map of key -> value
+     * @return a map of value -> set of keys
+     */
+    public static <K, V> Map<V, Set<K>> invertMapNonUnqiue(Map<K, V> map) {
+        Map<V, Set<K>> ret = map.entrySet().stream()
+                .collect(Collectors.groupingBy(Map.Entry::getValue, Collectors
+                        .mapping(Map.Entry::getKey, Collectors.toSet())));
+        return ret;
+    }
+
+    /**
+     * Invert an injective map. <b>Note</b> we do not check if the map is
+     * actually injective or not.
+     * 
+     * @param map
+     *            the map of key -> value
+     * @return the map of value -> key
+     */
+    public static <K, V> Map<V, K> invertMapUnqiue(Map<K, V> map) {
+        Map<V, K> ret = map.entrySet().stream().collect(
+                Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
+        return ret;
+    }
+
     public static Map<String, FastDFA<String>> generateSubSpecificationsMap(
             List<String> inFiles) throws CifEvalException, IOException {
         // We remove the first file as it is always the specification file, and
