@@ -13,7 +13,6 @@ import org.javatuples.Pair;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.FastDFAState;
-import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 
 /**
  * @author Bharat Garhewal

@@ -10,7 +10,6 @@ import java.util.Set;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.FastDFAState;
-import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import utils.Misc;
 
 /**
