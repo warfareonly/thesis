@@ -77,20 +77,4 @@ public class Main {
 			break;
 		}
 	}
-
-	private static Map<Integer, List<Integer>> nonInjectionMapping(Map<Integer, Map<String, Integer>> stateMap) {
-		Map<Integer, Integer> midMap = new HashMap<Integer, Integer>();
-		for (Integer i : stateMap.keySet()) {
-			midMap.put(i, stateMap.get(i).get("product"));
-		}
-		Map<Integer, List<Integer>> ret = new HashMap<>();
-		try {
-			ret = midMap.entrySet().stream().collect(Collectors.groupingBy(Map.Entry::getValue,
-					Collectors.mapping(Map.Entry::getKey, Collectors.toList())));
-		} catch (NullPointerException nullptrE) {
-			System.err.print("Null pointer exception in the non-injective map computation, ");
-			System.err.println("perhaps you forgot to provide the product automaton?");
-		}
-		return ret;
-	}
 }
