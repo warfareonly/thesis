@@ -41,9 +41,7 @@ public class Main {
     }
 
     public static void performCommand(Args options) throws Exception {
-        // switch (options.getCommand()) {
-        //
-        // case ("xguards"): {
+
         FastDFA<String> dfaSpecification = BharatCustomCIFReader
                 .readCIF(options.getInFiles().get(0));
         Map<String, FastDFA<String>> subSpecificationsMap = Misc
@@ -54,15 +52,7 @@ public class Main {
         Constraints cons = new Constraints(constraints,
                 Misc.computeActionToSubSpecNames(subSpecificationsMap),
                 subSpecificationsMap);
-        // Get the set of invariant statements (strings)
-        // cons.constructInvariantStatements().forEach(x ->
-        // System.out.print(x));
-        // Now check if it is a sufficient solution, or do we need a monitor?
-        // boolean equal = Misc.writeToOutput(options,
-        // cons.constructInvariantStatements());
-        // If it is equal, then we need not bother with anything, we are done.
-        // If not, then start with the decomposition with memory solution.
-
+        
         // If false, then the mapping from the specification to the product is
         // not injective, that is,
         // we need a monitor!
@@ -71,10 +61,6 @@ public class Main {
                 options.getInFiles().subList(1, options.getInFiles().size()))) {
             System.out.println(
                     "Just state guards are not enough, beginning with monitor computation");
-            // System.out.println(nonInjectionMapping(
-            // StateEquivalence.calculateEquivalentStates(dfaSpecification,
-            // subSpecificationsMap)));
-            // System.in.read();
             System.exit(0);
             Set<String> prefActions = new HashSet<>();
             // prefActions.add("switchA");
