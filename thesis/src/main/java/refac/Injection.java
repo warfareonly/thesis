@@ -8,9 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
-import stateEquivalence.StateEquivalence;
 
 /**
+ * 
+ * Class for check for Injection from the specification to the product. Helpful for determining whether we need a
+ * monitor or not.
+ * 
  * @author Bharat Garhewal
  *
  */
@@ -48,7 +51,7 @@ public class Injection {
 		Map<String, FastDFA<String>> productMap = new HashMap<>(1);
 		productMap.put("product", product);
 		Map<Integer, Integer> specificationStateToProductStateMap = unwrapProductMap(
-				StateEquivalence.calculateEquivalentStates(specification, productMap));
+				stateEquivalence.StateEquivalence.calculateEquivalentStates(specification, productMap));
 		return specificationStateToProductStateMap.size() == specificationStateToProductStateMap.values().stream()
 				.distinct().count();
 	}
