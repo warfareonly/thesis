@@ -37,10 +37,10 @@ public class StateEquivalence {
 	public static Map<Integer, Map<String, Integer>> calculateEquivalentStates(FastDFA<String> dfaSpecification,
 			Map<String, FastDFA<String>> subSpecificationsMap) {
 		Map<Integer, Map<String, Integer>> ret = new HashMap<>();
-		Iterator<Word<String>> transitionCoverIterator = Covers.stateCoverIterator(dfaSpecification,
+		Iterator<Word<String>> stateCoverIterator = Covers.stateCoverIterator(dfaSpecification,
 				dfaSpecification.getInputAlphabet()); // Compute the transition cover
-		while (transitionCoverIterator.hasNext()) {
-			Word<String> input = transitionCoverIterator.next();
+		while (stateCoverIterator.hasNext()) {
+			Word<String> input = stateCoverIterator.next();
 			// System.out.println("Transition: " + input);
 			FastDFAState state = dfaSpecification.getState(input);
 			// We need the condition to ignore the generated "transitions" which do not end
