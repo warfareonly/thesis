@@ -25,7 +25,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.SystemUtils;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
-import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import net.automatalib.words.Alphabet;
 import net.automatalib.words.Word;
 import nl.tue.cif.v3x0x0.common.CifEvalException;
@@ -38,7 +37,7 @@ import nl.tue.cif.v3x0x0.common.CifEvalException;
  */
 public class Misc {
 
-	public static Map<String, FastDFA<String>> generateSubSpecificationsMap(List<String> inFiles) {
+	public static Map<String, FastDFA<String>> generateSubSpecificationsMap(List<String> inFiles) throws CifEvalException, IOException {
 		// We remove the first file as it is always the specification file, and not a
 		// sub-specification file
 		List<String> filesToRead = inFiles.subList(1, inFiles.size());
@@ -60,8 +59,7 @@ public class Misc {
 	}
 
 	/**
-	 * Like the name suggests: gets the filenames (without extenstion) from the list
-	 * of string of files.
+	 * Like the name suggests: gets the filenames (without the extension) from the list of string of files.
 	 * 
 	 * @param listFilenames
 	 * @return
@@ -84,19 +82,13 @@ public class Misc {
 	 * 
 	 * @param inFiles
 	 * @return
+	 * @throws IOException 
+	 * @throws CifEvalException 
 	 */
-	private static List<FastDFA<String>> genListOfSubSpecifications(List<String> inFiles) {
+	private static List<FastDFA<String>> genListOfSubSpecifications(List<String> inFiles) throws CifEvalException, IOException {
 		List<FastDFA<String>> ret = new LinkedList<>();
 		for (String x : inFiles) {
-			try {
-				ret.add(BharatCustomCIFReader.readCIF(x));
-			} catch (CifEvalException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ret.add(BharatCustomCIFReader.readCIF(x));
 		}
 		return ret;
 	}
@@ -108,8 +100,7 @@ public class Misc {
 	 *            map from name of sub-specification to specification DFA
 	 * @return
 	 */
-	public static Map<String, String> computeActionToSubSpecNames(
-			Map<String, FastDFA<String>> subSpecificationsMap) {
+	public static Map<String, String> computeActionToSubSpecNames(Map<String, FastDFA<String>> subSpecificationsMap) {
 		Map<String, String> ret = new HashMap<>();
 		for (String subSpecName : subSpecificationsMap.keySet()) {
 			for (String action : subSpecificationsMap.get(subSpecName).getInputAlphabet()) {
@@ -120,8 +111,8 @@ public class Misc {
 	}
 
 	/**
-	 * Write the computed automata, monitor, invariants etc. I should probably
-	 * re-write this properly, but it is low priority.
+	 * Write the computed automata, monitor, invariants etc. I should probably re-write this properly, but it is low
+	 * priority.
 	 * 
 	 * @param options
 	 * @param constraints
@@ -197,8 +188,7 @@ public class Misc {
 	}
 
 	/**
-	 * I have no clue how this works, but it works! I am also <b>not</b> the
-	 * original author.
+	 * I have no clue how this works, but it works! I am also <b>not</b> the original author.
 	 * 
 	 * @param original
 	 *            the map to which we will merge <b>newMap</b>
@@ -241,8 +231,7 @@ public class Misc {
 	}
 
 	/**
-	 * Obtains the projection of an input sequence over an alphabet and returns it
-	 * as a new list.
+	 * Obtains the projection of an input sequence over an alphabet and returns it as a new list.
 	 * 
 	 * @param input
 	 * @param alphabet
