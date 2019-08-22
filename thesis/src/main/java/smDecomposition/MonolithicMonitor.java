@@ -12,9 +12,7 @@ import java.util.Set;
 import org.javatuples.Pair;
 
 import invariant.Constraints;
-import monitors.ModifyMonitor;
 import monitors.ModifyMonitorMonolithic;
-import monitors.GlobalMonitor.IterationOrder;
 import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
@@ -26,7 +24,9 @@ import utils.Args;
 import utils.Misc;
 
 public class MonolithicMonitor {
-
+	public enum IterationOrder {
+		FWD, BWD, RND;
+	}
 	private Args options;
 	private Map<String, Map<Integer, Map<String, Set<Integer>>>> memorylessConstraints;
 	private CompactDFA<String> specification;

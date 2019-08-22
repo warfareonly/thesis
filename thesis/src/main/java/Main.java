@@ -23,9 +23,7 @@ import utils.Misc;
 import com.beust.jcommander.JCommander;
 
 import invariant.Constraints;
-import modularMonitor.Differentiator;
 //import invariant.Invariant;
-import monitors.GlobalMonitor;
 
 /**
  * Main class, which controls everything!

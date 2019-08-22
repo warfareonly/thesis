@@ -4,9 +4,7 @@ Bundle-Name: thesis
 Bundle-SymbolicName: thesis
 Bundle-Version: 1.0.0.qualifier
 Export-Package: .,
- algorithmicMonitor,
  invariant,
- modularMonitor,
  monitors,
  monolithic,
  smDecomposition,
@@ -55,7 +53,6 @@ Require-Bundle: nl.tue.app.framework;bundle-version="1.0.0",
  nl.tue.common.typechecker;bundle-version="1.0.0",
  nl.tue.position.v1x0x0.common;bundle-version="1.0.0",
  nl.tue.position.v1x0x0.metamodel;bundle-version="1.0.0",
- nl.tue.rotalumis.executables;bundle-version="4.1.0",
  nl.tue.setext.documentation;bundle-version="1.0.0",
  nl.tue.setext.generator;bundle-version="1.0.0",
  nl.tue.setext.io;bundle-version="1.0.0",
@@ -65,18 +62,8 @@ Require-Bundle: nl.tue.app.framework;bundle-version="1.0.0",
  nl.tue.setext.texteditor;bundle-version="1.0.0",
  nl.tue.setext.texteditorbase;bundle-version="1.0.0",
  nl.tue.setext.typechecker;bundle-version="1.0.0",
- nl.tue.tooldef.v2x0x0.common;bundle-version="1.0.0",
- nl.tue.tooldef.v2x0x0.interpreter;bundle-version="1.0.0",
- nl.tue.tooldef.v2x0x0.io;bundle-version="1.0.0",
- nl.tue.tooldef.v2x0x0.metamodel;bundle-version="0.1.0",
- nl.tue.tooldef.v2x0x0.metamodel.java;bundle-version="1.0.0",
- nl.tue.tooldef.v2x0x0.parser;bundle-version="1.0.0",
- nl.tue.tooldef.v2x0x0.runtime;bundle-version="1.0.0",
- nl.tue.tooldef.v2x0x0.tests;bundle-version="1.0.0",
- nl.tue.tooldef.v2x0x0.texteditor;bundle-version="1.0.0",
- nl.tue.tooldef.v2x0x0.typechecker;bundle-version="1.0.0",
- nl.tue.tooldef.v2x0x0.website;bundle-version="1.0.0",
  nl.tue.wtb.se.changelog;bundle-version="1.0.0",
  nl.tue.wtb.se.perspective;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: thesis
+Import-Package: monitors

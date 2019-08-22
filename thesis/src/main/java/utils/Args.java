@@ -9,7 +9,7 @@ import java.util.List;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 
-import monitors.GlobalMonitor.IterationOrder;
+import smDecomposition.MonolithicMonitor.IterationOrder;
 
 /**
  * @author Bharat Garhewal
