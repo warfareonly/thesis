@@ -15,6 +15,7 @@ import invariant.Constraints;
 import monitors.ModifyMonitorMonolithic;
 import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.FastDFAState;
+import net.automatalib.automata.fsa.impl.FastNFA;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import net.automatalib.util.automata.copy.AutomatonCopyMethod;
 import net.automatalib.util.automata.copy.AutomatonLowLevelCopy;
@@ -31,12 +32,12 @@ public class MonolithicMonitor {
     private Args options;
     private Map<String, Map<Integer, Map<String, Set<Integer>>>> memorylessConstraints;
     private CompactDFA<String> specification;
-    private FastDFA<String> monitor;
+    private FastNFA<String> monitor;
     private Map<String, FastDFA<String>> subSpecificationsMap;
     private Map<Integer, Integer> specificationToMonitorMap = new HashMap<Integer, Integer>();
     private Iterator<Word<String>> transitionCoverIterator;
     private Map<Pair<String, Integer>, Set<Integer>> subSpecficationActionComboToSpecificationMap;
-    private CompactDFA<String> monitorSafe;
+    private FastNFA<String> monitorSafe;
 
     public MonolithicMonitor(Args options, FastDFA<String> dfaSpecification,
             Constraints cons, Map<String, FastDFA<String>> subSpecificationsMap,
@@ -45,7 +46,7 @@ public class MonolithicMonitor {
         this.memorylessConstraints = cons.getConstraints();
         this.specification = new CompactDFA<String>(
                 dfaSpecification.getInputAlphabet());
-        this.monitor = new FastDFA<String>(dfaSpecification.getInputAlphabet());
+        this.monitor = new FastNFA<String>(dfaSpecification.getInputAlphabet());
         this.subSpecificationsMap = subSpecificationsMap;
         AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
                 dfaSpecification, dfaSpecification.getInputAlphabet(),
@@ -62,6 +63,7 @@ public class MonolithicMonitor {
     public void computeMonitor() {
         Set<String> invariants = computeMonitorConstraints();
         try {
+            // Sanity Check here!
             boolean specificationAsMonitor = Misc.writeToOutput(options,
                     invariants, this.monitor);
             if (specificationAsMonitor) {
