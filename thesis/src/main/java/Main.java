@@ -61,7 +61,7 @@ public class Main {
                 options.getInFiles().subList(1, options.getInFiles().size()))) {
             System.out.println(
                     "Just state guards are not enough, beginning with monitor computation");
-            System.exit(0);
+//            System.exit(0);
             Set<String> prefActions = new HashSet<>();
             // prefActions.add("switchA");
             // prefActions.add("switchB");

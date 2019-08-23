@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="utils/Reader.java|monolithic/Decomposition.java|monolithic/MonolithicDecompose.java|monitors/GlobalMonitor.java|monitors/ModifyMonitor.java|monitors/UniversalMonitor.java|modularMonitor/|invariant/Invariant.java|algorithmicMonitor/|utils/Consistency.java|utils/RemoveDeadlocks.java" kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="utils/Reader.java|monolithic/Decomposition.java|monolithic/MonolithicDecompose.java|monitors/GlobalMonitor.java|monitors/ModifyMonitor.java|monitors/UniversalMonitor.java|modularMonitor/|invariant/Invariant.java|algorithmicMonitor/|utils/Consistency.java|utils/RemoveDeadlocks.java|monolithic/Projection.java" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>

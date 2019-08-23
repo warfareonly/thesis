@@ -9,6 +9,8 @@ import org.javatuples.Pair;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.FastDFAState;
+import net.automatalib.automata.fsa.impl.FastNFA;
+import net.automatalib.automata.fsa.impl.FastNFAState;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import net.automatalib.automata.fsa.impl.compact.CompactNFA;
 import net.automatalib.commons.util.mappings.Mapping;
@@ -27,8 +29,7 @@ import net.automatalib.words.impl.SimpleAlphabet;
  */
 public class ModifyMonitorMonolithic {
 
-    CompactNFA<String> monitor = new CompactNFA<String>(
-            new SimpleAlphabet<String>());
+    FastNFA<String> monitor = new FastNFA<String>(new SimpleAlphabet<String>());
 
     /**
      * Constructor which basically does two things: copies the incoming monitor
@@ -45,7 +46,7 @@ public class ModifyMonitorMonolithic {
      * @param transition
      *            the transition
      */
-    public ModifyMonitorMonolithic(FastDFA<String> monitor2,
+    public ModifyMonitorMonolithic(FastNFA<String> monitor2,
             Word<String> transition) {
         copyMonitorInit(monitor2);
         deleteTransition(transition);
@@ -57,10 +58,9 @@ public class ModifyMonitorMonolithic {
      * @param monitor2
      *            the monitor to be copied
      */
-    private void copyMonitorInit(FastDFA<String> monitor2) {
-        this.monitor = new CompactNFA<String>(monitor2.getInputAlphabet());
-        Mapping<FastDFAState, Integer> x = AutomatonLowLevelCopy.copy(
-                AutomatonCopyMethod.STATE_BY_STATE, monitor2,
+    private void copyMonitorInit(FastNFA<String> monitor2) {
+        this.monitor = new FastNFA<String>(monitor2.getInputAlphabet());
+        AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE, monitor2,
                 monitor2.getInputAlphabet(), this.monitor);
         // for (Integer st : this.monitor) {
         // if (!x.get(0).equals(st)) {
@@ -117,7 +117,7 @@ public class ModifyMonitorMonolithic {
 
         // Finally, determinize and minimize the resulting monitor
         // in order to return it
-        determinizeAndMinimize(this.monitor);
+        // determinizeAndMinimize(this.monitor);
     }
 
     /**
@@ -132,20 +132,20 @@ public class ModifyMonitorMonolithic {
      * @return boolean whether there is a single transition (true) or not
      *         (false).
      */
-    private boolean checkIfOnlyTransition(Integer sourceState, String action,
-            Integer destinationState) {
-        for (String input : this.monitor.getInputAlphabet()) {
-            if (!input.equalsIgnoreCase(action)) {
-                if (null != (monitorGetState(input, sourceState))) {
-                    if (monitorGetState(input, sourceState)
-                            .equals(destinationState)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
+    // private boolean checkIfOnlyTransition(Integer sourceState, String action,
+    // Integer destinationState) {
+    // for (String input : this.monitor.getInputAlphabet()) {
+    // if (!input.equalsIgnoreCase(action)) {
+    // if (null != (monitorGetState(input, sourceState))) {
+    // if (monitorGetState(input, sourceState)
+    // .equals(destinationState)) {
+    // return false;
+    // }
+    // }
+    // }
+    // }
+    // return true;
+    // }
 
     /**
      * Special implementation to get the destination state in order to make the
@@ -155,24 +155,24 @@ public class ModifyMonitorMonolithic {
      * @param actionSequence
      * @return the destination state of the <i>actionSequnce</i>
      */
-    public Integer monitorGetState(Word<String> actionSequence,
-            Integer sourceState) {
-        Integer state = (Integer) this.monitor.getInitialStates().toArray()[0];
-        assert this.monitor.getInitialStates().toArray().length == 1;
-        if (null != sourceState) {
-            state = sourceState;
-        }
-        Integer nextState = 0;
-        for (String inputAction : actionSequence) {
-            if (0 != this.monitor.getSuccessors(state, inputAction)
-                    .toArray().length) {
-                nextState = (Integer) this.monitor
-                        .getSuccessors(state, inputAction).toArray()[0];
-                state = nextState;
-            }
-        }
-        return nextState;
-    }
+    // public Integer monitorGetState(Word<String> actionSequence,
+    // Integer sourceState) {
+    // Integer state = (Integer) this.monitor.getInitialStates().toArray()[0];
+    // assert this.monitor.getInitialStates().toArray().length == 1;
+    // if (null != sourceState) {
+    // state = sourceState;
+    // }
+    // Integer nextState = 0;
+    // for (String inputAction : actionSequence) {
+    // if (0 != this.monitor.getSuccessors(state, inputAction)
+    // .toArray().length) {
+    // nextState = (Integer) this.monitor
+    // .getSuccessors(state, inputAction).toArray()[0];
+    // state = nextState;
+    // }
+    // }
+    // return nextState;
+    // }
 
     /**
      * Get state function for a single symbol "sequence".
@@ -181,11 +181,12 @@ public class ModifyMonitorMonolithic {
      * @param sourceState
      * @return destination state
      */
-    public Integer monitorGetState(String actionSequence, Integer sourceState) {
-        List<String> input = new LinkedList<String>();
-        input.add(actionSequence);
-        return monitorGetState(Word.fromList(input), sourceState);
-    }
+    // public Integer monitorGetState(String actionSequence, Integer
+    // sourceState) {
+    // List<String> input = new LinkedList<String>();
+    // input.add(actionSequence);
+    // return monitorGetState(Word.fromList(input), sourceState);
+    // }
 
     /**
      * Determinize and minimize the NFA monitor into a deterministic NFA. Thus,
@@ -193,19 +194,19 @@ public class ModifyMonitorMonolithic {
      * 
      * @param nfa
      */
-    private void determinizeAndMinimize(CompactNFA<String> nfa) {
-        FastDFA<String> mid = new FastDFA<String>(
-                this.monitor.getInputAlphabet());
-        NFAs.determinize(nfa, this.monitor.getInputAlphabet(), mid, true,
-                false);
-        // Determinization and minimization complete, and the result is stored
-        // in "mid".
-        this.monitor.clear();
-        this.monitor = new CompactNFA<String>(this.monitor.getInputAlphabet());
-        AutomatonLowLevelCopy.copy(AutomatonCopyMethod.BFS, mid,
-                this.monitor.getInputAlphabet(), this.monitor);
-        // "mid" is copied to the "monitor" field.
-    }
+    // private void determinizeAndMinimize(CompactNFA<String> nfa) {
+    // FastDFA<String> mid = new FastDFA<String>(
+    // this.monitor.getInputAlphabet());
+    // NFAs.determinize(nfa, this.monitor.getInputAlphabet(), mid, true,
+    // false);
+    // // Determinization and minimization complete, and the result is stored
+    // // in "mid".
+    // this.monitor.clear();
+    // this.monitor = new CompactNFA<String>(this.monitor.getInputAlphabet());
+    // AutomatonLowLevelCopy.copy(AutomatonCopyMethod.BFS, mid,
+    // this.monitor.getInputAlphabet(), this.monitor);
+    // // "mid" is copied to the "monitor" field.
+    // }
 
     /**
      * Merges the source and destination states by basically redirecting going
@@ -246,25 +247,25 @@ public class ModifyMonitorMonolithic {
         return;
     }
 
-    private void removeAllSelfLoops(CompactNFA<String> monitor2) {
-        for (Integer srcState : this.monitor.getStates()) {
-            for (String input : this.monitor.getInputAlphabet()) {
-                Integer destState = 0;
-                if (null != this.monitor.getSuccessors(srcState, input)) {
-                    if (this.monitor.getSuccessors(srcState, input)
-                            .size() > 0) {
-                        destState = (Integer) this.monitor
-                                .getSuccessors(srcState, input).toArray()[0];
-
-                        if (destState.equals(srcState)) {
-                            removeTransitionNFA(srcState, input, destState);
-                        }
-                    }
-                }
-            }
-        }
-        return;
-    }
+    // private void removeAllSelfLoops(CompactNFA<String> monitor2) {
+    // for (Integer srcState : this.monitor.getStates()) {
+    // for (String input : this.monitor.getInputAlphabet()) {
+    // Integer destState = 0;
+    // if (null != this.monitor.getSuccessors(srcState, input)) {
+    // if (this.monitor.getSuccessors(srcState, input)
+    // .size() > 0) {
+    // destState = (Integer) this.monitor
+    // .getSuccessors(srcState, input).toArray()[0];
+    //
+    // if (destState.equals(srcState)) {
+    // removeTransitionNFA(srcState, input, destState);
+    // }
+    // }
+    // }
+    // }
+    // }
+    // return;
+    // }
 
     /**
      * Removes a transition from the <b>sourceState</b> via <b>input</b> going
@@ -279,9 +280,11 @@ public class ModifyMonitorMonolithic {
         // Even though there is a for-loop here, we always have a deterministic
         // NFA, so it does not
         // matter.
-        assert this.monitor.getTransitions(sourceState, input).size() == 1;
-        for (Integer x : this.monitor.getTransitions(sourceState, input)) {
-            this.monitor.removeTransition(sourceState, input, x);
+        // assert this.monitor.getTransitions(sourceState, input).size() == 1;
+        for (FastNFAState x : this.monitor
+                .getTransitions(this.monitor.getState(sourceState), input)) {
+            this.monitor.removeTransition(this.monitor.getState(sourceState),
+                    input, x);
         }
         return;
     }
@@ -296,8 +299,9 @@ public class ModifyMonitorMonolithic {
      */
     private void addTransitionNFA(Integer sourceState, String input,
             Integer destinationState) {
-        this.monitor.addTransition(sourceState, input,
-                this.monitor.createTransition(destinationState, null));
+        this.monitor.addTransition(this.monitor.getState(sourceState), input,
+                this.monitor.createTransition(
+                        this.monitor.getState(destinationState), null));
     }
 
     /**
@@ -305,10 +309,10 @@ public class ModifyMonitorMonolithic {
      * 
      * @return monitor
      */
-    public CompactDFA<String> getMonitor() {
-        CompactDFA<String> ret = new CompactDFA<String>(
+    public FastNFA<String> getMonitor() {
+        FastNFA<String> ret = new FastNFA<String>(
                 this.monitor.getInputAlphabet());
-        Mapping<Integer, Integer> x = AutomatonLowLevelCopy.copy(
+        Mapping<FastNFAState, FastNFAState> x = AutomatonLowLevelCopy.copy(
                 AutomatonCopyMethod.BFS, this.monitor,
                 this.monitor.getInputAlphabet(), ret);
         assert null != x;

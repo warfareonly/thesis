@@ -45,9 +45,11 @@ public class SanityChecker {
                 .collect(Collectors.toList()).get(0).getId();
         // Loop through all sets of confusedWords sets
         for (Set<Word<String>> confusedWords : this.nonInjectiveWordsSet) {
+            System.out.println(confusedWords);
             List<Set<Integer>> endStates = confusedWords.stream()
                     .map(x -> MonitorTool.getSuccessors(nfa, initialState, x))
                     .collect(Collectors.toList());
+            System.out.println(endStates);
             for (int i = 0; i < endStates.size(); i++) {
                 for (int j = i + 1; j < endStates.size(); j++) {
                     if (!Collections.disjoint(endStates.get(i),
