@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.SystemUtils;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
@@ -101,8 +102,9 @@ public class Misc {
         List<String> ret = new LinkedList<>();
         for (String x : listFilenames) {
             if (SystemUtils.IS_OS_WINDOWS) {
-                x = x.split("\\\\")[x.split("\\\\").length - 1].replace(".cif",
-                        "");
+                System.err.println("Working with Windows!");
+                x = x.split("/")[x.split("/").length - 1].replace(".cif", "");
+                // FilenameUtils.getBaseName(x);
             } else {
                 x = x.split("/")[x.split("/").length - 1].replace(".cif", "");
             }

@@ -85,7 +85,7 @@ public class MonolithicMonitor {
         // e1.printStackTrace();
         // }
         Integer count = 0;
-        while (count++ < specification.size()) {
+        while (count < specification.size() - 1) {
             System.out.println(
                     "Iteration #" + count + " of " + specification.size());
             System.out.println("Size of monitor =" + this.monitor.size());
@@ -101,24 +101,32 @@ public class MonolithicMonitor {
             AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
                     mod.getMonitor(), this.specification.getInputAlphabet(),
                     this.monitor);
-
+            count++;
             if (true) {
                 System.out.println("Printing monitor");
                 for (FastNFAState x : this.monitor.getStates()) {
                     for (String i : this.monitor.getInputAlphabet()) {
-                        System.out.println(x + " + " + i + " = "
-                                + this.monitor.getSuccessors(x, i));
+                        if (!this.monitor.getSuccessors(x, i).isEmpty()) {
+                            System.out.println(x + " + " + i + " = "
+                                    + this.monitor.getSuccessors(x, i));
+                        }
                     }
                 }
             }
             if (!sanityCheck.checkMonitor(this.monitor)) {
-                // Restore the previous one
+                // Restore the previous one, since the new monitor fails the
+                // sanity check
                 this.monitor = new FastNFA<String>(
                         this.monitorSafe.getInputAlphabet());
                 AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
                         this.monitorSafe, this.monitorSafe.getInputAlphabet(),
                         this.monitor);
+                // We need to "forget" that the previous monitor was generated
                 count--;
+            }
+            if (sanityCheck.checkMonitor(this.monitor)
+                    && this.monitor.size() == 2) {
+                break;
             }
             // if)
             // invariants = computeMonitorConstraints();

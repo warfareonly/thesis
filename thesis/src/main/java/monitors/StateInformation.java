@@ -84,14 +84,20 @@ public class StateInformation {
 
     public static Set<Pair<Integer, String>> getPredecessors(
             FastNFA<String> nfa, Integer state) {
+        // The return set
         Set<Pair<Integer, String>> ret = new HashSet<>();
+        // For every state, check if there is an input which would lead to the
+        // desired destination state
         for (FastNFAState s : nfa.getStates()) {
             for (String input : nfa.getInputAlphabet()) {
                 if (0 != nfa.getSuccessors(s, input).toArray().length) {
                     for (FastNFAState d : nfa.getSuccessors(s, input).toArray(
                             new FastNFAState[nfa.getSuccessors(s, input)
                                     .toArray().length])) {
-                        ret.add(new Pair<Integer, String>(d.getId(), input));
+                        if (d.equals(nfa.getState(state))) {
+                            ret.add(new Pair<Integer, String>(d.getId(),
+                                    input));
+                        }
                     }
                 }
             }

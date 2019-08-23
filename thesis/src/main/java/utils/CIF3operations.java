@@ -161,7 +161,7 @@ public class CIF3operations {
         // directCIF();
         System.err.println(command);
         if (command.contains("dfamin")) {
-            String[] nameOfResult = file.split("\\\\");
+            String[] nameOfResult = file.split("/");
             String result = nameOfResult[nameOfResult.length - 1]
                     .replace(".cif", "");
             pbCommand = new ProcessBuilder(command, file, "-n", result, "-o",

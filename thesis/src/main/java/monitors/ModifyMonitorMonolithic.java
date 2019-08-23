@@ -112,6 +112,8 @@ public class ModifyMonitorMonolithic {
         while (destinationState.equals(sourceState)) {
             destinationState = (int) (Math.random() * this.monitor.size());
         }
+        System.out.println(
+                "Merging states " + sourceState + " and " + destinationState);
         mergeStates(sourceState, destinationState);
         // }
 
@@ -242,6 +244,11 @@ public class ModifyMonitorMonolithic {
             this.addTransitionNFA(sourceState, outgoingPair.getValue1(),
                     outgoingPair.getValue0());
         }
+        if (this.monitor.getInitialStates()
+                .contains(this.monitor.getState(destinationState))) {
+            this.monitor.setInitial(this.monitor.getState(sourceState), true);
+        }
+        this.monitor.removeState(this.monitor.getState(destinationState));
 
         // removeAllSelfLoops(this.monitor);
         return;

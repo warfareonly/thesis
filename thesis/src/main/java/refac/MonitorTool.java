@@ -67,7 +67,7 @@ public class MonitorTool {
         }
         Set<FastNFAState> nextStates = nfa.getSuccessors(nfa.getState(state),
                 inputs.firstSymbol());
-        if (null == nextStates) {
+        if (null == nextStates || nextStates.isEmpty()) {
             ret.addAll(getSuccessors(nfa, state, inputs.subWord(1)));
             return ret;
         } else {
