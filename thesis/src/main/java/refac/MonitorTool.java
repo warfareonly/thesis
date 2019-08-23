@@ -6,6 +6,7 @@ package refac;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.FastNFA;
@@ -60,6 +61,10 @@ public class MonitorTool {
      */
     public static Set<Integer> getSuccessors(FastNFA<String> nfa, Integer state,
             Word<String> inputs) {
+        if (null == state) {
+            state = nfa.getInitialStates().stream().collect(Collectors.toList())
+                    .get(0).getId();
+        }
         Set<Integer> ret = new HashSet<>();
         if (inputs.isEmpty()) {
             ret.add(state);

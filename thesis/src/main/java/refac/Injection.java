@@ -104,14 +104,15 @@ public class Injection {
      * @return set of set of confused words
      * @throws Exception
      */
-    public static Set<Set<Word<String>>> nonInjectiveAccessSequences(
+    public static Set<Set<Set<Word<String>>>> nonInjectiveAccessSequences(
             FastDFA<String> specification, List<String> subSpecificationsList)
             throws Exception {
         // The return variable
-        Set<Set<Word<String>>> ret = new HashSet<>();
+        Set<Set<Set<Word<String>>>> ret = new HashSet<>();
         FastDFA<String> product = Product.computeProduct(subSpecificationsList);
-        Iterator<Word<String>> stateCoverIterator = Covers.stateCoverIterator(
-                specification, specification.getInputAlphabet());
+        Iterator<Word<String>> transitionCoverIterator = Covers
+                .transitionCoverIterator(specification,
+                        specification.getInputAlphabet());
 
         // Map from Word -> specificationState
         Map<Word<String>, FastDFAState> specificationAccessMap = new HashMap<>();
@@ -120,12 +121,14 @@ public class Injection {
         Map<FastDFAState, FastDFAState> specificationToProductMap = new HashMap<>();
 
         // Filling in the above two maps
-        while (stateCoverIterator.hasNext()) {
-            Word<String> input = stateCoverIterator.next();
+        while (transitionCoverIterator.hasNext()) {
+            Word<String> input = transitionCoverIterator.next();
             FastDFAState productState = product.getState(input);
             FastDFAState specificationState = specification.getState(input);
-            specificationAccessMap.put(input, specificationState);
-            specificationToProductMap.put(specificationState, productState);
+            if (null != specificationState) {
+                specificationAccessMap.put(input, specificationState);
+                specificationToProductMap.put(specificationState, productState);
+            }
         }
 
         // Inverse the specificationState -> productState map.
@@ -138,10 +141,31 @@ public class Injection {
         // We do not care about those, as they are the injective bits.
         removeUniqueEntries(productToSpecificationMap);
 
-        // Reverse the word -> specificationState map, which is unique
-        Map<FastDFAState, Word<String>> accessSpecificationMap = Misc
-                .invertMapUnqiue(specificationAccessMap);
+        // Generate the transitive closure of the set of confused states here!
+        Map<FastDFAState, Map<FastDFAState, Map<FastDFAState, Set<Word<String>>>>> productSpecificationStateTransitiveClosureMap = new HashMap<>();
+        for (FastDFAState productConsfusedState : productToSpecificationMap
+                .keySet()) {
+            Set<FastDFAState> confusedStates = productToSpecificationMap
+                    .get(productConsfusedState);
+            Map<FastDFAState, Map<FastDFAState, Set<Word<String>>>> confusedStatesTransitiveClosure = TransitiveClosure
+                    .generateEnhancedTransitiveClosure(specification,
+                            confusedStates);
+            productSpecificationStateTransitiveClosureMap.put(
+                    productConsfusedState, confusedStatesTransitiveClosure);
+        }
 
+        // Reverse the word -> specificationState map, which is also non-unique,
+        // as we are using the transition cover and not the state cover. Note:
+        // we cannot use the state cover as it will violate our equivalent state
+        // definition, since the state cover does not consider the case where a
+        // word "a1" is a prefix of word "a2", but both end up at the same final
+        // state "s".
+        Map<FastDFAState, Set<Word<String>>> accessSpecificationMap = Misc
+                .invertMapNonUnqiue(specificationAccessMap);
+
+        // System.out.println(productToSpecificationMap);
+        // accessSpecificationMap
+        // .forEach((k, v) -> System.out.println(k + " : " + v));
         // First, calculate the set of specificationStates mapped to a single
         // product state. Next, obtain the access words of those specification
         // states. The aforementioned access words then become a set of words
@@ -150,13 +174,38 @@ public class Injection {
         for (FastDFAState productState : productToSpecificationMap.keySet()) {
             Set<FastDFAState> specificationStatesSet = productToSpecificationMap
                     .get(productState);
-            Set<Word<String>> confusedStates = new HashSet<>();
+
+            Map<FastDFAState, Map<FastDFAState, Set<Word<String>>>> specificationStateClosureMap = productSpecificationStateTransitiveClosureMap
+                    .get(productState);
+
+            // Set of set of words for every state which is confused in the
+            // product
+            Set<Set<Word<String>>> confusedStates = new HashSet<>();
+
+            // For each specification state in the specificationStates set
+            // (which is confused in the product)
             for (FastDFAState specificationState : specificationStatesSet) {
-                confusedStates
-                        .add(accessSpecificationMap.get(specificationState));
+
+                Set<Word<String>> extraClosure = specificationStateClosureMap
+                        .get(specificationState).get(specificationState);
+
+                // Add the set of words which are confusing in the product
+                // confusedStates.add(accessSpecificationMap.get(specificationState));
+
+                for (Word<String> x : accessSpecificationMap
+                        .get(specificationState)) {
+                    Set<Word<String>> extraTransitions = new HashSet<>();
+                    for (Word<String> y : extraClosure) {
+                        extraTransitions.add(x.concat(y));
+                        extraTransitions.add(x);
+                    }
+                    confusedStates.add(extraTransitions);
+                }
             }
             ret.add(confusedStates);
         }
+        // ret.forEach(x -> x.forEach(y -> System.out.println(y)));
+        // System.exit(0);
         return ret;
     }
 

@@ -102,9 +102,7 @@ public class Misc {
         List<String> ret = new LinkedList<>();
         for (String x : listFilenames) {
             if (SystemUtils.IS_OS_WINDOWS) {
-                System.err.println("Working with Windows!");
                 x = x.split("/")[x.split("/").length - 1].replace(".cif", "");
-                // FilenameUtils.getBaseName(x);
             } else {
                 x = x.split("/")[x.split("/").length - 1].replace(".cif", "");
             }

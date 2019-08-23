@@ -85,7 +85,13 @@ public class MonolithicMonitor {
         // e1.printStackTrace();
         // }
         Integer count = 0;
+        Integer nakedCount = 0;
         while (count < specification.size() - 1) {
+            nakedCount++;
+            System.err.println(nakedCount);
+            if(nakedCount>100) {
+                System.exit(0);
+            }
             System.out.println(
                     "Iteration #" + count + " of " + specification.size());
             System.out.println("Size of monitor =" + this.monitor.size());
@@ -124,6 +130,8 @@ public class MonolithicMonitor {
                 // We need to "forget" that the previous monitor was generated
                 count--;
             }
+            
+            // FIXME: Ugly, disgusting hack.
             if (sanityCheck.checkMonitor(this.monitor)
                     && this.monitor.size() == 2) {
                 break;
@@ -209,15 +217,6 @@ public class MonolithicMonitor {
         return cons.constructInvariantStatements();
     }
 
-    // FIXME This should now reflect the fact that the monitor can be in
-    // multiple states simultaneously for our change to happen.
-    // OR: IF we do not want to generate the constraints when the monitor is
-    // non-deterministic and want to leave everything up to the SanityChecker in
-    // order to verify the results, that can also work fine.
-    // Hold on, we were already planning on leaving everything up to the
-    // SanityChecker! There is then no need to modify this: just keep going
-    // until we can no longer make the monitor smaller and then determinize and
-    // generate the constraints. That should work much better for our case!
     /**
      * Generate the constraints of the monitor, in the
      * {@literal <action, state>} format map of the other memoryless
