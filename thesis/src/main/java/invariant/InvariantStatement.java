@@ -42,7 +42,13 @@ public class InvariantStatement {
         if (null != accSeqAction)
             this.accessSequenceAction.addAll(accSeqAction);
         this.subSpecName = subSpecName;
-        this.subSpecRequirements = subSpecReq;
+        Map<String, Set<Integer>> subSpecBetterReq = new HashMap<>();
+        for(String x : subSpecReq.keySet()) {
+            if(!subSpecReq.get(x).isEmpty()) {
+                subSpecBetterReq.put(x, subSpecReq.get(x));
+            }
+        }
+        this.subSpecRequirements = subSpecBetterReq;
     }
 
     /**

@@ -13,6 +13,7 @@ import org.javatuples.Pair;
 
 import invariant.Constraints;
 import monitors.ModifyMonitorMonolithic;
+import monitors.StateInformation;
 import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.FastNFA;
@@ -23,6 +24,7 @@ import net.automatalib.util.automata.copy.AutomatonLowLevelCopy;
 import net.automatalib.util.automata.cover.Covers;
 import net.automatalib.util.automata.fsa.NFAs;
 import net.automatalib.words.Word;
+import refac.Injection;
 import refac.SanityChecker;
 import utils.Args;
 import utils.Misc;
@@ -36,6 +38,7 @@ public class MonolithicMonitor {
     private Map<String, Map<Integer, Map<String, Set<Integer>>>> memorylessConstraints;
     private FastDFA<String> specification;
     private FastNFA<String> monitor;
+    private Set<Pair<String, Integer>> desiredMonitorGuards;
     private Map<String, FastDFA<String>> subSpecificationsMap;
     private Map<Integer, Integer> specificationToMonitorMap = new HashMap<Integer, Integer>();
     private Iterator<Word<String>> transitionCoverIterator;
@@ -65,6 +68,17 @@ public class MonolithicMonitor {
                 subSpecificationsMap);
         this.sanityCheck = new SanityChecker(specification,
                 options.getInFiles().subList(1, options.getInFiles().size()));
+
+        this.desiredMonitorGuards = generateMonitorNecessarySpecificationStateToActionPairMap(
+                subSpecficationActionComboToSpecificationMap,
+                Injection.confusedSpecificationStates(dfaSpecification, options
+                        .getInFiles().subList(1, options.getInFiles().size())));
+
+        System.out.println(this.subSpecficationActionComboToSpecificationMap);
+        System.out.println(Injection.confusedSpecificationStates(
+                dfaSpecification,
+                options.getInFiles().subList(1, options.getInFiles().size())));
+        System.out.println(this.desiredMonitorGuards);
     }
 
     public void computeMonitor() throws Exception {
@@ -89,7 +103,7 @@ public class MonolithicMonitor {
         while (count < specification.size() - 1) {
             nakedCount++;
             System.err.println(nakedCount);
-            if(nakedCount>100) {
+            if (nakedCount > 100) {
                 System.exit(0);
             }
             System.out.println(
@@ -130,7 +144,7 @@ public class MonolithicMonitor {
                 // We need to "forget" that the previous monitor was generated
                 count--;
             }
-            
+
             // FIXME: Ugly, disgusting hack.
             if (sanityCheck.checkMonitor(this.monitor)
                     && this.monitor.size() == 2) {
@@ -267,8 +281,10 @@ public class MonolithicMonitor {
             for (Integer s : subSpecificationStates) {
                 assert s != null;
             }
-            ret.get(actionCombo.getValue0()).get(actionCombo.getValue1())
-                    .get("globalMonitor").addAll(subSpecificationStates);
+            if (this.desiredMonitorGuards.contains(actionCombo)) {
+                ret.get(actionCombo.getValue0()).get(actionCombo.getValue1())
+                        .get("globalMonitor").addAll(subSpecificationStates);
+            }
         }
         return ret;
     }
@@ -319,6 +335,24 @@ public class MonolithicMonitor {
                         ret.put(new Pair<String, Integer>(pInput, subSpec
                                 .getState(subSpecificationInput).getId()), x);
                     }
+                }
+            }
+        }
+        return ret;
+    }
+
+    private Set<Pair<String, Integer>> generateMonitorNecessarySpecificationStateToActionPairMap(
+            Map<Pair<String, Integer>, Set<Integer>> actionStateToSpecificationStatesMap,
+            Set<Integer> neededSpecificationStates) {
+        Set<Pair<String, Integer>> ret = new HashSet<>();
+        // this.specification.getStates().parallelStream()
+        // .map(s -> ret.put(s.getId(), new HashSet<>()));
+        for (Pair<String, Integer> actionTuple : actionStateToSpecificationStatesMap
+                .keySet()) {
+            for (Integer specificationState : actionStateToSpecificationStatesMap
+                    .get(actionTuple)) {
+                if (neededSpecificationStates.contains(specificationState)) {
+                    ret.add(actionTuple);
                 }
             }
         }

@@ -93,6 +93,56 @@ public class Injection {
     }
 
     /**
+     * Produce the set of specification states (as Integers) which are confused
+     * in the product automaton.
+     * 
+     * @param specification
+     * @param subSpecificationsList
+     * @return
+     * @throws Exception
+     */
+    public static Set<Integer> confusedSpecificationStates(
+            FastDFA<String> specification, List<String> subSpecificationsList)
+            throws Exception {
+        Set<Integer> ret = new HashSet<>();
+
+        FastDFA<String> product = Product.computeProduct(subSpecificationsList);
+        Iterator<Word<String>> transitionCoverIterator = Covers
+                .transitionCoverIterator(specification,
+                        specification.getInputAlphabet());
+
+        // Map from specificationState -> productState
+        Map<FastDFAState, FastDFAState> specificationToProductMap = new HashMap<>();
+
+        // Filling in the above two maps
+        while (transitionCoverIterator.hasNext()) {
+            Word<String> input = transitionCoverIterator.next();
+            FastDFAState productState = product.getState(input);
+            FastDFAState specificationState = specification.getState(input);
+            if (null != specificationState) {
+                specificationToProductMap.put(specificationState, productState);
+            }
+        }
+
+        // Inverse the specificationState -> productState map.
+        // Since we are assuming that we have a non-injective mapping, we
+        // create a map from productState -> set of specificationStates.
+        Map<FastDFAState, Set<FastDFAState>> productToSpecificationMap = Misc
+                .invertMapNonUnqiue(specificationToProductMap);
+
+        // Remove the entries from the above map which map to a set of size 1.
+        // We do not care about those, as they are the injective bits.
+        removeUniqueEntries(productToSpecificationMap);
+
+        for (Set<FastDFAState> ss : productToSpecificationMap.values()) {
+            for (FastDFAState s : ss) {
+                ret.add(s.getId());
+            }
+        }
+        return ret;
+    }
+
+    /**
      * Produces a set of a set of words that are being "confused" by the
      * function "f". Every set in the returned set contains words that lead to
      * states mapping to the same state in the product automaton.
