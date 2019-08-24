@@ -1,10 +1,6 @@
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-
 import net.automatalib.automata.fsa.impl.FastDFA;
 import refac.Injection;
 import smDecomposition.MonolithicMonitor;
@@ -15,7 +11,6 @@ import utils.Misc;
 import com.beust.jcommander.JCommander;
 
 import invariant.Constraints;
-//import invariant.Invariant;
 
 /**
  * Main class, which controls everything!
@@ -52,16 +47,15 @@ public class Main {
         Constraints cons = new Constraints(constraints,
                 Misc.computeActionToSubSpecNames(subSpecificationsMap),
                 subSpecificationsMap);
-        
+
         // If false, then the mapping from the specification to the product is
-        // not injective, that is,
-        // we need a monitor!
+        // not injective, that is, we need a monitor!
         if (!Injection.checkInjectionFromSpecificationToProduct(
                 dfaSpecification,
                 options.getInFiles().subList(1, options.getInFiles().size()))) {
             System.out.println(
                     "Just state guards are not enough, beginning with monitor computation");
-//            System.exit(0);
+            // System.exit(0);
             Set<String> prefActions = new HashSet<>();
             // prefActions.add("switchA");
             // prefActions.add("switchB");

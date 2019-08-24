@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import com.google.common.base.Preconditions;
-
 import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import net.automatalib.util.automata.copy.AutomatonCopyMethod;

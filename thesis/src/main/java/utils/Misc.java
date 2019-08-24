@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.SystemUtils;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
