@@ -1,6 +1,5 @@
 package smDecomposition;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -13,7 +12,6 @@ import org.javatuples.Pair;
 
 import invariant.Constraints;
 import monitors.ModifyMonitorMonolithic;
-import monitors.StateInformation;
 import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.FastNFA;
@@ -41,7 +39,6 @@ public class MonolithicMonitor {
     private Set<Pair<String, Integer>> desiredMonitorGuards;
     private Map<String, FastDFA<String>> subSpecificationsMap;
     private Map<Integer, Integer> specificationToMonitorMap = new HashMap<Integer, Integer>();
-    private Iterator<Word<String>> transitionCoverIterator;
     private Map<Pair<String, Integer>, Set<Integer>> subSpecficationActionComboToSpecificationMap;
     private FastNFA<String> monitorSafe;
     private SanityChecker sanityCheck;
@@ -62,8 +59,6 @@ public class MonolithicMonitor {
         AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
                 specification, dfaSpecification.getInputAlphabet(),
                 this.monitor);
-        this.transitionCoverIterator = prepareTransitionCover(dfaSpecification,
-                iterationOrder, preferredActions);
         this.subSpecficationActionComboToSpecificationMap = generateActionComboMap(
                 subSpecificationsMap);
         this.sanityCheck = new SanityChecker(specification,
@@ -82,22 +77,6 @@ public class MonolithicMonitor {
     }
 
     public void computeMonitor() throws Exception {
-        // Set<String> invariants = computeMonitorConstraints();
-        // try {
-        // // Sanity Check here!
-        // boolean specificationAsMonitor = Misc.writeToOutput(options,
-        // invariants, this.monitor);
-        // if (specificationAsMonitor) {
-        // System.out.println(
-        // "Specification works as monitor, trying to reduce!");
-        // } else {
-        // System.out.println(
-        // "Specification is not working as a monitor, quitting!");
-        // return;
-        // }
-        // } catch (Exception e1) {
-        // e1.printStackTrace();
-        // }
         Integer count = 0;
         Integer nakedCount = 0;
         while (count < specification.size() - 1) {
@@ -150,30 +129,6 @@ public class MonolithicMonitor {
                     && this.monitor.size() == 2) {
                 break;
             }
-            // if)
-            // invariants = computeMonitorConstraints();
-            /*
-             * Check and restore starts here!
-             */
-            // try {
-            // if (!Misc.writeToOutput(options, invariants, this.monitor)) {
-            // this.monitor = new FastDFA<String>(
-            // this.monitorSafe.getInputAlphabet());
-            // AutomatonLowLevelCopy.copy(
-            // AutomatonCopyMethod.STATE_BY_STATE,
-            // this.monitorSafe,
-            // this.monitorSafe.getInputAlphabet(), this.monitor);
-            // invariants = computeMonitorConstraints();
-            // Misc.writeToOutput(options, invariants, this.monitor);
-            // count--;
-            // }
-            // } catch (Exception e) {
-            // e.printStackTrace();
-            // }
-            /*
-             * 
-             * Check and restore ends here!
-             */
         }
         Set<String> invariants = computeMonitorConstraints();
         FastDFA<String> cDFA = new FastDFA<String>(
@@ -396,17 +351,6 @@ public class MonolithicMonitor {
         return state;
     }
 
-    private List<String> getPossibleInputs(CompactDFA<String> dfa,
-            Integer state) {
-        List<String> ret = new LinkedList<String>();
-        for (String in : dfa.getInputAlphabet()) {
-            if (dfa.getSuccessor(state, in) != null) {
-                ret.add(in);
-            }
-        }
-        return ret;
-    }
-
     private List<String> getPossibleInputs(FastDFA<String> dfa,
             FastDFAState state) {
         List<String> ret = new LinkedList<String>();
@@ -416,71 +360,5 @@ public class MonolithicMonitor {
             }
         }
         return ret;
-    }
-
-    /**
-     * Prepare the transition cover of the DFA according to our specified order
-     * and set of preferred actions.
-     * 
-     * @param dfaSpecification
-     *            the monitor DFA
-     * @param ord
-     *            the order in which to iterate through the transition cover
-     * @param preferredActions
-     *            set of actions that should be preserved in the monitor
-     * @return iterator for the transition cover
-     */
-    private Iterator<Word<String>> prepareTransitionCover(
-            FastDFA<String> dfaSpecification, IterationOrder ord,
-            Set<String> preferredActions) {
-        Set<String> removableActions = new HashSet<>();
-        removableActions.addAll(dfaSpecification.getInputAlphabet());
-        if (null != preferredActions) {
-            removableActions.removeAll(preferredActions);
-        }
-        Iterator<Word<String>> tc = Covers.transitionCoverIterator(
-                dfaSpecification, dfaSpecification.getInputAlphabet());
-        List<Word<String>> ret = new LinkedList<>();
-        if (null != preferredActions) {
-            while (tc.hasNext()) {
-                Word<String> input = tc.next();
-                // System.out.println(input);
-                // System.out.println(input.lastSymbol());
-                if (null != dfaSpecification.getState(input)
-                        && removableActions.contains(input.lastSymbol())) {
-                    ret.add(input);
-                }
-            }
-        } else {
-            while (tc.hasNext()) {
-                Word<String> input = tc.next();
-                if (null != dfaSpecification.getState(input))
-                    ret.add(input);
-
-            }
-        }
-        @SuppressWarnings("unused")
-        Iterator<Word<String>> retIterator;
-        switch (ord) {
-        case BWD: {
-            Collections.reverse(ret);
-            retIterator = ret.iterator();
-        }
-            break;
-        case FWD:
-            retIterator = ret.iterator();
-            break;
-        case RND: {
-            Collections.shuffle(ret);
-            retIterator = ret.iterator();
-        }
-            break;
-        default:
-            retIterator = ret.iterator();
-            break;
-
-        }
-        // System.out.println(ret);
-        return ret.iterator();
     }
 }
