@@ -41,6 +41,13 @@ public class StateInformation {
         return ret;
     }
 
+    /**
+     * Get successors function for a FastNFA
+     * 
+     * @param nfa
+     * @param state
+     * @return
+     */
     public static Set<Pair<Integer, String>> getSuccessors(FastNFA<String> nfa,
             Integer state) {
         Set<Pair<Integer, String>> ret = new HashSet<>();
@@ -82,6 +89,13 @@ public class StateInformation {
         return ret;
     }
 
+    /**
+     * GetPredecessors for a FastNFA
+     * 
+     * @param nfa
+     * @param state
+     * @return
+     */
     public static Set<Pair<Integer, String>> getPredecessors(
             FastNFA<String> nfa, Integer state) {
         // The return set
