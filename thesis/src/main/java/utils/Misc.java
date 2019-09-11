@@ -25,6 +25,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.SystemUtils;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
+import net.automatalib.automata.fsa.impl.FastNFA;
+import net.automatalib.automata.fsa.impl.FastNFAState;
 import net.automatalib.words.Alphabet;
 import net.automatalib.words.Word;
 import nl.tue.cif.v3x0x0.common.CifEvalException;
@@ -49,6 +51,19 @@ public class Misc {
                 .collect(Collectors.groupingBy(Map.Entry::getValue, Collectors
                         .mapping(Map.Entry::getKey, Collectors.toSet())));
         return ret;
+    }
+
+    public static void printMonitor(FastNFA<String> nfa) {
+        for (FastNFAState state : nfa.getStates()) {
+            for (String input : nfa.getInputAlphabet()) {
+                if (null != nfa.getSuccessors(state, input)
+                        && !nfa.getSuccessors(state, input).isEmpty()) {
+                    System.out.println(state + " + " + input + " = "
+                            + nfa.getSuccessors(state, input));
+                }
+            }
+        }
+        return;
     }
 
     /**
@@ -193,7 +208,7 @@ public class Misc {
                 Paths.get(options.getOutFile().replace(".", "gen.")),
                 StandardCopyOption.REPLACE_EXISTING);
         // Compute the specification using the decomposition
-        CIF3operations.exploreStatespaceCIF(options.getOutFile());
+        CIF3operations.exploreStatespaceCIF(options.getOutFile(), true);
         // Check the files for language equivalence
         List<String> filesToCheck = new LinkedList<String>();
         filesToCheck.add(options.getOutFile());

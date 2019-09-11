@@ -82,7 +82,7 @@ public class Injection {
      * @return a map from the set of states of the specification automaton to
      *         the set of states of the product automaton
      */
-    private static Map<Integer, Integer> unwrapProductMap(
+    public static Map<Integer, Integer> unwrapProductMap(
             Map<Integer, Map<String, Integer>> specStateMap) {
         Map<Integer, Integer> ret = new HashMap<Integer, Integer>(
                 specStateMap.size());

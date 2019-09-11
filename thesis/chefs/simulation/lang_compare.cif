@@ -1,0 +1,80 @@
+controllable prepareA;
+controllable eatA;
+controllable switchA;
+controllable prepareB;
+controllable eatB;
+controllable switchB;
+automaton minimal:
+  alphabet prepareA, eatA, switchA, prepareB, eatB, switchB;
+  location s1:
+    initial;
+    marked;
+    edge prepareB goto s2;
+    edge prepareA goto s3;
+  location s2:
+    marked;
+    edge prepareA goto s4;
+  location s3:
+    marked;
+    edge prepareB goto s4;
+  location s4:
+    marked;
+    edge switchA goto s9;
+  location s5:
+    marked;
+    edge eatB goto s6;
+    edge eatA goto s7;
+  location s6:
+    marked;
+    edge prepareB goto s10;
+  location s7:
+    marked;
+    edge eatB goto s1;
+    edge prepareA goto s8;
+  location s8:
+    marked;
+    edge eatB goto s3;
+  location s9:
+    marked;
+    edge switchB goto s5;
+  location s10:
+    marked;
+    edge eatA goto s2;
+end
+plant automaton specification:
+  location s1:
+    initial;
+    marked;
+    edge prepareA goto s2;
+    edge prepareB goto s3;
+  location s2:
+    marked;
+    edge prepareB goto s4;
+  location s3:
+    marked;
+    edge prepareA goto s4;
+  location s4:
+    marked;
+    edge switchA goto s5;
+  location s5:
+    marked;
+    edge switchB goto s6;
+  location s6:
+    marked;
+    edge eatA goto s7;
+    edge eatB goto s8;
+  location s7:
+    marked;
+    edge prepareA goto s9;
+    edge eatB goto s1;
+  location s8:
+    marked;
+    edge prepareB goto s10;
+    edge eatA goto s1;
+  location s9:
+    marked;
+    edge eatB goto s2;
+  location s10:
+    marked;
+    edge eatA goto s3;
+end

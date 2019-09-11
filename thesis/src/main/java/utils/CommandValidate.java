@@ -22,6 +22,7 @@ public class CommandValidate implements IParameterValidator {
         allowedCommands.add("mguards");
         allowedCommands.add("xguards");
         allowedCommands.add("sanity");
+        allowedCommands.add("sim");
         allowedCommands.add("noop");
         if (!allowedCommands.contains(value)) {
             throw new ParameterException(

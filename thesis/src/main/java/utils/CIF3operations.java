@@ -35,6 +35,28 @@ public class CIF3operations {
                 fileToExplore, "cif3explorer.bat"), "cif3dfamin.bat");
     }
 
+    /**
+     * Explore the un-timed state-space of the CIF3 specification Can also be
+     * used for the parallel composition of different automata Performs the
+     * operation in-place! (Always!)
+     * 
+     * @param fileToExplore
+     * @return the minimized state-space of the CIF3 file being explored
+     * @throws Exception
+     */
+    public static String exploreStatespaceCIF(String fileToExplore,
+            boolean minimize) throws Exception {
+        if (minimize) {
+            return cif3SingleFileOperationInPlace(
+                    cif3SingleFileOperationInPlace(fileToExplore,
+                            "cif3explorer.bat"),
+                    "cif3dfamin.bat");
+        } else {
+            return cif3SingleFileOperationInPlace(fileToExplore,
+                    "cif3explorer.bat");
+        }
+    }
+
     //
     // @SuppressWarnings("restriction")
     // public static void directCIF() {

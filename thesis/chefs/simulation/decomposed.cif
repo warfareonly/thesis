@@ -30,7 +30,7 @@ automaton decomposed:
     edge eatA goto s10;
   location s7:
     marked;
-    edge prepareA goto s12;
+    edge prepareA goto s13;
   location s8:
     marked;
     edge prepareB goto s9;
@@ -44,10 +44,11 @@ automaton decomposed:
     edge prepareA goto s11;
   location s11:
     marked;
-    edge eatB goto s3;
+    edge eatB goto s12;
   location s12:
     marked;
-    edge switchA goto s13;
+    edge prepareB goto s13;
   location s13:
     marked;
+    edge switchA goto s9;
 end

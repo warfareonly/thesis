@@ -4,7 +4,7 @@ controllable switchA;
 controllable prepareB;
 controllable eatB;
 controllable switchB;
-automaton decomposed:
+automaton product:
   alphabet prepareA, eatA, switchA, prepareB, eatB, switchB;
   location s1:
     initial;
@@ -13,41 +13,34 @@ automaton decomposed:
     edge prepareA goto s3;
   location s2:
     marked;
+    edge switchB goto s6;
     edge prepareA goto s4;
   location s3:
     marked;
     edge prepareB goto s4;
+    edge switchA goto s5;
   location s4:
     marked;
-    edge switchA goto s5;
+    edge switchB goto s9;
+    edge switchA goto s7;
   location s5:
     marked;
-    edge switchB goto s6;
-    edge eatA goto s7;
+    edge prepareB goto s7;
+    edge eatA goto s1;
   location s6:
     marked;
-    edge eatB goto s8;
-    edge eatA goto s10;
+    edge eatB goto s1;
+    edge prepareA goto s9;
   location s7:
     marked;
-    edge prepareA goto s12;
+    edge switchB goto s8;
+    edge eatA goto s2;
   location s8:
     marked;
-    edge prepareB goto s9;
-    edge eatA goto s1;
+    edge eatB goto s5;
+    edge eatA goto s6;
   location s9:
     marked;
-    edge eatA goto s2;
-  location s10:
-    marked;
-    edge eatB goto s1;
-    edge prepareA goto s11;
-  location s11:
-    marked;
     edge eatB goto s3;
-  location s12:
-    marked;
-    edge switchA goto s13;
-  location s13:
-    marked;
+    edge switchA goto s8;
 end
