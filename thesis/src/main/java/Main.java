@@ -62,24 +62,24 @@ public class Main {
             System.exit(0);
             // SimulationDecomposition simDecomp = new SimulationDecomposition(
             // options);
-            FastNFA<String> product = new FastNFA<String>(
-                    dfaSpecification.getInputAlphabet());
-            // product.clear();
-            AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
-                    BharatCustomCIFReader.readCIF(options.getInFiles().get(1)),
-                    dfaSpecification.getInputAlphabet(), product);
-
-            SimulationRelationImpl simRel = new SimulationRelationImpl(
-                    dfaSpecification, product);
-
-            System.out.println(simRel.getRelation());
-            // assert simRel.checkIfSimulationRelationExists();
-            // simRel.getRelation().forEach(x -> System.out.println(x));
-
-            System.out.println("Simulation relation exists : "
-                    + simRel.checkIfSimulationRelationExists()
-                    + " and is injective : "
-                    + simRel.checkIfInjectiveSimulationRelation());
+//            FastNFA<String> product = new FastNFA<String>(
+//                    dfaSpecification.getInputAlphabet());
+//            // product.clear();
+//            AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
+//                    BharatCustomCIFReader.readCIF(options.getInFiles().get(1)),
+//                    dfaSpecification.getInputAlphabet(), product);
+//
+//            SimulationRelationImpl simRel = new SimulationRelationImpl(
+//                    dfaSpecification, product);
+//
+//            System.out.println(simRel.getRelation());
+//            // assert simRel.checkIfSimulationRelationExists();
+//            // simRel.getRelation().forEach(x -> System.out.println(x));
+//
+//            System.out.println("Simulation relation exists : "
+//                    + simRel.checkIfSimulationRelationExists()
+//                    + " and is injective : "
+//                    + simRel.checkIfInjectiveSimulationRelation());
             return;
         }
         Map<String, FastDFA<String>> subSpecificationsMap = Misc

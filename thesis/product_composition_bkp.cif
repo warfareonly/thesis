@@ -1,57 +1,59 @@
-controllable prepareB;
-controllable prepareA;
-controllable switchB;
-controllable switchA;
-controllable eatA;
-controllable eatB;
+controllable gotoTableB;
+controllable gotoTableA;
+controllable drinksB;
+controllable foodB;
+controllable drinksA;
+controllable foodA;
+controllable kitchenA;
+controllable kitchenB;
 plant product:
 	location loc_0:
 		initial;
 		marked;
-		edge prepareB goto loc_1;
-		edge prepareA goto loc_2;
+		edge gotoTableB goto loc_1;
+		edge gotoTableA goto loc_2;
 	location loc_1:
 		marked;
-		edge prepareA goto loc_3;
-		edge switchB goto loc_5;
+		edge gotoTableA goto loc_3;
+		edge drinksB goto loc_5;
+		edge foodB goto loc_5;
 	location loc_2:
 		marked;
-		edge prepareB goto loc_3;
-		edge switchA goto loc_4;
+		edge gotoTableB goto loc_3;
+		edge drinksA goto loc_4;
+		edge foodA goto loc_4;
 	location loc_3:
 		marked;
-		edge switchB goto loc_8;
-		edge switchA goto loc_6;
+		edge drinksB goto loc_7;
+		edge foodB goto loc_7;
+		edge drinksA goto loc_6;
+		edge foodA goto loc_6;
 	location loc_4:
 		marked;
-		edge prepareB goto loc_6;
-		edge eatA goto loc_0;
+		edge gotoTableB goto loc_6;
+		edge kitchenA goto loc_0;
 	location loc_5:
 		marked;
-		edge prepareA goto loc_8;
-		edge eatB goto loc_0;
+		edge gotoTableA goto loc_7;
+		edge kitchenB goto loc_0;
 	location loc_6:
 		marked;
-		edge switchB goto loc_7;
-		edge eatA goto loc_1;
+		edge drinksB goto loc_8;
+		edge foodB goto loc_8;
+		edge kitchenA goto loc_1;
 	location loc_7:
 		marked;
-		edge eatA goto loc_5;
-		edge eatB goto loc_4;
+		edge drinksA goto loc_8;
+		edge foodA goto loc_8;
+		edge kitchenB goto loc_2;
 	location loc_8:
 		marked;
-		edge switchA goto loc_7;
-		edge eatB goto loc_2;
+		edge kitchenA goto loc_5;
+		edge kitchenB goto loc_4;
 end
 automaton mon:
 	monitor;
 	location s1:
 		initial;
 		marked;
-		edge prepareA goto s2;
-		edge eatB goto s2;
-	location s2:
-		marked;
-		edge prepareA goto s1;
-		edge eatB goto s1;
 end

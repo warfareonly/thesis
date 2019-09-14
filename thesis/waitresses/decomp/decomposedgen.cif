@@ -1,0 +1,60 @@
+controllable gotoTableA;
+controllable foodA;
+controllable kitchenA;
+controllable drinksA;
+automaton processA:
+  alphabet gotoTableA, foodA, kitchenA, drinksA;
+  location s1:
+    initial;
+    marked;
+    edge gotoTableA goto s2;
+  location s2:
+    marked;
+    edge drinksA goto s3;
+    edge foodA goto s3;
+  location s3:
+    marked;
+    edge kitchenA goto s1;
+end
+
+controllable gotoTableB;
+controllable foodB;
+controllable kitchenB;
+controllable drinksB;
+automaton processB:
+  alphabet gotoTableB, foodB, kitchenB, drinksB;
+  location s1:
+    initial;
+    marked;
+    edge gotoTableB goto s2;
+  location s2:
+    marked;
+    edge drinksB goto s3;
+    edge foodB goto s3;
+  location s3:
+    marked;
+    edge kitchenB goto s1;
+end
+
+automaton globalMonitor:
+	monitor;
+	location s1:
+		initial;
+		marked;
+end
+invariant drinksB needs  (  not globalMonitor.s1 or  not processA.s1 or  not processB.s2 ) and (  not globalMonitor.s1 or  not processA.s2 or  not processB.s2 ) ;
+
+invariant foodA needs  (  not globalMonitor.s1 or  not processA.s2 or  not processB.s1 ) and (  not globalMonitor.s1 or  not processA.s2 or  not processB.s3 ) ;
+
+invariant gotoTableA needs  (  not globalMonitor.s1 or  not processA.s1 or  not processB.s3 ) ;
+
+invariant kitchenB needs  (  not globalMonitor.s1 or  not processA.s2 or  not processB.s3 ) ;
+
+invariant drinksA needs  (  not globalMonitor.s1 or  not processA.s2 or  not processB.s1 ) and (  not globalMonitor.s1 or  not processA.s2 or  not processB.s2 ) ;
+
+invariant foodB needs  (  not globalMonitor.s1 or  not processA.s1 or  not processB.s2 ) and (  not globalMonitor.s1 or  not processA.s3 or  not processB.s2 ) ;
+
+invariant gotoTableB needs  (  not globalMonitor.s1 or  not processA.s3 or  not processB.s1 ) ;
+
+invariant kitchenA needs  (  not globalMonitor.s1 or  not processA.s3 or  not processB.s2 ) ;
+
