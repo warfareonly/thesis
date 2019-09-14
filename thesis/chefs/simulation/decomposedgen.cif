@@ -38,23 +38,15 @@ automaton globalMonitor:
 		initial;
 		marked;
 		edge prepareA goto s2;
-		edge prepareB goto s2;
-		edge switchB goto s2;
+		edge eatB goto s2;
 	location s2:
 		marked;
 		edge prepareA goto s1;
-		edge prepareB goto s1;
 		edge eatB goto s1;
 end
-invariant prepareB needs ( processB.s1 ) or not processB.s1;
+invariant eatA needs  (  not globalMonitor.s2 or  not processA.s3 or  not processB.s2 ) ;
 
-invariant eatB needs ( processB.s3 ) or not processB.s3;
+invariant switchB needs  (  not globalMonitor.s1 or  not processA.s3 or  not processB.s2 ) and (  not globalMonitor.s1 or  not processA.s1 or  not processB.s2 ) and (  not globalMonitor.s2 or  not processA.s2 or  not processB.s2 ) ;
 
-invariant eatA needs ( processA.s3 ) or not processA.s3;
-
-invariant prepareA needs ( processA.s1 ) or not processA.s1;
-
-invariant switchA needs ( processA.s2 and ( processB.s2 )) or not processA.s2;
-
-invariant switchB needs ( processB.s2 and ( globalMonitor.s1 )and ( processA.s3 )) or not processB.s2;
+invariant switchA needs  (  not globalMonitor.s2 or  not processA.s2 or  not processB.s1 ) and (  not globalMonitor.s1 or  not processA.s2 or  not processB.s3 ) ;
 

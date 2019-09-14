@@ -178,6 +178,9 @@ public class SimulationRelationImpl implements SimulationRelation {
         // }
         List<Set<FastNFAState>> listRange = map.values().stream()
                 .collect(Collectors.toList());
+        if (!map.values().stream().allMatch(x -> x.size() == 1)) {
+            return false;
+        }
         for (int i = 0; i < listRange.size(); i++) {
             for (int j = i + 1; j < listRange.size(); j++) {
                 if (!Collections.disjoint(listRange.get(i), listRange.get(j))) {

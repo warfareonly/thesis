@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class StoppingCondition {
                 // }
             }
         }
-        Collections.shuffle(listMergePairs);
+        Collections.shuffle(listMergePairs, (new Random())); // 33 gives a 3-state monitor
 
         // System.out.println("New stopping conditions created!");
         // System.out.println("Combinations are: " + listMergePairs);

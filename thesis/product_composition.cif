@@ -25,58 +25,58 @@ automaton statespace:
     edge switchA goto loc8;
   location loc5:
     marked;
-    edge prepareA goto loc9;
-    edge eatB goto loc1;
+    edge prepareA goto loc7;
+    edge eatB goto loc9;
   location loc6:
     marked;
     edge prepareB goto loc8;
-    edge eatA goto loc10;
+    edge eatA goto loc9;
   location loc7:
     marked;
-    edge switchA goto loc11;
-    edge eatB goto loc12;
+    edge switchA goto loc10;
+    edge eatB goto loc11;
   location loc8:
     marked;
-    edge switchB goto loc11;
-    edge eatA goto loc13;
+    edge switchB goto loc10;
+    edge eatA goto loc12;
   location loc9:
     marked;
-    edge switchA goto loc14;
-    edge eatB goto loc12;
+    edge prepareB goto loc12;
+    edge prepareA goto loc11;
   location loc10:
     marked;
-    edge prepareB goto loc13;
-    edge prepareA goto loc12;
+    edge eatA goto loc13;
+    edge eatB goto loc14;
   location loc11:
     marked;
-    edge eatA goto loc5;
-    edge eatB goto loc15;
+    edge prepareB goto loc15;
+    edge switchA goto loc14;
   location loc12:
     marked;
-    edge prepareB goto loc16;
-    edge switchA goto loc15;
+    edge prepareA goto loc15;
+    edge switchB goto loc13;
   location loc13:
     marked;
     edge prepareA goto loc16;
-    edge switchB goto loc5;
+    edge eatB goto loc1;
   location loc14:
     marked;
-    edge eatA goto loc17;
-    edge eatB goto loc15;
+    edge prepareB goto loc17;
+    edge eatA goto loc1;
   location loc15:
     marked;
-    edge prepareB goto loc18;
-    edge eatA goto loc1;
+    edge switchB goto loc16;
+    edge switchA goto loc17;
   location loc16:
     marked;
-    edge switchB goto loc7;
     edge switchA goto loc18;
+    edge eatB goto loc3;
   location loc17:
     marked;
-    edge prepareA goto loc7;
-    edge eatB goto loc1;
+    edge switchB goto loc18;
+    edge eatA goto loc2;
   location loc18:
     marked;
-    edge switchB goto loc11;
-    edge eatA goto loc2;
+    edge eatA goto loc5;
+    edge eatB goto loc6;
 end

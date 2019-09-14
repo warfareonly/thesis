@@ -49,11 +49,9 @@ automaton mon:
 		initial;
 		marked;
 		edge prepareA goto s2;
-		edge prepareB goto s2;
-		edge switchB goto s2;
+		edge eatB goto s2;
 	location s2:
 		marked;
 		edge prepareA goto s1;
-		edge prepareB goto s1;
 		edge eatB goto s1;
 end

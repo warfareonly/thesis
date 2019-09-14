@@ -30,7 +30,7 @@ public class SimulationMonitor {
     private FastNFA<String> monitor;
     private StoppingCondition stopCondition;
 
-    public SimulationMonitor(FastDFA<String> spec, FastDFA<String> product) {
+    public SimulationMonitor(FastDFA<String> spec, FastDFA<String> product) throws Exception {
         this.specification = spec;
         this.product = product;
 
@@ -43,7 +43,8 @@ public class SimulationMonitor {
                 this.monitor);
         this.stopCondition = new StoppingCondition(this.monitor);
 
-        Misc.printMonitor(monitor);
+        // Misc.printMonitor(monitor);
+        computeMonitor();
     }
 
     public void computeMonitor() throws Exception {

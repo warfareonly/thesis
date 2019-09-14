@@ -196,6 +196,15 @@ public class Misc {
         }
     }
 
+    /**
+     * Write the entire decomposition results to the specified outfile
+     * 
+     * @param options
+     * @param constraints
+     * @param monitor
+     * @return
+     * @throws Exception
+     */
     public static boolean writeToOutput(Args options, Set<String> constraints,
             FastDFA<String> monitor) throws Exception {
         FileOutputStream stream = new FileOutputStream(options.getOutFile(),

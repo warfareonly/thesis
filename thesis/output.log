@@ -4,168 +4,325 @@ cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
 cif3dfamin.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-s0 + prepareA = [s1]
-s0 + prepareB = [s2]
-s1 + prepareB = [s3]
-s2 + prepareA = [s3]
-s3 + switchA = [s4]
-s4 + switchB = [s5]
-s5 + eatA = [s6]
-s5 + eatB = [s7]
-s6 + prepareA = [s8]
-s6 + eatB = [s0]
-s7 + prepareB = [s9]
-s7 + eatA = [s0]
-s8 + eatB = [s1]
-s9 + eatA = [s2]
-[s1, s8] count = 0 total = 45
+[s3, s6] count = 0 total = 45
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s19], s9=[s28], s0=[s0], s4=[s7], s8=[s27], s3=[s3], s7=[s20], s1=[s2]}
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s22], s9=[s32], s4=[s7], s0=[s0], s8=[s31], s3=[s3], s7=[s23], s1=[s2]}
 Merge was okay: true
-[[s9, s28], [s5, s13], [s8, s27], [s0, s0], [s6, s19], [s1, s2], [s3, s3], [s2, s1], [s7, s20], [s4, s7]]
-[s3, s7] count = 0 total = 36
+[[s4, s7], [s1, s2], [s9, s32], [s3, s3], [s0, s0], [s6, s22], [s8, s31], [s2, s1], [s5, s13], [s7, s23]]
+[4, 9]
+[s6, s8] count = 0 total = 36
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s21], s9=[s31], s4=[s7], s0=[s0], s8=[s32], s7=[s22], s3=[s3], s1=[s2]}
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s22], s9=[s32], s4=[s7], s0=[s0], s8=[s31], s3=[s3], s7=[s23], s1=[s2]}
 Merge was okay: true
-[[s7, s22], [s3, s3], [s2, s1], [s9, s31], [s1, s2], [s8, s32], [s6, s21], [s5, s13], [s4, s7], [s0, s0]]
-[s4, s7] count = 0 total = 28
+[[s6, s22], [s9, s32], [s4, s7], [s3, s3], [s0, s0], [s2, s1], [s5, s13], [s1, s2], [s7, s23], [s8, s31]]
+[4, 9]
+[s0, s1] count = 0 total = 28
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s19], s9=[s7], s0=[s0], s4=[s7], s8=[s25], s3=[s3], s7=[s20], s1=[s2]}
+SimRelImpl simulation relation as map: {s5=[s23, s20], s2=[s2, s1], s6=[s7, s5], s9=[s16, s11], s4=[s16, s13], s0=[s0, s14], s8=[s12, s10], s7=[s31, s28], s3=[s4, s6, s8], s1=[s3]}
 Merge was okay: false
-[[s6, s19], [s0, s0], [s2, s1], [s3, s3], [s9, s7], [s1, s2], [s7, s20], [s8, s25], [s5, s13], [s4, s7]]
+[[s4, s13], [s0, s14], [s8, s10], [s7, s31], [s5, s23], [s1, s3], [s3, s4], [s4, s16], [s9, s11], [s3, s8], [s7, s28], [s2, s2], [s8, s12], [s0, s0], [s6, s7], [s2, s1], [s5, s20], [s3, s6], [s6, s5], [s9, s16]]
+[4, 9]
 Since the monitor was incorrect, we are rolling back to the previous one
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s21], s9=[s31], s0=[s0], s4=[s7], s8=[s32], s3=[s3], s7=[s22], s1=[s2]}
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s22], s9=[s32], s4=[s7], s0=[s0], s8=[s31], s7=[s23], s3=[s3], s1=[s2]}
 Merge was okay: true
-[[s3, s3], [s2, s1], [s6, s21], [s8, s32], [s9, s31], [s0, s0], [s7, s22], [s5, s13], [s4, s7], [s1, s2]]
+[[s1, s2], [s6, s22], [s9, s32], [s4, s7], [s7, s23], [s2, s1], [s5, s13], [s0, s0], [s8, s31], [s3, s3]]
+[4, 9]
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-[s1, s3] count = 1 total = 28
+[s0, s6] count = 1 total = 28
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s16], s2=[s1], s6=[s4], s9=[s11], s4=[s11], s0=[s9, s0], s8=[s7], s7=[s24], s3=[s3, s5], s1=[s2]}
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s22], s9=[s32], s4=[s7], s0=[s0], s8=[s31], s7=[s23], s3=[s3], s1=[s2]}
+Merge was okay: true
+[[s9, s32], [s4, s7], [s2, s1], [s6, s22], [s7, s23], [s1, s2], [s3, s3], [s5, s13], [s8, s31], [s0, s0]]
+[4, 9]
+[s0, s6] count = 0 total = 21
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s22], s9=[s29], s4=[s7], s0=[s8, s0], s8=[s30], s3=[s3], s7=[s21], s1=[s2]}
 Merge was okay: false
-[[s9, s11], [s4, s11], [s2, s1], [s6, s4], [s1, s2], [s8, s7], [s5, s16], [s7, s24], [s3, s3], [s0, s9], [s3, s5], [s0, s0]]
+[[s4, s7], [s9, s29], [s0, s8], [s8, s30], [s2, s1], [s3, s3], [s6, s22], [s5, s13], [s1, s2], [s7, s21], [s0, s0]]
+[4, 9]
 Since the monitor was incorrect, we are rolling back to the previous one
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s21], s9=[s31], s4=[s7], s0=[s0], s8=[s32], s3=[s3], s7=[s22], s1=[s2]}
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s22], s9=[s32], s0=[s0], s4=[s7], s8=[s31], s3=[s3], s7=[s23], s1=[s2]}
 Merge was okay: true
-[[s2, s1], [s4, s7], [s8, s32], [s0, s0], [s9, s31], [s3, s3], [s6, s21], [s7, s22], [s5, s13], [s1, s2]]
+[[s0, s0], [s4, s7], [s6, s22], [s1, s2], [s8, s31], [s2, s1], [s9, s32], [s5, s13], [s3, s3], [s7, s23]]
+[4, 9]
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-[s1, s7] count = 2 total = 28
+[s0, s3] count = 1 total = 21
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s12], s2=[s1], s6=[s19], s9=[s27], s4=[s7], s0=[s0], s8=[s26], s7=[s20], s3=[s3], s1=[s2]}
-Merge was okay: true
-[[s4, s7], [s8, s26], [s1, s2], [s5, s12], [s2, s1], [s9, s27], [s7, s20], [s6, s19], [s0, s0], [s3, s3]]
-[s1, s5] count = 0 total = 21
-cif3explorer.bat
-Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s13], s2=[s17, s1], s6=[s21, s4], s9=[s29], s0=[s0, s8], s4=[s7], s8=[s6, s28], s3=[s3], s7=[s22], s1=[s2, s12]}
-Merge was okay: true
-[[s0, s8], [s6, s21], [s2, s1], [s3, s3], [s8, s6], [s1, s2], [s4, s7], [s7, s22], [s1, s12], [s6, s4], [s0, s0], [s5, s13], [s8, s28], [s2, s17], [s9, s29]]
-[s0, s4] count = 0 total = 15
-cif3explorer.bat
-Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s13], s2=[s16, s1], s6=[s4, s20], s9=[s25], s0=[s0, s8], s4=[s7], s8=[s6, s23], s7=[s21], s3=[s3], s1=[s2, s12]}
-Merge was okay: true
-[[s0, s0], [s4, s7], [s5, s13], [s6, s4], [s8, s6], [s0, s8], [s8, s23], [s2, s16], [s9, s25], [s1, s12], [s7, s21], [s6, s20], [s1, s2], [s2, s1], [s3, s3]]
-[s0, s3] count = 0 total = 10
-cif3explorer.bat
-Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s15], s2=[s19, s2, s1], s6=[s5, s20], s9=[s24, s13], s0=[s12, s0], s4=[s10], s8=[s9, s11], s7=[s21], s3=[s6, s4], s1=[s16, s3]}
-Merge was okay: true
-[[s9, s13], [s2, s2], [s8, s9], [s6, s5], [s0, s12], [s9, s24], [s0, s0], [s1, s16], [s8, s11], [s6, s20], [s2, s1], [s1, s3], [s5, s15], [s7, s21], [s3, s4], [s4, s10], [s3, s6], [s2, s19]]
-[s0, s1] count = 0 total = 6
-cif3explorer.bat
-Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s15], s2=[s1], s6=[s4], s9=[s11], s4=[s11], s0=[s0, s9], s8=[s7], s7=[s18], s3=[s5, s3], s1=[s2]}
+SimRelImpl simulation relation as map: {s5=[s12], s2=[s1], s6=[s19], s9=[s9], s4=[s7], s0=[s10, s0], s8=[s27], s7=[s20], s3=[s3], s1=[s2]}
 Merge was okay: false
-[[s9, s11], [s7, s18], [s4, s11], [s0, s0], [s1, s2], [s0, s9], [s3, s5], [s2, s1], [s5, s15], [s8, s7], [s3, s3], [s6, s4]]
+[[s9, s9], [s1, s2], [s7, s20], [s4, s7], [s2, s1], [s6, s19], [s3, s3], [s0, s0], [s5, s12], [s8, s27], [s0, s10]]
+[4, 9]
 Since the monitor was incorrect, we are rolling back to the previous one
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s15], s2=[s17, s2, s1], s6=[s20, s7], s9=[s10, s24], s0=[s13, s0], s4=[s11], s8=[s12, s9], s7=[s21], s3=[s6, s4], s1=[s16, s3]}
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s22], s9=[s32], s4=[s7], s0=[s0], s8=[s31], s7=[s23], s3=[s3], s1=[s2]}
 Merge was okay: true
-[[s1, s16], [s8, s9], [s0, s13], [s2, s2], [s4, s11], [s9, s24], [s2, s17], [s0, s0], [s5, s15], [s6, s20], [s1, s3], [s7, s21], [s3, s4], [s3, s6], [s8, s12], [s2, s1], [s9, s10], [s6, s7]]
+[[s9, s32], [s7, s23], [s8, s31], [s4, s7], [s0, s0], [s5, s13], [s2, s1], [s1, s2], [s6, s22], [s3, s3]]
+[4, 9]
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-[s2, s3] count = 1 total = 6
+[s3, s5] count = 2 total = 21
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s14], s2=[s1, s2], s6=[s6], s9=[s21, s10], s0=[s0], s4=[s11], s8=[s12, s9], s3=[s5, s4], s7=[s18], s1=[s15, s3]}
-Merge was okay: true
-[[s2, s2], [s1, s3], [s2, s1], [s9, s10], [s3, s4], [s3, s5], [s5, s14], [s8, s12], [s1, s15], [s9, s21], [s0, s0], [s6, s6], [s4, s11], [s8, s9], [s7, s18]]
-[s0, s1] count = 0 total = 3
-cif3explorer.bat
-Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s4], s9=[s10], s0=[s11, s0], s4=[s10], s8=[s7], s3=[s5, s3], s7=[s6], s1=[s2]}
+SimRelImpl simulation relation as map: {s5=[s14], s2=[s1], s6=[s24], s9=[s31, s29], s0=[s32, s0, s8], s4=[s7], s8=[s28], s7=[s21, s23], s3=[s3], s1=[s2]}
 Merge was okay: false
-[[s9, s10], [s0, s11], [s0, s0], [s5, s13], [s4, s10], [s1, s2], [s3, s3], [s7, s6], [s8, s7], [s2, s1], [s3, s5], [s6, s4]]
+[[s8, s28], [s0, s8], [s6, s24], [s7, s21], [s9, s31], [s1, s2], [s3, s3], [s0, s0], [s9, s29], [s2, s1], [s0, s32], [s5, s14], [s7, s23], [s4, s7]]
+[4, 9]
 Since the monitor was incorrect, we are rolling back to the previous one
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s14], s2=[s2, s1], s6=[s6], s9=[s11, s21], s0=[s0], s4=[s10], s8=[s12, s9], s3=[s4, s5], s7=[s18], s1=[s3, s15]}
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s22], s9=[s32], s0=[s0], s4=[s7], s8=[s31], s7=[s23], s3=[s3], s1=[s2]}
 Merge was okay: true
-[[s6, s6], [s3, s4], [s8, s9], [s0, s0], [s7, s18], [s9, s11], [s4, s10], [s9, s21], [s1, s15], [s3, s5], [s8, s12], [s2, s1], [s2, s2], [s1, s3], [s5, s14]]
+[[s5, s13], [s9, s32], [s0, s0], [s2, s1], [s1, s2], [s4, s7], [s6, s22], [s8, s31], [s7, s23], [s3, s3]]
+[4, 9]
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-[s1, s2] count = 1 total = 3
+[s1, s4] count = 3 total = 21
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s10], s2=[s1], s6=[s4], s9=[s17], s4=[s7], s0=[s0], s8=[s8], s3=[s3], s7=[s14], s1=[s2, s11]}
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s21], s9=[s30], s0=[s0], s4=[s7], s8=[s29], s7=[s22], s3=[s3], s1=[s2]}
 Merge was okay: true
-[[s9, s17], [s1, s2], [s3, s3], [s6, s4], [s1, s11], [s2, s1], [s8, s8], [s4, s7], [s5, s10], [s7, s14], [s0, s0]]
+[[s6, s21], [s2, s1], [s1, s2], [s7, s22], [s5, s13], [s3, s3], [s8, s29], [s9, s30], [s0, s0], [s4, s7]]
+[4, 9]
+[s0, s3] count = 0 total = 15
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s12], s2=[s1], s6=[s18], s9=[s9], s0=[s10, s0], s4=[s7], s8=[s23], s3=[s3], s7=[s19], s1=[s2]}
+Merge was okay: false
+[[s0, s10], [s2, s1], [s3, s3], [s4, s7], [s6, s18], [s9, s9], [s5, s12], [s8, s23], [s1, s2], [s0, s0], [s7, s19]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s21], s9=[s30], s4=[s7], s0=[s0], s8=[s29], s7=[s22], s3=[s3], s1=[s2]}
+Merge was okay: true
+[[s2, s1], [s7, s22], [s4, s7], [s6, s21], [s5, s13], [s3, s3], [s1, s2], [s0, s0], [s8, s29], [s9, s30]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s0, s2] count = 1 total = 15
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s14], s2=[s1], s6=[s21], s9=[s28], s4=[s9], s0=[s0], s8=[s27], s3=[s4, s5], s7=[s22], s1=[s3, s2]}
+Merge was okay: false
+[[s1, s2], [s5, s14], [s4, s9], [s3, s5], [s7, s22], [s9, s28], [s2, s1], [s6, s21], [s1, s3], [s3, s4], [s8, s27], [s0, s0]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s13], s2=[s1], s6=[s21], s9=[s30], s4=[s7], s0=[s0], s8=[s29], s3=[s3], s7=[s22], s1=[s2]}
+Merge was okay: true
+[[s9, s30], [s4, s7], [s3, s3], [s8, s29], [s5, s13], [s6, s21], [s7, s22], [s2, s1], [s1, s2], [s0, s0]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s1, s3] count = 2 total = 15
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s16], s9=[s23], s4=[s7], s0=[s0], s8=[s22], s3=[s3], s7=[s17], s1=[s2]}
+Merge was okay: true
+[[s2, s1], [s1, s2], [s4, s7], [s0, s0], [s3, s3], [s9, s23], [s7, s17], [s5, s11], [s8, s22], [s6, s16]]
+[4, 9]
+[s1, s2] count = 0 total = 10
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s14], s2=[s1], s6=[s18], s9=[s8], s0=[s0], s4=[s11], s8=[s7], s7=[s19], s3=[s5, s3], s1=[s2]}
+Merge was okay: false
+[[s7, s19], [s3, s5], [s0, s0], [s3, s3], [s6, s18], [s9, s8], [s4, s11], [s5, s14], [s8, s7], [s2, s1], [s1, s2]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s16], s9=[s23], s4=[s7], s0=[s0], s8=[s22], s7=[s17], s3=[s3], s1=[s2]}
+Merge was okay: true
+[[s7, s17], [s4, s7], [s3, s3], [s9, s23], [s1, s2], [s2, s1], [s0, s0], [s6, s16], [s5, s11], [s8, s22]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s3, s4] count = 1 total = 10
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s17, s16], s9=[s24], s0=[s10, s0], s4=[s7], s8=[s23, s8], s7=[s18], s3=[s3], s1=[s15, s2]}
+Merge was okay: false
+[[s5, s11], [s8, s8], [s6, s16], [s6, s17], [s9, s24], [s1, s15], [s7, s18], [s0, s0], [s1, s2], [s3, s3], [s8, s23], [s2, s1], [s0, s10], [s4, s7]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s16], s9=[s23], s4=[s7], s0=[s0], s8=[s22], s3=[s3], s7=[s17], s1=[s2]}
+Merge was okay: true
+[[s8, s22], [s1, s2], [s3, s3], [s4, s7], [s2, s1], [s0, s0], [s6, s16], [s5, s11], [s9, s23], [s7, s17]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s0, s1] count = 2 total = 10
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s16], s2=[s1], s6=[s4], s9=[s12], s0=[s0, s10], s4=[s12], s8=[s9], s3=[s5, s3], s7=[s20], s1=[s2]}
+Merge was okay: false
+[[s3, s3], [s9, s12], [s0, s10], [s8, s9], [s5, s16], [s1, s2], [s4, s12], [s2, s1], [s0, s0], [s6, s4], [s3, s5], [s7, s20]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s16], s9=[s23], s4=[s7], s0=[s0], s8=[s22], s3=[s3], s7=[s17], s1=[s2]}
+Merge was okay: true
+[[s2, s1], [s1, s2], [s6, s16], [s5, s11], [s3, s3], [s7, s17], [s9, s23], [s4, s7], [s8, s22], [s0, s0]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s0, s4] count = 3 total = 10
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s15], s9=[s21], s0=[s9, s0], s4=[s7], s8=[s20], s3=[s3], s7=[s16], s1=[s2]}
+Merge was okay: false
+[[s3, s3], [s6, s15], [s9, s21], [s8, s20], [s1, s2], [s0, s9], [s7, s16], [s0, s0], [s2, s1], [s5, s11], [s4, s7]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s16], s9=[s23], s0=[s0], s4=[s7], s8=[s22], s7=[s17], s3=[s3], s1=[s2]}
+Merge was okay: true
+[[s2, s1], [s5, s11], [s6, s16], [s7, s17], [s0, s0], [s3, s3], [s4, s7], [s8, s22], [s1, s2], [s9, s23]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s2, s4] count = 4 total = 10
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s17], s9=[s25], s4=[s7], s0=[s0], s8=[s24], s7=[s18], s3=[s3], s1=[s2]}
+Merge was okay: true
+[[s7, s18], [s5, s11], [s8, s24], [s4, s7], [s3, s3], [s9, s25], [s0, s0], [s1, s2], [s6, s17], [s2, s1]]
+[4, 9]
+[s0, s3] count = 0 total = 6
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s13, s1], s6=[s17, s4], s9=[s7, s23], s0=[s0, s10, s9], s4=[s7], s8=[s6, s8], s7=[s5, s18], s3=[s3], s1=[s15, s2, s12]}
+Merge was okay: false
+[[s7, s18], [s2, s1], [s6, s4], [s6, s17], [s0, s9], [s0, s10], [s9, s7], [s3, s3], [s5, s11], [s0, s0], [s2, s13], [s4, s7], [s1, s15], [s8, s6], [s9, s23], [s7, s5], [s1, s12], [s1, s2], [s8, s8]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s17], s9=[s25], s0=[s0], s4=[s7], s8=[s24], s3=[s3], s7=[s18], s1=[s2]}
+Merge was okay: true
+[[s0, s0], [s4, s7], [s8, s24], [s2, s1], [s5, s11], [s9, s25], [s3, s3], [s6, s17], [s7, s18], [s1, s2]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s1, s3] count = 1 total = 6
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s10], s2=[s14, s1], s6=[s15], s9=[s23, s22], s0=[s8, s0], s4=[s7], s8=[s21], s7=[s17, s16], s3=[s3], s1=[s2]}
+Merge was okay: false
+[[s7, s16], [s2, s1], [s5, s10], [s7, s17], [s0, s8], [s9, s22], [s6, s15], [s8, s21], [s9, s23], [s0, s0], [s3, s3], [s2, s14], [s1, s2], [s4, s7]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s17], s9=[s25], s0=[s0], s4=[s7], s8=[s24], s7=[s18], s3=[s3], s1=[s2]}
+Merge was okay: true
+[[s9, s25], [s5, s11], [s0, s0], [s8, s24], [s6, s17], [s7, s18], [s4, s7], [s2, s1], [s3, s3], [s1, s2]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s0, s1] count = 2 total = 6
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s17], s2=[s1], s6=[s18], s9=[s8], s0=[s0], s4=[s12], s8=[s9], s3=[s3, s5], s7=[s19], s1=[s2]}
+Merge was okay: false
+[[s1, s2], [s3, s3], [s8, s9], [s0, s0], [s2, s1], [s4, s12], [s9, s8], [s6, s18], [s7, s19], [s5, s17], [s3, s5]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s11], s2=[s1], s6=[s17], s9=[s25], s4=[s7], s0=[s0], s8=[s24], s3=[s3], s7=[s18], s1=[s2]}
+Merge was okay: true
+[[s6, s17], [s3, s3], [s1, s2], [s7, s18], [s2, s1], [s8, s24], [s4, s7], [s0, s0], [s5, s11], [s9, s25]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s0, s2] count = 3 total = 6
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s10], s2=[s1], s6=[s14], s9=[s19], s0=[s0], s4=[s7], s8=[s18], s3=[s3], s7=[s15], s1=[s2]}
+Merge was okay: true
+[[s1, s2], [s6, s14], [s8, s18], [s9, s19], [s3, s3], [s2, s1], [s7, s15], [s0, s0], [s5, s10], [s4, s7]]
+[4, 9]
+[s0, s2] count = 0 total = 3
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s10], s2=[s1, s11], s6=[s14], s9=[s7], s4=[s7], s0=[s0, s9], s8=[s6], s7=[s5], s3=[s3], s1=[s2]}
+Merge was okay: false
+[[s4, s7], [s1, s2], [s5, s10], [s7, s5], [s8, s6], [s9, s7], [s0, s9], [s0, s0], [s6, s14], [s2, s1], [s3, s3], [s2, s11]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s10], s2=[s1], s6=[s14], s9=[s19], s0=[s0], s4=[s7], s8=[s18], s7=[s15], s3=[s3], s1=[s2]}
+Merge was okay: true
+[[s1, s2], [s0, s0], [s5, s10], [s9, s19], [s6, s14], [s2, s1], [s4, s7], [s8, s18], [s7, s15], [s3, s3]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s0, s1] count = 1 total = 3
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s8], s2=[s1], s6=[s9], s9=[s7], s0=[s0], s4=[s7], s8=[s10], s3=[s3], s7=[s5], s1=[s2]}
+Merge was okay: false
+[[s5, s8], [s8, s10], [s2, s1], [s3, s3], [s9, s7], [s0, s0], [s4, s7], [s6, s9], [s1, s2], [s7, s5]]
+[4, 9]
+Since the monitor was incorrect, we are rolling back to the previous one
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s10], s2=[s1], s6=[s14], s9=[s19], s4=[s7], s0=[s0], s8=[s18], s7=[s15], s3=[s3], s1=[s2]}
+Merge was okay: true
+[[s8, s18], [s4, s7], [s1, s2], [s2, s1], [s6, s14], [s5, s10], [s7, s15], [s3, s3], [s0, s0], [s9, s19]]
+[4, 9]
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[s1, s2] count = 2 total = 3
+cif3explorer.bat
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+SimRelImpl simulation relation as map: {s5=[s9], s2=[s1], s6=[s12], s9=[s16], s0=[s0], s4=[s7], s8=[s15], s7=[s13], s3=[s3], s1=[s2]}
+Merge was okay: true
+[[s6, s12], [s2, s1], [s7, s13], [s9, s16], [s3, s3], [s1, s2], [s0, s0], [s5, s9], [s8, s15], [s4, s7]]
+[4, 9]
 [s0, s1] count = 0 total = 1
 cif3explorer.bat
 WARNING: File "product_composition.cif": Semantic warning at line 47, column 2: Monitoring all events in the alphabet of automaton "mon" has no effect, as its alphabet is empty.
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s8], s2=[s1], s6=[s4], s9=[s7], s0=[s0], s4=[s7], s8=[s6], s7=[s5], s3=[s3], s1=[s2]}
+SimRelImpl simulation relation as map: {s5=[s8], s2=[s1], s6=[s4], s9=[s7], s4=[s7], s0=[s0], s8=[s6], s3=[s3], s7=[s5], s1=[s2]}
 Merge was okay: false
-[[s1, s2], [s8, s6], [s0, s0], [s4, s7], [s9, s7], [s7, s5], [s6, s4], [s2, s1], [s5, s8], [s3, s3]]
+[[s9, s7], [s3, s3], [s4, s7], [s2, s1], [s5, s8], [s6, s4], [s1, s2], [s0, s0], [s8, s6], [s7, s5]]
+[4, 9]
 Since the monitor was incorrect, we are rolling back to the previous one
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s5=[s10], s2=[s1], s6=[s4], s9=[s17], s4=[s7], s0=[s0], s8=[s8], s7=[s14], s3=[s3], s1=[s2, s11]}
+SimRelImpl simulation relation as map: {s5=[s9], s2=[s1], s6=[s12], s9=[s16], s0=[s0], s4=[s7], s8=[s15], s7=[s13], s3=[s3], s1=[s2]}
 Merge was okay: true
-[[s7, s14], [s9, s17], [s5, s10], [s6, s4], [s1, s2], [s2, s1], [s4, s7], [s0, s0], [s1, s11], [s8, s8], [s3, s3]]
+[[s0, s0], [s7, s13], [s2, s1], [s4, s7], [s6, s12], [s9, s16], [s5, s9], [s8, s15], [s3, s3], [s1, s2]]
+[4, 9]
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
 null count = 1 total = 1
-merge.bat
-Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-cif3dfamin.bat
-Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-prepareA spec: s1 mon: s1
-prepareB spec: s2 mon: s1
-prepareA prepareB spec: s3 mon: s0
-prepareB prepareA spec: s3 mon: s0
-prepareA prepareB switchA spec: s4 mon: s0
-prepareA prepareB switchA switchB spec: s5 mon: s1
-prepareA prepareB switchA switchB eatA spec: s6 mon: s1
-prepareA prepareB switchA switchB eatB spec: s7 mon: s0
-prepareA prepareB switchA switchB eatA prepareA spec: s8 mon: s0
-prepareA prepareB switchA switchB eatA eatB spec: s0 mon: s0
-prepareA prepareB switchA switchB eatB prepareB spec: s9 mon: s1
-prepareA prepareB switchA switchB eatB eatA spec: s0 mon: s0
-prepareA prepareB switchA switchB eatA prepareA eatB spec: s1 mon: s0
-prepareA prepareB switchA switchB eatB prepareB eatA spec: s2 mon: s1
-{prepareB={0={globalMonitor=[]}}, prepareA={0={globalMonitor=[]}}, eatB={2={globalMonitor=[]}}, switchB={1={globalMonitor=[0]}}, eatA={2={globalMonitor=[0, 1]}}, switchA={1={globalMonitor=[]}}}
-[invariant prepareB needs ( processB.s1 ) or not processB.s1;
-, invariant eatB needs ( processB.s3 ) or not processB.s3;
-, invariant eatA needs ( processA.s3 ) or not processA.s3;
-, invariant prepareA needs ( processA.s1 ) or not processA.s1;
-, invariant switchA needs ( processA.s2 and ( processB.s2 )) or not processA.s2;
-, invariant switchB needs ( processB.s2 and ( globalMonitor.s1 )and ( processA.s3 )) or not processB.s2;
-]
+SimRelImpl simulation relation as map: {s5=[s9], s2=[s1], s6=[s12], s9=[s16], s4=[s7], s0=[s0], s8=[s15], s3=[s3], s7=[s13], s1=[s2]}
+SimRelImpl simulation relation as map: {s10=[s2], s4=[s5], s7=[s6], s15=[s8], s6=[s8], s11=[s1], s8=[s0], s17=[s7], s1=[s1], s9=[s7], s0=[s0], s16=[s6], s13=[s4], s12=[s5], s2=[s2], s3=[s3], s14=[s3], s5=[s4]}
+{prepareB=[], prepareA=[], switchB=[16, 1, 3], eatB=[], switchA=[2, 15], eatA=[7]}
 cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
 cif3dfamin.bat
@@ -174,5 +331,5 @@ merge.bat
 [chefs/simulation/decomposed.cif, chefs/simulation/specification.cif]
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-Unequal
+Equal
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true

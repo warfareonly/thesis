@@ -12,6 +12,7 @@ import net.automatalib.automata.fsa.impl.FastNFAState;
 import net.automatalib.util.automata.copy.AutomatonCopyMethod;
 import net.automatalib.util.automata.copy.AutomatonLowLevelCopy;
 import refac.Injection;
+import simulation.SimulationDecomp;
 import simulation.SimulationDecomposition;
 import simulation.SimulationRelation;
 import simulation.SimulationRelationImpl;
@@ -53,9 +54,11 @@ public class Main {
         FastDFA<String> dfaSpecification = BharatCustomCIFReader
                 .readCIF(options.getInFiles().get(0));
         if (options.getCommand().equalsIgnoreCase("sim")) {
-            SimulationDecomposition simDecomp = new SimulationDecomposition(
-                    options);
-            simDecomp.computeRequirements();
+            // SimulationDecomposition simDecomp = new SimulationDecomposition(
+            // options);
+            SimulationDecomp simDecomp = new SimulationDecomp(options);
+            // simDecomp.computeRequirements();
+//            System.out.println(simDecomp.getRequirements());
             System.exit(0);
             // SimulationDecomposition simDecomp = new SimulationDecomposition(
             // options);
@@ -77,16 +80,6 @@ public class Main {
                     + simRel.checkIfSimulationRelationExists()
                     + " and is injective : "
                     + simRel.checkIfInjectiveSimulationRelation());
-            // System.out.println(simRel.getSimulationRelationAsMap());
-            // Map<String, FastDFA<String>> productMap = new HashMap<>();
-            // productMap.put("product",
-            // BharatCustomCIFReader.readCIF(options.getInFiles().get(1)));
-            // Map<Integer, Integer> specificationStateToProductStateMap =
-            // Injection
-            // .unwrapProductMap(stateEquivalence.StateEquivalence
-            // .calculateEquivalentStates(dfaSpecification,
-            // productMap));
-            // System.err.println(specificationStateToProductStateMap);
             return;
         }
         Map<String, FastDFA<String>> subSpecificationsMap = Misc

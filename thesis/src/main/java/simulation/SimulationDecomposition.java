@@ -86,6 +86,11 @@ public class SimulationDecomposition {
         AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
                 NFAs.determinize(this.monitor, true, false),
                 this.monitor.getInputAlphabet(), cDFA);
+        if (this.monitor.size() != cDFA.size()) {
+            System.out.println(
+                    "Something is going wrong, we do not obtain a deterministic monitor. Exiting");
+            System.exit(0);
+        }
         Misc.writeToOutput(options, req, cDFA);
     }
 
@@ -145,6 +150,12 @@ public class SimulationDecomposition {
                             .get(specState.getId())) {
                         System.out.println(
                                 "Specification same state has multiple states in the monitor, something is wrong, exiting...");
+                        System.out.println(
+                                "spec : " + specState.getId() + " monitor = "
+                                        + this.specificationToMonitorMap
+                                                .get(specState.getId())
+                                        + " and " + monitorState.getId());
+                        System.exit(1);
                     }
                 }
                 this.specificationToMonitorMap.put(specState.getId(),
