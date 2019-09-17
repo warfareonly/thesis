@@ -50,6 +50,38 @@ public class BharatCustomCIFWriter {
         }
         writer.write("end\n");
     }
+    
+    public static void writeNFA(FastNFA<String> monitor, Writer writer)
+            throws IOException {
+        List<String> inputs = new LinkedList<String>(monitor.getInputAlphabet());
+            for (int i = 0; i < inputs.size(); i++) {
+                writer.write("controllable ");
+                writer.write(inputs.get(i) + ";\n");
+            }
+        writer.write("automaton Bharatnfa:\n");
+        if (null == monitor.getStates()) {
+            System.err.println("NFA does not have any initial states");
+            System.exit(0);
+        }
+
+        for (FastNFAState state : monitor.getStates()) {
+            writer.write(createLocation(state.getId() + 1,
+                    monitor.isAccepting(state),
+                    monitor.getInitialStates().contains(state),
+                    isDeadlocked(monitor, state)).replace("loc_", "s"));
+            for (String input : monitor.getInputAlphabet()) {
+                if (null != monitor.getSuccessors(state, input)) {
+                    Set<FastNFAState> successors = monitor.getSuccessors(state,
+                            input);
+                    for (FastNFAState s : successors) {
+                        writer.write(createTransition(s.getId() + 1, input)
+                                .replace("loc_", "s"));
+                    }
+                }
+            }
+        }
+        writer.write("end\n");
+    }
 
     public static void writeCIF(FastDFA<String> dfa, Writer writer,
             String plantName, boolean includeActionDeclarations)

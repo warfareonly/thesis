@@ -4,12 +4,27 @@
 package utils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Function;
 
 import org.apache.commons.io.IOUtils;
 
+import net.automatalib.automata.fsa.impl.FastNFA;
+import net.automatalib.automata.fsa.impl.compact.CompactNFA;
+import net.automatalib.automata.simple.SimpleAutomaton;
+import net.automatalib.serialization.InputModelData;
+import net.automatalib.serialization.aut.AUTParser;
+import net.automatalib.util.automata.copy.AutomatonCopyMethod;
+import net.automatalib.util.automata.copy.AutomatonLowLevelCopy;
+import net.automatalib.words.Alphabet;
 import nl.tue.cif.v3x0x0.eventbased.equivalence.LangEquivCalculation;
 
 /**
@@ -41,6 +56,9 @@ public class CIF3operations {
      * operation in-place! (Always!)
      * 
      * @param fileToExplore
+     * @param minimize
+     *            <i>true</i> is automaton has to be minimized, <i>false</i>
+     *            otherwise.
      * @return the minimized state-space of the CIF3 file being explored
      * @throws Exception
      */
@@ -181,7 +199,7 @@ public class CIF3operations {
         ProcessBuilder pbCommand = new ProcessBuilder(command, file, "-o",
                 file);
         // directCIF();
-        System.err.println(command);
+        // System.err.println(command);
         if (command.contains("dfamin")) {
             String[] nameOfResult = file.split("/");
             String result = nameOfResult[nameOfResult.length - 1]
@@ -195,6 +213,51 @@ public class CIF3operations {
         IOUtils.copy(pb.getErrorStream(), System.out);
         if (pb.waitFor() != 0) {
             throw new Exception("Something wrong with the process!!");
+        }
+        return file;
+    }
+
+    public static String mcrl2CompositionOperation(String file)
+            throws InterruptedException, Exception {
+        ProcessBuilder cif2mcrl2Command = new ProcessBuilder("cif3mcrl2.bat", file,
+                "-o", "composedProcess.mcrl2");
+        Process pb = cif2mcrl2Command.start();
+        IOUtils.copy(pb.getErrorStream(), System.out);
+        if (pb.waitFor() != 0) {
+            throw new Exception(
+                    "Something wrong with the mcrl2 conversion process!!");
+        }
+
+        ProcessBuilder mcrl22lpsCommand = new ProcessBuilder("mcrl22lps.exe",
+                "composedProcess.mcrl2", "composedProcess.lps");
+        pb = mcrl22lpsCommand.start();
+        IOUtils.copy(pb.getErrorStream(), System.out);
+        if (pb.waitFor() != 0) {
+            throw new Exception(
+                    "Something wrong with the mcrl22lps conversion process!!");
+        }
+        ProcessBuilder lps2ltsCommand = new ProcessBuilder("lps2lts.exe",
+                "composedProcess.lps", "composedProcess.aut");
+        pb = lps2ltsCommand.start();
+        IOUtils.copy(pb.getErrorStream(), System.out);
+        if (pb.waitFor() != 0) {
+            throw new Exception(
+                    "Something wrong with the lps2lts conversion process!!");
+        }
+        FileInputStream inStream = new FileInputStream("composedProcess.aut");
+        CompactNFA<String> compactNFA = (new BharatAUTParser(inStream))
+                .parse(Function.identity());
+        FastNFA<String> comp = new FastNFA<String>(
+                compactNFA.getInputAlphabet());
+        comp.clear();
+        AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
+                compactNFA, compactNFA.getInputAlphabet(), comp);
+        FileOutputStream outStream = new FileOutputStream(
+                file);
+        try (Writer writer = new BufferedWriter(
+                new OutputStreamWriter(outStream))) {
+            BharatCustomCIFWriter.writeNFA(comp, writer);
+
         }
         return file;
     }

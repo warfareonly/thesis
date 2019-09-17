@@ -84,8 +84,8 @@ public class MonitorSanityChecker {
                 specification, product);
         return simRel.checkIfInjectiveSimulationRelation()
                 // && specificationAccessCheck(specification, monitor)
-//                && specificationCompositionCheck(specification, monitor,
-//                        specificationRefinedStatesTraces)
+                // && specificationCompositionCheck(specification, monitor,
+                // specificationRefinedStatesTraces)
                 && true;
     }
 
@@ -271,6 +271,8 @@ public class MonitorSanityChecker {
         // We have written to a file and now we have to explore the state-space
         // and load it in.
         CIF3operations.exploreStatespaceCIF("product_composition.cif", false);
+        // CIF3operations.mcrl2CompositionOperation("product_composition.cif");
+        System.out.println("Done with reading and writing!");
         return;
     }
 }

@@ -70,6 +70,7 @@ public class SimulationRelationImpl implements SimulationRelation {
         Set<Pair<FastDFAState, FastNFAState>> tempRelation = cartesianProductOfStates(
                 this.specification.getStates(), this.product.getStates());
 
+        System.out.println(tempRelation);
         // R' := R
         Set<Pair<FastDFAState, FastNFAState>> tempRelationPrime = new HashSet<>(
                 tempRelation);
@@ -92,11 +93,6 @@ public class SimulationRelationImpl implements SimulationRelation {
                 Map<String, Set<FastNFAState>> succForProduct = Neighbors
                         .getSuccessors(product, pair.getValue1());
 
-                // if (pair.getValue0().getId() == 0
-                // && pair.getValue1().getId() == 0) {
-                // System.out.println(succForProduct.keySet() + " "
-                // + succForSpecification.keySet());
-                // }
                 if (!succForProduct.keySet()
                         .containsAll(succForSpecification.keySet())) {
                     // System.out.println(pair);
@@ -123,7 +119,7 @@ public class SimulationRelationImpl implements SimulationRelation {
             // System.out.println("Rho : " + rho.size());
             tempRelationPrime.removeAll(rho);
         } while (!tempRelation.equals(tempRelationPrime));
-        // System.out.println("R : " + tempRelation);
+        System.out.println("R : " + tempRelation);
 
         for (Pair<FastDFAState, FastNFAState> x : tempRelation) {
             this.simulationRelation

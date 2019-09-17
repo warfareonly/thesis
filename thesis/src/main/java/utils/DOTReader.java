@@ -40,7 +40,7 @@ public class DOTReader {
     public Set<String> nodes;
     public Set<Edge> edges;
 
-    DOTReader(Path filename) throws IOException {
+    public DOTReader(Path filename) throws IOException {
         nodes = new HashSet<>();
         edges = new HashSet<>();
 
@@ -96,7 +96,7 @@ public class DOTReader {
         return builder.create();
     }
 
-    CompactDFA<String> createMachine() {
+    public CompactDFA<String> createMachine() {
         Set<String> inputs = new HashSet<>();
         for (DOTReader.Edge e : edges) {
             String[] io = e.label.split("/");

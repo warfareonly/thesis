@@ -24,6 +24,7 @@ public class CommandValidate implements IParameterValidator {
         allowedCommands.add("sanity");
         allowedCommands.add("sim");
         allowedCommands.add("noop");
+        allowedCommands.add("build");
         if (!allowedCommands.contains(value)) {
             throw new ParameterException(
                     "Parameter " + name + " has no command " + value);
