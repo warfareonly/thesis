@@ -26,7 +26,7 @@ public class Requirements {
                     .get(productMonitorLocation);
             Map<String, Integer> subSpecificationLocationMap = productMonitorToSubSpecificationMap
                     .get(productMonitorLocation);
-            ret = ret + " ( " + makeRequirementForSingleLocation(
+            ret = ret + " not ( " + makeRequirementForSingleLocation(
                     monitorLocation, subSpecificationLocationMap) + " )";
             if (locationIterator.hasNext()) {
                 ret = ret + " and";
@@ -40,18 +40,18 @@ public class Requirements {
             Integer monitorLocation,
             Map<String, Integer> subSpecificationLocationMap) {
         String ret = "";
-        ret = ret + " not " + "globalMonitor.s" + (monitorLocation + 1)
-                + " or ";
+        ret = ret + " " + "globalMonitor.s" + (monitorLocation + 1)
+                + " and ";
         Iterator<String> subSpecificationIterator = subSpecificationLocationMap
                 .keySet().iterator();
         while (subSpecificationIterator.hasNext()) {
             String subSpecName = subSpecificationIterator.next();
             Integer subSpecLocation = subSpecificationLocationMap
                     .get(subSpecName);
-            ret = ret + " not " + subSpecName + ".s" + (subSpecLocation + 1)
+            ret = ret + " " + subSpecName + ".s" + (subSpecLocation + 1)
                     + "";
             if (subSpecificationIterator.hasNext()) {
-                ret = ret + " or ";
+                ret = ret + " and ";
             }
         }
         ret = ret + "";
