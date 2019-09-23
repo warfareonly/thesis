@@ -1,0 +1,59 @@
+controllable gotoTableB;
+controllable gotoTableA;
+controllable drinksB;
+controllable foodB;
+controllable drinksA;
+controllable foodA;
+controllable kitchenA;
+controllable kitchenB;
+plant product:
+	location loc_0:
+		initial;
+		marked;
+		edge gotoTableB goto loc_1;
+		edge gotoTableA goto loc_2;
+	location loc_1:
+		marked;
+		edge gotoTableA goto loc_3;
+		edge drinksB goto loc_5;
+		edge foodB goto loc_5;
+	location loc_2:
+		marked;
+		edge gotoTableB goto loc_3;
+		edge drinksA goto loc_4;
+		edge foodA goto loc_4;
+	location loc_3:
+		marked;
+		edge drinksB goto loc_7;
+		edge foodB goto loc_7;
+		edge drinksA goto loc_6;
+		edge foodA goto loc_6;
+	location loc_4:
+		marked;
+		edge gotoTableB goto loc_6;
+		edge kitchenA goto loc_0;
+	location loc_5:
+		marked;
+		edge gotoTableA goto loc_7;
+		edge kitchenB goto loc_0;
+	location loc_6:
+		marked;
+		edge drinksB goto loc_8;
+		edge foodB goto loc_8;
+		edge kitchenA goto loc_1;
+	location loc_7:
+		marked;
+		edge drinksA goto loc_8;
+		edge foodA goto loc_8;
+		edge kitchenB goto loc_2;
+	location loc_8:
+		marked;
+		edge kitchenA goto loc_5;
+		edge kitchenB goto loc_4;
+end
+automaton mon:
+	monitor;
+	location s1:
+		initial;
+		marked;
+end

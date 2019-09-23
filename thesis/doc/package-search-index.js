@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"algorithmicMonitor"},{"l":"invariant"},{"l":"modularMonitor"},{"l":"monitors"},{"l":"monolithic"},{"l":"smDecomposition"},{"l":"stateEquivalence"},{"l":"utils"}]

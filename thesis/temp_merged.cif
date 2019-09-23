@@ -1,0 +1,76 @@
+controllable gotoTableA;
+controllable foodA;
+controllable kitchenA;
+controllable drinksA;
+controllable gotoTableB;
+controllable foodB;
+controllable kitchenB;
+controllable drinksB;
+automaton decomposed:
+  alphabet gotoTableA, foodA, kitchenA, drinksA, gotoTableB, foodB, kitchenB, drinksB;
+  location s1:
+    initial;
+    marked;
+    edge gotoTableB goto s2;
+    edge gotoTableA goto s3;
+  location s2:
+    marked;
+    edge gotoTableA goto s4;
+  location s3:
+    marked;
+    edge gotoTableB goto s4;
+  location s4:
+    marked;
+    edge foodB goto s5;
+    edge foodA goto s6;
+  location s5:
+    marked;
+    edge drinksA goto s7;
+  location s6:
+    marked;
+    edge drinksB goto s7;
+  location s7:
+    marked;
+    edge kitchenB goto s8;
+    edge kitchenA goto s9;
+  location s8:
+    marked;
+    edge kitchenA goto s1;
+  location s9:
+    marked;
+    edge kitchenB goto s1;
+end
+automaton specification:
+  alphabet gotoTableA, foodA, kitchenA, drinksA, gotoTableB, foodB, kitchenB, drinksB;
+  location s1:
+    initial;
+    marked;
+    edge gotoTableA goto s2;
+    edge gotoTableB goto s3;
+  location s2:
+    marked;
+    edge gotoTableB goto s4;
+  location s3:
+    marked;
+    edge gotoTableA goto s4;
+  location s4:
+    marked;
+    edge foodA goto s5;
+    edge foodB goto s6;
+  location s5:
+    marked;
+    edge drinksB goto s7;
+  location s6:
+    marked;
+    edge drinksA goto s7;
+  location s7:
+    marked;
+    edge kitchenA goto s8;
+    edge kitchenB goto s9;
+  location s8:
+    marked;
+    edge kitchenB goto s1;
+  location s9:
+    marked;
+    edge kitchenA goto s1;
+end

@@ -15,15 +15,16 @@ import com.beust.jcommander.ParameterException;
  */
 public class IterationValidate implements IParameterValidator {
 
-	@Override
-	public void validate(String name, String value) throws ParameterException {
-		Set<String> allowedIterationOrders = new HashSet<String>();
-		allowedIterationOrders.add("fwd");
-		allowedIterationOrders.add("bwd");
-		allowedIterationOrders.add("rnd");
-		if (!allowedIterationOrders.contains(value)) {
-			throw new ParameterException("Parameter " + name + " has no valid iteration order " + value);
-		}
-	}
+    @Override
+    public void validate(String name, String value) throws ParameterException {
+        Set<String> allowedIterationOrders = new HashSet<String>();
+        allowedIterationOrders.add("fwd");
+        allowedIterationOrders.add("bwd");
+        allowedIterationOrders.add("rnd");
+        if (!allowedIterationOrders.contains(value)) {
+            throw new ParameterException("Parameter " + name
+                    + " has no valid iteration order " + value);
+        }
+    }
 
 }

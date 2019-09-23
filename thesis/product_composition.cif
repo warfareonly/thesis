@@ -1,0 +1,54 @@
+controllable gotoTableB;
+controllable gotoTableA;
+controllable drinksB;
+controllable foodB;
+controllable drinksA;
+controllable foodA;
+controllable kitchenA;
+controllable kitchenB;
+automaton statespace:
+  alphabet gotoTableB, gotoTableA, drinksB, foodB, drinksA, foodA, kitchenA, kitchenB;
+  location loc1:
+    initial;
+    marked;
+    edge gotoTableB goto loc2;
+    edge gotoTableA goto loc3;
+  location loc2:
+    marked;
+    edge gotoTableA goto loc4;
+    edge drinksB goto loc5;
+    edge foodB goto loc5;
+  location loc3:
+    marked;
+    edge gotoTableB goto loc4;
+    edge drinksA goto loc6;
+    edge foodA goto loc6;
+  location loc4:
+    marked;
+    edge drinksB goto loc7;
+    edge foodB goto loc7;
+    edge drinksA goto loc8;
+    edge foodA goto loc8;
+  location loc5:
+    marked;
+    edge gotoTableA goto loc7;
+    edge kitchenB goto loc1;
+  location loc6:
+    marked;
+    edge gotoTableB goto loc8;
+    edge kitchenA goto loc1;
+  location loc7:
+    marked;
+    edge drinksA goto loc9;
+    edge foodA goto loc9;
+    edge kitchenB goto loc3;
+  location loc8:
+    marked;
+    edge drinksB goto loc9;
+    edge foodB goto loc9;
+    edge kitchenA goto loc2;
+  location loc9:
+    marked;
+    edge kitchenA goto loc5;
+    edge kitchenB goto loc6;
+end

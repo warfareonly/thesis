@@ -1,0 +1,54 @@
+controllable gotoTableA;
+controllable foodA;
+controllable kitchenA;
+controllable drinksA;
+controllable gotoTableB;
+controllable foodB;
+controllable kitchenB;
+controllable drinksB;
+automaton product:
+  alphabet gotoTableA, foodA, kitchenA, drinksA, gotoTableB, foodB, kitchenB, drinksB;
+  location s1:
+    initial;
+    marked;
+    edge gotoTableB goto s2;
+    edge gotoTableA goto s3;
+  location s2:
+    marked;
+    edge drinksB goto s6;
+    edge foodB goto s6;
+    edge gotoTableA goto s4;
+  location s3:
+    marked;
+    edge gotoTableB goto s4;
+    edge drinksA goto s5;
+    edge foodA goto s5;
+  location s4:
+    marked;
+    edge drinksB goto s8;
+    edge foodB goto s8;
+    edge drinksA goto s7;
+    edge foodA goto s7;
+  location s5:
+    marked;
+    edge gotoTableB goto s7;
+    edge kitchenA goto s1;
+  location s6:
+    marked;
+    edge kitchenB goto s1;
+    edge gotoTableA goto s8;
+  location s7:
+    marked;
+    edge drinksB goto s9;
+    edge foodB goto s9;
+    edge kitchenA goto s2;
+  location s8:
+    marked;
+    edge kitchenB goto s3;
+    edge drinksA goto s9;
+    edge foodA goto s9;
+  location s9:
+    marked;
+    edge kitchenB goto s5;
+    edge kitchenA goto s6;
+end

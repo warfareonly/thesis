@@ -1,0 +1,18 @@
+controllable gotoTableB;
+controllable foodB;
+controllable kitchenB;
+controllable drinksB;
+automaton processB:
+  alphabet gotoTableB, foodB, kitchenB, drinksB;
+  location s1:
+    initial;
+    marked;
+    edge gotoTableB goto s2;
+  location s2:
+    marked;
+    edge drinksB goto s3;
+    edge foodB goto s3;
+  location s3:
+    marked;
+    edge kitchenB goto s1;
+end

@@ -1,0 +1,91 @@
+controllable prepareA;
+controllable prepareB;
+controllable switchA;
+controllable switchB;
+controllable eatA;
+controllable eatB;
+automaton statespace:
+  alphabet prepareB, prepareA, switchB, switchA, eatA, eatB;
+  location loc1:
+    initial;
+    marked;
+    edge prepareB goto loc2;
+    edge prepareA goto loc3;
+  location loc2:
+    marked;
+    edge prepareA goto loc4;
+    edge switchB goto loc5;
+  location loc3:
+    marked;
+    edge prepareB goto loc4;
+    edge switchA goto loc6;
+    edge switchA goto loc7;
+  location loc4:
+    marked;
+    edge switchB goto loc8;
+    edge switchA goto loc9;
+    edge switchA goto loc10;
+  location loc5:
+    marked;
+    edge prepareA goto loc8;
+    edge switchB;
+    edge eatB goto loc1;
+  location loc6:
+    marked;
+    edge prepareB goto loc9;
+    edge eatA goto loc1;
+  location loc7:
+    marked;
+    edge prepareB goto loc10;
+    edge eatA goto loc11;
+  location loc8:
+    marked;
+    edge switchB;
+    edge switchA goto loc12;
+    edge switchA goto loc13;
+    edge eatB goto loc3;
+  location loc9:
+    marked;
+    edge switchB goto loc12;
+    edge eatA goto loc2;
+  location loc10:
+    marked;
+    edge switchB goto loc12;
+    edge eatA goto loc14;
+  location loc11:
+    marked;
+    edge prepareB goto loc14;
+    edge prepareA goto loc15;
+  location loc12:
+    marked;
+    edge switchB;
+    edge eatA goto loc5;
+    edge eatB goto loc6;
+  location loc13:
+    marked;
+    edge switchB goto loc12;
+    edge eatA goto loc16;
+    edge eatB goto loc7;
+  location loc14:
+    marked;
+    edge prepareA goto loc17;
+    edge switchB goto loc5;
+  location loc15:
+    marked;
+    edge prepareB goto loc17;
+    edge switchA goto loc7;
+  location loc16:
+    marked;
+    edge prepareA goto loc18;
+    edge switchB goto loc5;
+    edge eatB goto loc11;
+  location loc17:
+    marked;
+    edge switchB goto loc8;
+    edge switchA goto loc10;
+  location loc18:
+    marked;
+    edge switchB goto loc8;
+    edge switchA goto loc13;
+    edge eatB goto loc15;
+end

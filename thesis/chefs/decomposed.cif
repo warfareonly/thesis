@@ -4,39 +4,50 @@ controllable switchA;
 controllable prepareB;
 controllable eatB;
 controllable switchB;
-automaton statespace:
+automaton decomposed:
   alphabet prepareA, eatA, switchA, prepareB, eatB, switchB;
-  location loc1:
+  location s1:
     initial;
     marked;
-    edge prepareA goto loc2;
-    edge prepareB goto loc3;
-  location loc2:
+    edge prepareB goto s2;
+    edge prepareA goto s3;
+  location s2:
     marked;
-    edge prepareB goto loc4;
-  location loc3:
+    edge prepareA goto s4;
+  location s3:
     marked;
-    edge prepareA goto loc4;
-  location loc4:
+    edge prepareB goto s4;
+  location s4:
     marked;
-    edge switchA goto loc5;
-  location loc5:
+    edge switchA goto s5;
+  location s5:
     marked;
-    edge eatA goto loc3;
-    edge switchB goto loc6;
-  location loc6:
+    edge switchB goto s6;
+    edge eatA goto s7;
+  location s6:
     marked;
-    edge eatA goto loc7;
-    edge eatB goto loc8;
-  location loc7:
+    edge eatB goto s8;
+    edge eatA goto s10;
+  location s7:
     marked;
-    edge prepareA goto loc9;
-    edge eatB goto loc1;
-  location loc8:
+    edge prepareA goto s12;
+  location s8:
     marked;
-    edge eatA goto loc1;
-    edge prepareB goto loc5;
-  location loc9:
+    edge prepareB goto s9;
+    edge eatA goto s1;
+  location s9:
     marked;
-    edge eatB goto loc2;
+    edge eatA goto s2;
+  location s10:
+    marked;
+    edge eatB goto s1;
+    edge prepareA goto s11;
+  location s11:
+    marked;
+    edge eatB goto s3;
+  location s12:
+    marked;
+    edge switchA goto s13;
+  location s13:
+    marked;
 end
