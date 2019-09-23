@@ -7,6 +7,7 @@ import java.util.Set;
 import org.javatuples.Pair;
 
 import net.automatalib.automata.fsa.impl.FastDFAState;
+import net.automatalib.automata.fsa.impl.FastNFA;
 import net.automatalib.automata.fsa.impl.FastNFAState;
 
 public interface SimulationRelation {
@@ -35,4 +36,7 @@ public interface SimulationRelation {
      * @return the simulation relation as a map from s to the powerset of p
      */
     public Map<FastDFAState, Set<FastNFAState>> getSimulationRelationAsMap();
+
+    boolean checkIfInjectiveSimulationRelation(
+            FastNFA<String> productComposition);
 }

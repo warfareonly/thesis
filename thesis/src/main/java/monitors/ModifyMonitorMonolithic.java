@@ -3,6 +3,7 @@ package monitors;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -49,18 +50,39 @@ public class ModifyMonitorMonolithic {
     public ModifyMonitorMonolithic(FastNFA<String> automaton,
             Pair<FastNFAState, FastNFAState> pairStates) {
         copyMonitorInit(automaton);
-//        System.out.println("Incoming size of monitor: " + this.monitor.size());
-//        Misc.printMonitor(monitor);
+        // System.out.println("Incoming size of monitor: " +
+        // this.monitor.size());
+        // Misc.printMonitor(monitor);
         deleteTransition(pairStates);
-//        System.out.println("Outgoing size of monitor: " + this.monitor.size());
-//        Misc.printMonitor(monitor);
-//        try {
-//            System.in.read();
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
+        // System.out.println("Outgoing size of monitor: " +
+        // this.monitor.size());
+        // Misc.printMonitor(monitor);
+        // try {
+        // System.in.read();
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
         // System.exit(0);
+    }
+
+    public ModifyMonitorMonolithic(FastNFA<String> automaton,
+            List<Pair<FastNFAState, FastNFAState>> collectionPairs) {
+        copyMonitorInit(automaton);
+        int initialDestinationState = collectionPairs.get(0).getValue1()
+                .getId();
+        int initialSourceState = collectionPairs.get(0).getValue0().getId();
+        deleteTransition(collectionPairs.remove(0));
+        for (Pair<FastNFAState, FastNFAState> pair : collectionPairs) {
+            FastNFAState sourceState = pair.getValue0();
+            FastNFAState destinationState = pair.getValue1();
+            if (destinationState.getId() != initialDestinationState
+                    && sourceState.getId() != initialDestinationState
+                    && sourceState.getId() != initialSourceState
+                    && destinationState.getId() != initialSourceState) {
+                deleteTransition(pair);
+            }
+        }
     }
 
     /**
@@ -115,7 +137,7 @@ public class ModifyMonitorMonolithic {
             Set<FastNFAState> states = incomingTransitions.get(input);
             for (FastNFAState s : states) {
                 // s: source, input: event label, stateRemove : destination
-//                System.out.println("Incoming transitions : " + input);
+                // System.out.println("Incoming transitions : " + input);
                 removeTransition(s, input, stateRemove);
                 addTransition(s, input, stateKeep);
             }
@@ -125,7 +147,7 @@ public class ModifyMonitorMonolithic {
         // stateKeep state
         for (String input : outgoingTransitons.keySet()) {
             for (FastNFAState s : outgoingTransitons.get(input)) {
-//                System.out.println("Outgoing transitions : " + input);
+                // System.out.println("Outgoing transitions : " + input);
                 removeTransition(stateRemove, input, s);
                 addTransition(stateKeep, input, s);
             }

@@ -1,6 +1,8 @@
 package simulation;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -62,16 +64,29 @@ public class SimulationMonitor {
             AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
                     this.monitor, this.monitor.getInputAlphabet(), monitorSafe);
 
+            // int limit = (int) (20 * Math.random()) + 1;
+            // List<Pair<FastNFAState, FastNFAState>> setPairs = new
+            // LinkedList<Pair<FastNFAState, FastNFAState>>();
+            // for (int i = 0; i < limit; i++) {
+            // Pair<FastNFAState, FastNFAState> nextPair = this.stopCondition
+            // .getNextPairOfStates();
+            // if (null == nextPair) {
+            // break;
+            // }
+            // setPairs.add(this.stopCondition.getNextPairOfStates());
+            // }
             Pair<FastNFAState, FastNFAState> statePairToMerge = this.stopCondition
                     .getNextPairOfStates();
             System.out.println(statePairToMerge + " count = " + count
                     + " total = " + total_count);
             // Ran out of state-pairs, so return the current monitor.
             if (null == statePairToMerge) {
+                // if (setPairs.size() == 0) {
                 return;
             } else {
                 ModifyMonitorMonolithic mod = new ModifyMonitorMonolithic(
                         this.monitor, statePairToMerge);
+                // this.monitor, setPairs);
                 this.monitor = new FastNFA<String>(
                         this.specification.getInputAlphabet());
                 this.monitor.clear();
@@ -101,6 +116,7 @@ public class SimulationMonitor {
                 total_count = stopCondition.getAllPairs().size();
             }
         }
+
     }
 
     /**

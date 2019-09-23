@@ -34,6 +34,7 @@ public class SimulationRelationImpl implements SimulationRelation {
     private FastNFA<String> product;
     private boolean isSimulation;
     private Pair<FastDFAState, FastNFAState> initialPair;
+    private Set<Pair<FastDFAState, FastNFAState>> simulationRelationUnRestricted = new HashSet<>();
 
     public SimulationRelationImpl(FastDFA<String> specification,
             FastNFA<String> product) {
@@ -50,6 +51,9 @@ public class SimulationRelationImpl implements SimulationRelation {
                 productInitialState);
 
         computeRelation(this.specification, this.product);
+
+        this.simulationRelationUnRestricted = new HashSet<>(
+                this.simulationRelation);
 
         this.simulationRelation = SimulationRestrictor.restrict(
                 this.specification, this.product, this.simulationRelation);
@@ -70,7 +74,7 @@ public class SimulationRelationImpl implements SimulationRelation {
         Set<Pair<FastDFAState, FastNFAState>> tempRelation = cartesianProductOfStates(
                 this.specification.getStates(), this.product.getStates());
 
-        System.out.println(tempRelation);
+        // System.out.println(tempRelation);
         // R' := R
         Set<Pair<FastDFAState, FastNFAState>> tempRelationPrime = new HashSet<>(
                 tempRelation);
@@ -119,7 +123,7 @@ public class SimulationRelationImpl implements SimulationRelation {
             // System.out.println("Rho : " + rho.size());
             tempRelationPrime.removeAll(rho);
         } while (!tempRelation.equals(tempRelationPrime));
-        System.out.println("R : " + tempRelation);
+        // System.out.println("R : " + tempRelation);
 
         for (Pair<FastDFAState, FastNFAState> x : tempRelation) {
             this.simulationRelation
@@ -164,18 +168,42 @@ public class SimulationRelationImpl implements SimulationRelation {
     }
 
     @Override
-    public boolean checkIfInjectiveSimulationRelation() {
+    public boolean checkIfInjectiveSimulationRelation(
+            FastNFA<String> productComposition) {
         Map<FastDFAState, Set<FastNFAState>> map = this
                 .getSimulationRelationAsMap();
-        // for (FastDFAState x : map.keySet()) {
-        // if (1 != map.get(x).size()) {
+        for (FastDFAState specificationSourceState : this.specification
+                .getStates()) {
+            for (String input : this.specification.getInputAlphabet()) {
+                FastDFAState specificationDestinationState = this.specification
+                        .getSuccessor(specificationSourceState, input);
+                if (null != specificationDestinationState) {
+                    Set<FastNFAState> setProductSourceStates = map
+                            .get(specificationSourceState);
+                    Set<FastNFAState> setProductDestinationStates = setProductSourceStates
+                            .stream()
+                            .map(st -> productComposition.getSuccessors(st,
+                                    input))
+                            .flatMap(c -> c.stream())
+                            .collect(Collectors.toSet());
+                    if (!map.get(specificationDestinationState)
+                            .containsAll(setProductDestinationStates)) {
+                        return false;
+                    }
+
+                }
+            }
+        }
+        // if (!map.values().stream().allMatch(x -> x.size() == 1)) {
         // return false;
         // }
-        // }
-        List<Set<FastNFAState>> listRange = map.values().stream()
+        List<Set<FastNFAState>> listRangeTemp = map.values().stream()
                 .collect(Collectors.toList());
-        if (!map.values().stream().allMatch(x -> x.size() == 1)) {
-            return false;
+        List<Set<Integer>> listRange = new LinkedList<>();
+        for (Set<FastNFAState> x : listRangeTemp) {
+            Set<Integer> states = new HashSet<>(x.size());
+            x.forEach(i -> states.add(i.getId()));
+            listRange.add(states);
         }
         for (int i = 0; i < listRange.size(); i++) {
             for (int j = i + 1; j < listRange.size(); j++) {
@@ -197,6 +225,16 @@ public class SimulationRelationImpl implements SimulationRelation {
         return this.simulationRelation;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see simulation.SimulationRelation#getRelation()
+     */
+    // @Override
+    public Set<Pair<FastDFAState, FastNFAState>> getUnrestrictedRelation() {
+        return this.simulationRelationUnRestricted;
+    }
+
     @Override
     public Map<FastDFAState, Set<FastNFAState>> getSimulationRelationAsMap() {
         Map<FastDFAState, Set<FastNFAState>> ret = new HashMap<>(
@@ -212,5 +250,11 @@ public class SimulationRelationImpl implements SimulationRelation {
         }
         // Loading finished, return it now
         return ret;
+    }
+
+    @Override
+    public boolean checkIfInjectiveSimulationRelation() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

@@ -1,30 +1,17 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import org.javatuples.Pair;
-
+import java.io.FileOutputStream;
+import java.nio.file.Paths;
 import net.automatalib.automata.fsa.impl.FastDFA;
-import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.FastNFA;
-import net.automatalib.automata.fsa.impl.FastNFAState;
+import net.automatalib.automata.fsa.impl.compact.CompactDFA;
 import net.automatalib.util.automata.copy.AutomatonCopyMethod;
 import net.automatalib.util.automata.copy.AutomatonLowLevelCopy;
-import refac.Injection;
 import simulation.SimulationDecomp;
-import simulation.SimulationDecomposition;
-import simulation.SimulationRelation;
 import simulation.SimulationRelationImpl;
-import simulation.SimulationRestrictor;
-import smDecomposition.MonolithicMonitor;
-import stateEquivalence.StateGuards;
 import utils.Args;
 import utils.BharatCustomCIFReader;
-import utils.Misc;
+import utils.CIFWriter;
+import utils.DOTReader;
 import com.beust.jcommander.JCommander;
-
-import invariant.Constraints;
 
 /**
  * Main class, which controls everything!
@@ -58,63 +45,29 @@ public class Main {
             // options);
             SimulationDecomp simDecomp = new SimulationDecomp(options);
             // simDecomp.computeRequirements();
-//            System.out.println(simDecomp.getRequirements());
+            // System.out.println(simDecomp.getRequirements());
             System.exit(0);
-            // SimulationDecomposition simDecomp = new SimulationDecomposition(
-            // options);
-//            FastNFA<String> product = new FastNFA<String>(
-//                    dfaSpecification.getInputAlphabet());
-//            // product.clear();
-//            AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
-//                    BharatCustomCIFReader.readCIF(options.getInFiles().get(1)),
-//                    dfaSpecification.getInputAlphabet(), product);
-//
-//            SimulationRelationImpl simRel = new SimulationRelationImpl(
-//                    dfaSpecification, product);
-//
-//            System.out.println(simRel.getRelation());
-//            // assert simRel.checkIfSimulationRelationExists();
-//            // simRel.getRelation().forEach(x -> System.out.println(x));
-//
-//            System.out.println("Simulation relation exists : "
-//                    + simRel.checkIfSimulationRelationExists()
-//                    + " and is injective : "
-//                    + simRel.checkIfInjectiveSimulationRelation());
             return;
-        }
-        Map<String, FastDFA<String>> subSpecificationsMap = Misc
-                .generateSubSpecificationsMap(options.getInFiles());
-        Map<String, Map<Integer, Map<String, Set<Integer>>>> constraints = StateGuards
-                .execStateGuards(dfaSpecification, subSpecificationsMap);
-
-        // Put the constraints in the "Constraints" class
-        Constraints cons = new Constraints(constraints,
-                Misc.computeActionToSubSpecNames(subSpecificationsMap),
-                subSpecificationsMap);
-
-        // If false, then the mapping from the specification to the product is
-        // not injective, that is, we need a monitor!
-        if (!Injection.checkInjectionFromSpecificationToProduct(
-                dfaSpecification,
-                options.getInFiles().subList(1, options.getInFiles().size()))) {
-            System.out.println(
-                    "Just state guards are not enough, beginning with monitor computation");
-            // System.exit(0);
-            Set<String> prefActions = new HashSet<>();
-            // prefActions.add("switchA");
-            // prefActions.add("switchB");
-            // GlobalMonitor gm = new GlobalMonitor(options, dfaSpecification,
-            // cons,
-            // subSpecificationsMap,
-            // options.getIterationOrder(), null);
-            //
-            MonolithicMonitor mm = new MonolithicMonitor(options,
-                    dfaSpecification, cons, subSpecificationsMap,
-                    options.getIterationOrder(), prefActions);
-            mm.computeMonitor();
-        } else {
-            Misc.writeToOutput(options, cons.constructInvariantStatements());
-            System.out.println("Finished");
+        } else if (options.getCommand().contains("cons")) {
+            FastNFA<String> product = BharatCustomCIFReader
+                    .readNonDetCIF(options.getInFiles().get(1));
+            SimulationRelationImpl simulationRelation = new SimulationRelationImpl(
+                    dfaSpecification, product);
+            System.out.println("Specification is simulated by product: "
+                    + simulationRelation.checkIfSimulationRelationExists());
+            return;
+        } else if (options.getCommand().contains("build")) {
+            DOTReader drReader = new DOTReader(
+                    Paths.get("ASML_testCase", "custom", "specification.dot"));
+            CompactDFA<String> cDFALOEW = drReader.createMachine();
+            FastDFA<String> loew = new FastDFA<String>(
+                    cDFALOEW.getInputAlphabet());
+            loew.clear();
+            AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
+                    cDFALOEW, cDFALOEW.getInputAlphabet(), loew);
+            FileOutputStream loewStream = new FileOutputStream(
+                    "ASML_testCase/custom/specification.cif");
+            CIFWriter.writeCIF(loew, loewStream, "specification", true);
         }
     }
 }

@@ -196,6 +196,22 @@ public class Misc {
         }
     }
 
+    public static FastDFA<String> computeRestrictedProduct(Args options,
+            Set<String> constraints) throws Exception {
+        FileOutputStream stream = new FileOutputStream("prod_Bharat.cif",
+                false);
+        writeDecomposition(options,
+                options.getInFiles().subList(1, options.getInFiles().size()),
+                stream, constraints, false, null);
+        
+        FileUtils.deleteQuietly(new File("prod_Bharat_bkp.cif"));
+        FileUtils.copyFile(new File("prod_Bharat.cif"),
+                new File("prod_Bharat_bkp.cif"));
+        
+        CIF3operations.exploreStatespaceCIF("prod_Bharat.cif", false);
+        return BharatCustomCIFReader.readCIF("prod_Bharat.cif");
+    }
+
     /**
      * Write the entire decomposition results to the specified outfile
      * 

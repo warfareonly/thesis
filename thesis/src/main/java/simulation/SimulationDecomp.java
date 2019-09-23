@@ -62,6 +62,7 @@ public class SimulationDecomp {
 
     public SimulationDecomp(Args options) throws Exception {
         this.options = options;
+        this.requirements = new HashSet<String>();
         this.specification = BharatCustomCIFReader
                 .readCIF(options.getInFiles().get(0));
         this.subSpecificationsMap = Misc
@@ -72,6 +73,18 @@ public class SimulationDecomp {
                                 options.getInFiles().subList(1,
                                         options.getInFiles().size()),
                                 "product.cif"));
+
+        // Compute the productToSub-specificationMap
+        this.productToSubSpecificationMap = computeProductToSubSpecificationsMap();
+
+//        ParallelCompositionRequirements parallelReq = new ParallelCompositionRequirements(
+//                this.specification, this.product,
+//                this.productToSubSpecificationMap);
+
+//        this.requirements.addAll(parallelReq.getRequirements());
+
+//        this.product = Misc.computeRestrictedProduct(options,
+//                this.requirements);
 
         SimulationMonitor simMon = new SimulationMonitor(specification,
                 product);
@@ -86,6 +99,13 @@ public class SimulationDecomp {
         AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
                 this.monitor, this.monitor.getInputAlphabet(), this.dfaMonitor);
 
+        // Restore original product!
+        this.product = BharatCustomCIFReader
+                .readCIF(
+                        CIF3operations.parallelCompositionCIF(
+                                options.getInFiles().subList(1,
+                                        options.getInFiles().size()),
+                                "product.cif"));
         this.productMonitorComposition = computeProductMonitorComposition();
 
         FastNFA<String> prodMon = new FastNFA<String>(
@@ -97,7 +117,8 @@ public class SimulationDecomp {
 
         this.specificationToProductMonitorRelation = (new SimulationRelationImpl(
                 specification, prodMon))
-                        .getRelation().parallelStream()
+//                .getUnrestrictedRelation().stream()
+                .getRelation().stream()
                         .map(x -> new Pair<Integer, Integer>(
                                 x.getValue0().getId(), x.getValue1().getId()))
                         .collect(Collectors.toSet());
@@ -115,9 +136,6 @@ public class SimulationDecomp {
                         .map(x -> new Pair<Integer, Integer>(
                                 x.getValue0().getId(), x.getValue1().getId()))
                         .collect(Collectors.toSet());
-
-        // Compute the productToSub-specificationMap
-        this.productToSubSpecificationMap = computeProductToSubSpecificationsMap();
 
         // Compute the productMonitorToSubSpecifications map
         this.productMonitorToSubSpecificationMap = computeProductMonitorToSubSpecificationsMap();

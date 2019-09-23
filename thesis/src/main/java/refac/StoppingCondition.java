@@ -45,6 +45,8 @@ public class StoppingCondition {
                 // }
             }
         }
+        
+        // Random seed 12 was the reason for the failing case. 
         Collections.shuffle(listMergePairs, (new Random())); // 33 gives a 3-state monitor
 
         // System.out.println("New stopping conditions created!");

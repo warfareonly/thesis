@@ -9,8 +9,6 @@ import java.util.List;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 
-import smDecomposition.MonolithicMonitor.IterationOrder;
-
 /**
  * @author Bharat Garhewal
  *
@@ -65,24 +63,6 @@ public class Args {
      */
     public String getOutFile() {
         return outFile;
-    }
-
-    /**
-     * 
-     * @return iteration order enum
-     */
-    public IterationOrder getIterationOrder() {
-        // Select the proper iteration order for the monitor transition cover
-        switch (iterationOrder) {
-        case ("fwd"):
-            return IterationOrder.FWD;
-        case ("bwd"):
-            return IterationOrder.BWD;
-        case ("rnd"):
-            return IterationOrder.RND;
-        default:
-            return IterationOrder.FWD;
-        }
     }
 
 }
