@@ -54,7 +54,7 @@ public class StoppingCondition {
      * 
      * @return
      */
-    public List<Pair<FastNFAState, FastNFAState>> getAllPairs() {
-        return this.listMergePairs;
+    public Integer getNumPairs() {
+        return this.listMergePairs.size();
     }
 }
