@@ -44,7 +44,7 @@ public class SimulationMonitor {
 
     public void computeMonitor() throws Exception {
         Integer count = 0;
-        Integer total_count = stopCondition.getAllPairs().size();
+        Integer total_count = stopCondition.getNumPairs();
         while (true) {
             // Declare a safe monitor variable
             FastNFA<String> monitorSafe = new FastNFA<String>(
@@ -54,12 +54,10 @@ public class SimulationMonitor {
             AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
                     this.monitor, this.monitor.getInputAlphabet(), monitorSafe);
 
-
             Pair<FastNFAState, FastNFAState> statePairToMerge = this.stopCondition
                     .getNextPairOfStates();
-            System.out.println(statePairToMerge + " count = " + count
-                    + " total = " + total_count);
-            
+            System.out.println("count " + count + " of " + total_count);
+
             // Ran out of state-pairs, so return the current monitor.
             if (null == statePairToMerge) {
                 return;
@@ -77,8 +75,9 @@ public class SimulationMonitor {
             boolean isMonitorCorrect = MonitorSanityChecker.checkMonitor(
                     this.specification, this.product, this.monitor);
             if (!isMonitorCorrect) {
-                System.out.println(
-                        "Since the monitor was incorrect, we are rolling back to the previous one");
+                // System.out.println(
+                // "Since the monitor was incorrect, we are rolling back to the
+                // previous one");
                 this.monitor = new FastNFA<String>(
                         monitorSafe.getInputAlphabet());
                 AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
@@ -92,7 +91,7 @@ public class SimulationMonitor {
             } else {
                 count = 0;
                 stopCondition = new StoppingCondition(monitor);
-                total_count = stopCondition.getAllPairs().size();
+                total_count = stopCondition.getNumPairs();
             }
         }
 
