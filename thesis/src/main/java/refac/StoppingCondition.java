@@ -4,18 +4,15 @@
 package refac;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.javatuples.Pair;
 
 import net.automatalib.automata.fsa.impl.FastNFA;
 import net.automatalib.automata.fsa.impl.FastNFAState;
-import net.automatalib.util.automata.fsa.NFAs;
 
 /**
  * Provides a stopping criteria for the monitor state-merging procedure and also
