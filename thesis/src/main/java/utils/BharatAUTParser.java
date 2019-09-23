@@ -1,4 +1,4 @@
-/* Hacked from Automatalib's InternalAUT Parise
+/* Hacked from Automatalib's InternalAUT Parser
  */
 package utils;
 
@@ -14,9 +14,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import net.automatalib.automata.fsa.impl.compact.CompactNFA;
-import net.automatalib.automata.simple.SimpleAutomaton;
 import net.automatalib.commons.util.IOUtil;
-import net.automatalib.serialization.InputModelData;
 import net.automatalib.words.Alphabet;
 import net.automatalib.words.impl.Alphabets;
 

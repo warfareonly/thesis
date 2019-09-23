@@ -21,10 +21,9 @@ import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.FastNFA;
 import net.automatalib.automata.fsa.impl.FastNFAState;
-import utils.Misc;
 
 /**
- * @author bgarhewa
+ * @author Bharat Garhewal
  *
  */
 public class SimulationRelationImpl implements SimulationRelation {
@@ -59,9 +58,6 @@ public class SimulationRelationImpl implements SimulationRelation {
                 this.specification, this.product, this.simulationRelation);
 
         this.isSimulation = checkSimulation();
-
-        System.out.println("SimRelImpl simulation relation as map: "
-                + this.getSimulationRelationAsMap());
     }
 
     private boolean checkSimulation() {
@@ -74,21 +70,18 @@ public class SimulationRelationImpl implements SimulationRelation {
         Set<Pair<FastDFAState, FastNFAState>> tempRelation = cartesianProductOfStates(
                 this.specification.getStates(), this.product.getStates());
 
-        // System.out.println(tempRelation);
         // R' := R
         Set<Pair<FastDFAState, FastNFAState>> tempRelationPrime = new HashSet<>(
                 tempRelation);
-        // System.out.println("TempRelPrime : " + tempRelationPrime.size());
 
         do {
             // R := R'
             tempRelation.clear();
             tempRelation = new HashSet<>(tempRelationPrime);
-            // System.out.println("TempRel : " + tempRelation.size());
+
             Set<Pair<FastDFAState, FastNFAState>> rho = new HashSet<>();
 
             // The for-loop is to calculate rho
-            // System.out.println(tempRelationPrime);
             // For every pair of states in R'
             for (Pair<FastDFAState, FastNFAState> pair : tempRelation) {
 
@@ -99,7 +92,6 @@ public class SimulationRelationImpl implements SimulationRelation {
 
                 if (!succForProduct.keySet()
                         .containsAll(succForSpecification.keySet())) {
-                    // System.out.println(pair);
                     rho.add(pair);
                 } else {
                     for (String inputSpec : succForSpecification.keySet()) {
@@ -120,10 +112,8 @@ public class SimulationRelationImpl implements SimulationRelation {
                     }
                 }
             }
-            // System.out.println("Rho : " + rho.size());
             tempRelationPrime.removeAll(rho);
         } while (!tempRelation.equals(tempRelationPrime));
-        // System.out.println("R : " + tempRelation);
 
         for (Pair<FastDFAState, FastNFAState> x : tempRelation) {
             this.simulationRelation

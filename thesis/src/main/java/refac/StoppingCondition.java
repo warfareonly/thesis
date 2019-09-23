@@ -33,28 +33,17 @@ public class StoppingCondition {
                 .collect(Collectors.toList());
         for (int i = 0; i < listOfStates.size(); i++) {
             for (int j = i + 1; j < listOfStates.size(); j++) {
-                // listMergePairs.add(
-                // new Pair<>(listOfStates.get(i), listOfStates.get(j)));
-                // if
-                // (!monitor.getInitialStates().contains(monitor.getState(i))) {
                 listMergePairs.add(
                         new Pair<>(listOfStates.get(i), listOfStates.get(j)));
-                // } else {
-                // listMergePairs.add(new Pair<>(listOfStates.get(i),
-                // listOfStates.get(j)));
-                // }
             }
         }
-        
-        // Random seed 12 was the reason for the failing case. 
-        Collections.shuffle(listMergePairs, (new Random())); // 33 gives a 3-state monitor
 
-        // System.out.println("New stopping conditions created!");
-        // System.out.println("Combinations are: " + listMergePairs);
+        // Random seed 12 was the reason for the failing case.
+        Collections.shuffle(listMergePairs, (new Random())); // 33 gives a
+                                                             // 3-state monitor
     }
 
     public Pair<FastNFAState, FastNFAState> getNextPairOfStates() {
-        // return listMergePairs.isEmpty() ? null : listMergePairs.get(0);
         if (listMergePairs.isEmpty()) {
             return null;
         } else {

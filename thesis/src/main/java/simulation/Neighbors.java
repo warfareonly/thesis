@@ -57,7 +57,6 @@ public class Neighbors {
     public static Map<String, Set<FastNFAState>> getPredecessors(
             FastNFA<String> nfa, FastNFAState currState) {
         Map<String, Set<FastNFAState>> ret = new HashMap<>();
-        // nfa.getInputAlphabet().forEach(x -> ret.put(x, new HashSet<>()));
         for (FastNFAState state : nfa.getStates()) {
 
             for (String input : nfa.getInputAlphabet()) {
@@ -68,34 +67,25 @@ public class Neighbors {
 
                 if (null != successors && !successors.isEmpty()
                         && successors.size() != 0) {
-                    // System.out.println(successors + " " + currState);
                     if (successors.contains(currState.getId())) {
-                        // System.out.println(
-                        // "hello " + successors + " " + currState.getId());
                         if (!ret.containsKey(input)) {
                             Set<FastNFAState> x = new HashSet<FastNFAState>();
                             x.add(state);
                             ret.put(input, x);
                         }
                         ret.get(input).add(state);
-                        // if (ret.containsKey(input)) {
-                        // ret.get(input).add(state);
-                        // } else {
-                        // ret.put(input, new HashSet<>());
-                        // ret.get(input).add(state);
-                        // }
                     }
                 }
             }
         }
-        // System.out.println(ret);
+
         Map<String, Set<FastNFAState>> realRet = new HashMap<>();
         for (String k : ret.keySet()) {
             if (!ret.get(k).isEmpty()) {
                 realRet.put(k, ret.get(k));
             }
         }
-        // System.out.println(realRet);
+
         return realRet;
     }
 

@@ -1,12 +1,5 @@
 package simulation;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.javatuples.Pair;
 
 import monitors.ModifyMonitorMonolithic;
@@ -16,7 +9,6 @@ import net.automatalib.automata.fsa.impl.FastNFAState;
 import net.automatalib.util.automata.copy.AutomatonCopyMethod;
 import net.automatalib.util.automata.copy.AutomatonLowLevelCopy;
 import refac.StoppingCondition;
-import utils.Misc;
 
 /**
  * 
@@ -27,8 +19,6 @@ public class SimulationMonitor {
 
     private FastDFA<String> specification;
     private FastDFA<String> product;
-    private Map<Integer, Set<Integer>> simRelSpecToProd;
-    private Map<Integer, Set<Integer>> simRelSpecToProdMon;
     private FastNFA<String> monitor;
     private StoppingCondition stopCondition;
 
@@ -64,24 +54,14 @@ public class SimulationMonitor {
             AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
                     this.monitor, this.monitor.getInputAlphabet(), monitorSafe);
 
-            // int limit = (int) (20 * Math.random()) + 1;
-            // List<Pair<FastNFAState, FastNFAState>> setPairs = new
-            // LinkedList<Pair<FastNFAState, FastNFAState>>();
-            // for (int i = 0; i < limit; i++) {
-            // Pair<FastNFAState, FastNFAState> nextPair = this.stopCondition
-            // .getNextPairOfStates();
-            // if (null == nextPair) {
-            // break;
-            // }
-            // setPairs.add(this.stopCondition.getNextPairOfStates());
-            // }
+
             Pair<FastNFAState, FastNFAState> statePairToMerge = this.stopCondition
                     .getNextPairOfStates();
             System.out.println(statePairToMerge + " count = " + count
                     + " total = " + total_count);
+            
             // Ran out of state-pairs, so return the current monitor.
             if (null == statePairToMerge) {
-                // if (setPairs.size() == 0) {
                 return;
             } else {
                 ModifyMonitorMonolithic mod = new ModifyMonitorMonolithic(
@@ -108,7 +88,6 @@ public class SimulationMonitor {
                         this.monitor);
                 // To check for the correct monitor after the backtracking
                 MonitorSanityChecker.writeCompositionOut(product, this.monitor);
-                // Misc.printMonitor(monitor);
                 count++;
             } else {
                 count = 0;

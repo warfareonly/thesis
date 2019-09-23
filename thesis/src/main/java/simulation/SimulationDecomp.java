@@ -5,9 +5,7 @@ package simulation;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.HashMap;
@@ -16,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
@@ -25,14 +22,11 @@ import org.javatuples.Pair;
 import net.automatalib.automata.fsa.impl.FastDFA;
 import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.automata.fsa.impl.FastNFA;
-import net.automatalib.automata.fsa.impl.FastNFAState;
 import net.automatalib.util.automata.copy.AutomatonCopyMethod;
 import net.automatalib.util.automata.copy.AutomatonLowLevelCopy;
 import net.automatalib.util.automata.cover.Covers;
 import net.automatalib.words.Alphabet;
 import net.automatalib.words.Word;
-import net.automatalib.words.WordBuilder;
-import nl.tue.cif.v3x0x0.common.CifEvalException;
 import utils.Args;
 import utils.BharatCustomCIFReader;
 import utils.BharatCustomCIFWriter;
@@ -45,7 +39,6 @@ import utils.Misc;
  */
 public class SimulationDecomp {
 
-    private Args options;
     private FastDFA<String> specification;
     private Map<String, FastDFA<String>> subSpecificationsMap;
     private FastDFA<String> product;
@@ -61,7 +54,6 @@ public class SimulationDecomp {
     private Set<String> requirements = new HashSet<>();
 
     public SimulationDecomp(Args options) throws Exception {
-        this.options = options;
         this.requirements = new HashSet<String>();
         this.specification = BharatCustomCIFReader
                 .readCIF(options.getInFiles().get(0));
@@ -77,15 +69,6 @@ public class SimulationDecomp {
         // Compute the productToSub-specificationMap
         this.productToSubSpecificationMap = computeProductToSubSpecificationsMap();
 
-//        ParallelCompositionRequirements parallelReq = new ParallelCompositionRequirements(
-//                this.specification, this.product,
-//                this.productToSubSpecificationMap);
-
-//        this.requirements.addAll(parallelReq.getRequirements());
-
-//        this.product = Misc.computeRestrictedProduct(options,
-//                this.requirements);
-
         SimulationMonitor simMon = new SimulationMonitor(specification,
                 product);
         this.monitor = new FastNFA<String>(
@@ -99,13 +82,14 @@ public class SimulationDecomp {
         AutomatonLowLevelCopy.copy(AutomatonCopyMethod.STATE_BY_STATE,
                 this.monitor, this.monitor.getInputAlphabet(), this.dfaMonitor);
 
-        // Restore original product!
-        this.product = BharatCustomCIFReader
-                .readCIF(
-                        CIF3operations.parallelCompositionCIF(
-                                options.getInFiles().subList(1,
-                                        options.getInFiles().size()),
-                                "product.cif"));
+        // // Restore original product!
+        // this.product = BharatCustomCIFReader
+        // .readCIF(
+        // CIF3operations.parallelCompositionCIF(
+        // options.getInFiles().subList(1,
+        // options.getInFiles().size()),
+        // "product.cif"));
+
         this.productMonitorComposition = computeProductMonitorComposition();
 
         FastNFA<String> prodMon = new FastNFA<String>(
@@ -117,8 +101,8 @@ public class SimulationDecomp {
 
         this.specificationToProductMonitorRelation = (new SimulationRelationImpl(
                 specification, prodMon))
-//                .getUnrestrictedRelation().stream()
-                .getRelation().stream()
+                        // .getUnrestrictedRelation().stream()
+                        .getRelation().stream()
                         .map(x -> new Pair<Integer, Integer>(
                                 x.getValue0().getId(), x.getValue1().getId()))
                         .collect(Collectors.toSet());
@@ -161,13 +145,6 @@ public class SimulationDecomp {
             String requirement = "invariant " + event + " needs ";
             // Do not "block" anything where there is nothing to be blocked!
             if (!locationsToBlock.isEmpty()) {
-                // for (Integer productMonitorLocation : locationsToBlock) {
-                // Integer monitorLocation = this.productMonitorToMonitorMap
-                // .get(productMonitorLocation);
-                // Map<String, Integer> subSpecificationsLocations =
-                // this.productMonitorToSubSpecificationMap
-                // .get(productMonitorLocation);
-                // }
                 String req = Requirements.makeRequirement(locationsToBlock,
                         this.productMonitorToMonitorMap,
                         this.productMonitorToSubSpecificationMap);
