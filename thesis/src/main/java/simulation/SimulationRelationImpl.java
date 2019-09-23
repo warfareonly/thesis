@@ -177,13 +177,13 @@ public class SimulationRelationImpl implements SimulationRelation {
                             .flatMap(c -> c.stream())
                             .collect(Collectors.toSet());
                     if (!map.get(specificationDestinationState)
-                            .containsAll(setProductDestinationStates)) {
+                            .equals(setProductDestinationStates)) {
                         return false;
                     }
-
                 }
             }
         }
+        
         // if (!map.values().stream().allMatch(x -> x.size() == 1)) {
         // return false;
         // }
