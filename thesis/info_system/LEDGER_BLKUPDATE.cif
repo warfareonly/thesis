@@ -1,0 +1,13 @@
+
+controllable vblk_broadcasted, vblk_chained, nxt_svblk_rdy, new_blk_rcvd, nxt_blkp_started;
+
+plant LEDGER_BLKUPDATE:
+    location s1:
+        initial; marked;
+        edge nxt_svblk_rdy, new_blk_rcvd goto s2;
+    location s2:
+        edge vblk_broadcasted, vblk_chained goto s3;
+        edge nxt_svblk_rdy, new_blk_rcvd;
+    location s3:
+        edge nxt_blkp_started goto s1;
+end

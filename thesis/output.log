@@ -1,79 +1,195 @@
 merge.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-cif3dfamin.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-[s4, s7] count = 0 total = 36
-cif3explorer.bat
+WARNING: File "product_composition.cif": Semantic warning at line 19, column 2: Monitoring all events in the alphabet of automaton "mon" has no effect, as its alphabet is empty.
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s3=[s3], s4=[s9], s0=[s0], s8=[s25], s2=[s1], s7=[s22], s6=[s15], s1=[s2], s5=[s7]}
-Merge was okay: true
-[[s4, s9], [s2, s1], [s7, s22], [s1, s2], [s6, s15], [s0, s0], [s3, s3], [s8, s25], [s5, s7]]
-[]
-[s2, s6] count = 0 total = 28
-cif3explorer.bat
+count 0 of 45
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s3=[s3], s4=[s9], s0=[s0], s8=[s27], s2=[s1], s7=[s24], s6=[s15], s1=[s2], s5=[s7]}
-Merge was okay: true
-[[s0, s0], [s3, s3], [s1, s2], [s8, s27], [s2, s1], [s4, s9], [s5, s7], [s7, s24], [s6, s15]]
-[]
-[s4, s5] count = 0 total = 21
-cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s3=[s3], s4=[s9], s0=[s0], s8=[s26], s7=[s23], s2=[s1], s6=[s15], s5=[s7], s1=[s2]}
-Merge was okay: true
-[[s0, s0], [s5, s7], [s8, s26], [s4, s9], [s1, s2], [s6, s15], [s7, s23], [s3, s3], [s2, s1]]
-[]
-[s1, s2] count = 0 total = 15
-cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s3=[s3], s4=[s9], s8=[s27], s0=[s0], s7=[s24], s2=[s1], s6=[s15], s5=[s7], s1=[s2]}
-Merge was okay: true
-[[s3, s3], [s4, s9], [s7, s24], [s5, s7], [s6, s15], [s8, s27], [s0, s0], [s2, s1], [s1, s2]]
-[]
-[s0, s4] count = 0 total = 10
-cif3explorer.bat
+count 1 of 45
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s3=[s3], s4=[s9], s8=[s24], s0=[s0], s7=[s22], s2=[s1], s6=[s14], s1=[s2], s5=[s7]}
-Merge was okay: true
-[[s1, s2], [s8, s24], [s7, s22], [s4, s9], [s6, s14], [s5, s7], [s0, s0], [s3, s3], [s2, s1]]
-[]
-[s0, s2] count = 0 total = 6
-cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s3=[s3], s4=[s9], s8=[s20], s0=[s0], s7=[s19], s2=[s1], s6=[s13], s1=[s2], s5=[s7]}
-Merge was okay: true
-[[s8, s20], [s7, s19], [s1, s2], [s0, s0], [s6, s13], [s3, s3], [s4, s9], [s2, s1], [s5, s7]]
-[]
-[s0, s2] count = 0 total = 3
-cif3explorer.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s3=[s3], s4=[s9], s8=[s15], s0=[s0], s2=[s1], s7=[s14], s6=[s10], s5=[s7], s1=[s2]}
-Merge was okay: true
-[[s5, s7], [s8, s15], [s3, s3], [s6, s10], [s4, s9], [s0, s0], [s2, s1], [s1, s2], [s7, s14]]
-[]
-[s0, s1] count = 0 total = 1
-cif3explorer.bat
-WARNING: File "product_composition.cif": Semantic warning at line 55, column 2: Monitoring all events in the alphabet of automaton "mon" has no effect, as its alphabet is empty.
+count 2 of 45
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s3=[s3], s4=[s7], s8=[s5], s0=[s0], s7=[s4], s2=[s1], s6=[s8], s1=[s2], s5=[s6]}
-Merge was okay: true
-[[s4, s7], [s1, s2], [s5, s6], [s6, s8], [s8, s5], [s3, s3], [s0, s0], [s7, s4], [s2, s1]]
-[]
-null count = 0 total = 0
-cif3explorer.bat
-WARNING: File "product_composition.cif": Semantic warning at line 55, column 2: Monitoring all events in the alphabet of automaton "mon" has no effect, as its alphabet is empty.
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-SimRelImpl simulation relation as map: {s3=[s3], s4=[s7], s8=[s5], s0=[s0], s7=[s4], s2=[s1], s6=[s8], s1=[s2], s5=[s6]}
-SimRelImpl simulation relation as map: {s8=[s8], s2=[s2], s3=[s3], s1=[s1], s4=[s5], s6=[s7], s0=[s0], s5=[s4], s7=[s6]}
-{foodA=[2, 6], drinksA=[2, 3], drinksB=[1, 3], foodB=[1, 7], gotoTableA=[4], gotoTableB=[5], kitchenB=[6], kitchenA=[7]}
-cif3explorer.bat
-WARNING: File "waitresses/decomp/decomposed.cif": Semantic warning at line 40, column 2: Monitoring all events in the alphabet of automaton "globalMonitor" has no effect, as its alphabet is empty.
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-cif3dfamin.bat
+count 3 of 45
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
-[waitresses/decomp/decomposed.cif, waitresses/specification.cif]
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 4 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 5 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 6 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 7 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 8 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 9 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 10 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 11 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 12 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 13 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 14 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 15 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 16 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 17 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 18 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 19 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 20 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 21 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 22 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 23 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 24 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 25 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 26 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 27 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 28 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 29 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 30 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 31 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 32 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 33 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 34 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 35 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 36 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 37 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 38 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 39 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 40 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 41 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 42 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 43 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 44 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+count 45 of 45
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+{prepareB=[1, 3, 4, 5, 7, 8, 9], prepareA=[2, 3, 4, 5, 6, 8, 9], switchB=[0, 1, 2, 3, 5, 6, 7, 8, 9], eatB=[0, 1, 2, 3, 4, 6, 8], switchA=[0, 1, 2, 4, 5, 6, 7, 8, 9], eatA=[0, 1, 2, 3, 4, 7, 9]}
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
+[chefs/simulation/decomposed.cif, chefs/simulation/specification.cif]
 merge.bat
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true
 Picked up _JAVA_OPTIONS: -Djava.net.preferIPv4Stack=true

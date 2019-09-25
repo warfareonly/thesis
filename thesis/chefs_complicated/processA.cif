@@ -1,0 +1,16 @@
+controllable prepareA;
+controllable eat;
+controllable switchA;
+automaton processA:
+  alphabet prepareA, eat, switchA;
+  location s1:
+    initial;
+    marked;
+    edge prepareA goto s2;
+  location s2:
+    marked;
+    edge switchA goto s3;
+  location s3:
+    marked;
+    edge eat goto s1;
+end

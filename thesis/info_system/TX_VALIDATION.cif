@@ -1,0 +1,9 @@
+controllable new_tx_rcd, tx_vdx_dn;
+
+plant TX_VALIDATION:
+    location s1:
+        initial; marked;
+        edge new_tx_rcd goto s2;
+    location s2:
+        edge tx_vdx_dn goto s1;
+end

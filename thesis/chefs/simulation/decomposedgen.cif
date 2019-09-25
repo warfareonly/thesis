@@ -1,0 +1,76 @@
+controllable prepareA;
+controllable eatA;
+controllable switchA;
+automaton processA:
+  alphabet prepareA, eatA, switchA;
+  location s1:
+    initial;
+    marked;
+    edge prepareA goto s1;
+    edge switchA goto s1;
+    edge eatA goto s1;
+end
+
+controllable prepareB;
+controllable eatB;
+controllable switchB;
+automaton processB:
+  alphabet prepareB, eatB, switchB;
+  location s1:
+    initial;
+    marked;
+    edge prepareB goto s1;
+    edge eatB goto s1;
+    edge switchB goto s1;
+end
+
+automaton globalMonitor:
+	monitor;
+	location s1:
+		initial;
+		marked;
+		edge prepareA goto s2;
+		edge prepareB goto s3;
+	location s2:
+		marked;
+		edge prepareB goto s4;
+	location s3:
+		marked;
+		edge prepareA goto s4;
+	location s4:
+		marked;
+		edge switchA goto s5;
+	location s5:
+		marked;
+		edge switchB goto s6;
+	location s6:
+		marked;
+		edge eatA goto s7;
+		edge eatB goto s8;
+	location s7:
+		marked;
+		edge prepareA goto s9;
+		edge eatB goto s1;
+	location s8:
+		marked;
+		edge prepareB goto s10;
+		edge eatA goto s1;
+	location s9:
+		marked;
+		edge eatB goto s2;
+	location s10:
+		marked;
+		edge eatA goto s3;
+end
+invariant prepareA needs  not (  globalMonitor.s2 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s4 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s5 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s6 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s8 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s10 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s9 and  processA.s1 and  processB.s1 ) ;
+
+invariant eatA needs  not (  globalMonitor.s1 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s3 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s2 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s4 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s5 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s7 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s9 and  processA.s1 and  processB.s1 ) ;
+
+invariant eatB needs  not (  globalMonitor.s1 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s3 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s2 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s4 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s5 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s8 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s10 and  processA.s1 and  processB.s1 ) ;
+
+invariant prepareB needs  not (  globalMonitor.s3 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s4 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s5 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s6 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s7 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s10 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s9 and  processA.s1 and  processB.s1 ) ;
+
+invariant switchB needs  not (  globalMonitor.s1 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s3 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s2 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s4 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s6 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s8 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s7 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s10 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s9 and  processA.s1 and  processB.s1 ) ;
+
+invariant switchA needs  not (  globalMonitor.s1 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s3 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s2 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s5 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s6 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s8 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s7 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s10 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s9 and  processA.s1 and  processB.s1 ) ;
+

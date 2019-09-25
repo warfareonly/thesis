@@ -1,0 +1,24 @@
+controllable prepareA, prepareB, switchA, switchB, eat;
+
+plant specification:
+	location s1:
+		initial;
+		marked;
+		edge prepareA goto s2;
+		edge prepareB goto s3;
+	location s2:
+		marked;
+		edge prepareB goto s4;
+	location s3:
+		marked;
+		edge prepareA goto s4;
+	location s4:
+		marked;
+		edge switchA goto s5;
+	location s5:
+		marked;
+		edge switchB goto s6;
+	location s6:
+		marked;
+		edge eat goto s1;
+end

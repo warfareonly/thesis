@@ -1,0 +1,11 @@
+controllable startTimer;
+controllable timeout;
+automaton Timer:
+  alphabet startTimer, timeout;
+  location s2:
+    edge timeout goto s1;
+  location s1:
+    initial;
+    marked;
+    edge startTimer goto s2;
+end

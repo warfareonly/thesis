@@ -1,0 +1,11 @@
+controllable new_blk_rcvd, nxt_svblk_rdy, tx_vdx_dn;
+
+plant BLK_INPUT:
+    location s1:
+        initial; marked;
+        edge tx_vdx_dn goto s2;
+        edge new_blk_rcvd;
+    location s2:
+        edge nxt_svblk_rdy, new_blk_rcvd goto s1;
+        edge tx_vdx_dn;
+end

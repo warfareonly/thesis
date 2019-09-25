@@ -1,0 +1,78 @@
+// This example is originally from 'Supervisory control of
+// blockchain networks' by Kiam T. Seow
+
+// Plant models
+controllable new_tx_rcd, tx_vdx_dn;
+
+plant TX_VALIDATION:
+    location l1:
+        initial; marked;
+        edge new_tx_rcd goto l2;
+    location l2:
+        edge tx_vdx_dn goto l1;
+end
+
+controllable new_blk_rcvd, nxt_svblk_rdy;
+
+plant BLK_INPUT:
+    location l1:
+        initial; marked;
+        edge tx_vdx_dn goto l2;
+        edge new_blk_rcvd;
+    location l2:
+        edge nxt_svblk_rdy, new_blk_rcvd goto l1;
+        edge tx_vdx_dn;
+end
+
+controllable vblk_broadcasted, vblk_chained, nxt_blkp_started;
+
+plant LEDGER_BLKUPDATE:
+    location l1:
+        initial; marked;
+        edge nxt_svblk_rdy, new_blk_rcvd goto l2;
+    location l2:
+        edge vblk_broadcasted, vblk_chained goto l3;
+        edge nxt_svblk_rdy, new_blk_rcvd;
+    location l3:
+        edge nxt_blkp_started goto l1;
+end
+
+controllable cp_solved;
+
+plant CONSENSUS_FIND:
+    location l1:
+        initial; marked;
+        edge new_blk_rcvd, cp_solved goto l2;
+        edge nxt_blkp_started;
+    location l2:
+        edge nxt_blkp_started goto l1;
+end
+
+// Requirements
+
+// "Take-my-block"
+requirement R1:
+    location l1:
+        initial; marked;
+        edge nxt_svblk_rdy goto l2;
+        edge new_blk_rcvd, vblk_broadcasted, nxt_blkp_started;
+    location l2:
+        edge new_blk_rcvd goto l1;
+        edge cp_solved goto l3;
+    location l3:
+        edge vblk_broadcasted goto l4;
+    location l4:
+        edge nxt_blkp_started goto l1;
+end
+
+// "Take-your-block"
+requirement R2:
+    location l1:
+        initial; marked;
+        edge new_blk_rcvd goto l2;
+        edge vblk_chained, nxt_blkp_started;
+    location l2:
+        edge vblk_chained goto l3;
+    location l3:
+        edge nxt_blkp_started goto l1;
+end

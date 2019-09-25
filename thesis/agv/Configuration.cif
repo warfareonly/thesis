@@ -1,0 +1,18 @@
+controllable setGreen;
+controllable setLeader;
+controllable setBlue;
+controllable join;
+automaton Configuration:
+  alphabet setGreen, setLeader, setBlue, join;
+  location s1:
+    initial;
+    marked;
+    edge setBlue goto s2;
+    edge setLeader goto s3;
+    edge setGreen goto s2;
+  location s2:
+    marked;
+    edge join goto s3;
+  location s3:
+    marked;
+end

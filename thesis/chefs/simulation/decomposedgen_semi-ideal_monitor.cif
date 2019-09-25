@@ -1,0 +1,53 @@
+controllable prepareA;
+controllable eatA;
+controllable switchA;
+automaton processA:
+  alphabet prepareA, eatA, switchA;
+  location s1:
+    initial;
+    marked;
+    edge prepareA goto s2;
+  location s2:
+    marked;
+    edge switchA goto s3;
+  location s3:
+    marked;
+    edge eatA goto s1;
+end
+
+controllable prepareB;
+controllable eatB;
+controllable switchB;
+automaton processB:
+  alphabet prepareB, eatB, switchB;
+  location s1:
+    initial;
+    marked;
+    edge prepareB goto s2;
+    edge eatB goto s1;
+  location s2:
+    marked;
+    edge switchB goto s3;
+  location s3:
+    marked;
+    edge eatB goto s1;
+end
+
+automaton globalMonitor:
+	monitor;
+	location s1:
+		initial;
+		marked;
+		edge prepareB goto s2;
+	location s2:
+		marked;
+		edge switchA goto s1;
+end
+invariant eatB needs  not (  globalMonitor.s1 and  processA.s1 and  processB.s1 ) and not (  globalMonitor.s1 and  processA.s2 and  processB.s1 ) and not (  globalMonitor.s1 and  processA.s3 and  processB.s1 ) ;
+
+invariant eatA needs  not (  globalMonitor.s1 and  processA.s3 and  processB.s2 ) ;
+
+invariant switchB needs  not (  globalMonitor.s2 and  processA.s1 and  processB.s2 ) and not (  globalMonitor.s2 and  processA.s2 and  processB.s2 ) and not (  globalMonitor.s2 and  processA.s3 and  processB.s2 ) ;
+
+invariant switchA needs  not (  globalMonitor.s1 and  processA.s2 and  processB.s3 ) and not (  globalMonitor.s1 and  processA.s2 and  processB.s1 ) ;
+

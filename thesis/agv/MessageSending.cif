@@ -1,0 +1,23 @@
+controllable sendBG;
+controllable sendBB;
+controllable sendOG;
+controllable sendOB;
+controllable sendAG;
+controllable sendAB;
+controllable sendE;
+controllable msgStop;
+automaton MessageSending:
+  alphabet sendBG, sendBB, sendOG, sendOB, sendAG, sendAB, sendE, msgStop;
+  location s2:
+    edge msgStop goto s1;
+  location s1:
+    initial;
+    marked;
+    edge sendE goto s2;
+    edge sendAB goto s2;
+    edge sendAG goto s2;
+    edge sendOB goto s2;
+    edge sendOG goto s2;
+    edge sendBB goto s2;
+    edge sendBG goto s2;
+end

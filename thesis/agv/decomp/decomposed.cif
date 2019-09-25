@@ -1,0 +1,1775 @@
+controllable setGreen;
+controllable setLeader;
+controllable setBlue;
+controllable join;
+controllable ignoreOG;
+controllable ignoreOB;
+controllable getMessage;
+controllable receiveBG;
+controllable receiveBB;
+controllable receiveOG;
+controllable receiveOB;
+controllable receiveAG;
+controllable receiveAB;
+controllable sendBG;
+controllable sendBB;
+controllable sendOG;
+controllable sendOB;
+controllable sendAG;
+controllable sendAB;
+controllable sendE;
+controllable msgStop;
+controllable moveFW;
+controllable turnCW;
+controllable turnCCW;
+controllable moveEnded;
+controllable moveStop;
+controllable startTimer;
+controllable timeout;
+automaton decomposed:
+  alphabet setGreen, setLeader, setBlue, join, ignoreOG, ignoreOB, getMessage, receiveBG, receiveBB, receiveOG, receiveOB, receiveAG, receiveAB, sendBG, sendBB, sendOG, sendOB, sendAG, sendAB, sendE, msgStop, moveFW, turnCW, turnCCW, moveEnded, moveStop, startTimer, timeout;
+  location s1:
+    edge getMessage goto s2;
+    edge setBlue goto s3;
+    edge setLeader goto s4;
+    edge setGreen goto s5;
+  location s2:
+    edge receiveAB goto s1;
+    edge receiveAG goto s1;
+    edge receiveOB goto s1;
+    edge receiveOG goto s1;
+    edge receiveBB goto s1;
+    edge receiveBG goto s1;
+    edge setBlue goto s13;
+    edge setLeader goto s29;
+    edge setGreen goto s30;
+  location s3:
+    edge turnCCW goto s11;
+    edge turnCW goto s11;
+    edge moveFW goto s11;
+    edge sendBB goto s12;
+    edge getMessage goto s13;
+  location s4:
+    edge getMessage goto s29;
+  location s5:
+    edge turnCCW goto s90;
+    edge turnCW goto s90;
+    edge moveFW goto s90;
+    edge sendBG goto s91;
+    edge getMessage goto s30;
+  location s6:
+    initial;
+    marked;
+    edge startTimer goto s1;
+    edge getMessage goto s7;
+    edge setBlue goto s8;
+    edge setLeader goto s9;
+    edge setGreen goto s10;
+  location s7:
+    edge startTimer goto s2;
+    edge receiveAB goto s6;
+    edge receiveAG goto s6;
+    edge receiveOB goto s6;
+    edge receiveOG goto s6;
+    edge receiveBB goto s6;
+    edge receiveBG goto s6;
+    edge setBlue goto s16;
+    edge setLeader goto s17;
+    edge setGreen goto s18;
+  location s8:
+    marked;
+    edge startTimer goto s3;
+    edge turnCCW goto s14;
+    edge turnCW goto s14;
+    edge moveFW goto s14;
+    edge sendBB goto s15;
+    edge getMessage goto s16;
+  location s9:
+    marked;
+    edge startTimer goto s4;
+    edge getMessage goto s17;
+  location s10:
+    marked;
+    edge startTimer goto s5;
+    edge turnCCW goto s88;
+    edge turnCW goto s88;
+    edge moveFW goto s88;
+    edge sendBG goto s89;
+    edge getMessage goto s18;
+  location s11:
+    edge moveEnded goto s3;
+    edge sendBB goto s264;
+    edge getMessage goto s95;
+  location s12:
+    edge timeout goto s242;
+    edge turnCCW goto s264;
+    edge turnCW goto s264;
+    edge moveFW goto s264;
+    edge getMessage goto s96;
+  location s13:
+    edge turnCCW goto s95;
+    edge turnCW goto s95;
+    edge moveFW goto s95;
+    edge sendBB goto s96;
+    edge receiveAB goto s3;
+    edge receiveAG goto s3;
+    edge receiveOB goto s97;
+    edge receiveOG goto s3;
+    edge receiveBB goto s3;
+    edge receiveBG goto s3;
+  location s14:
+    edge startTimer goto s11;
+    edge moveEnded goto s8;
+    edge sendBB goto s231;
+    edge getMessage goto s67;
+  location s15:
+    edge startTimer goto s12;
+    edge turnCCW goto s231;
+    edge turnCW goto s231;
+    edge moveFW goto s231;
+    edge getMessage goto s68;
+  location s16:
+    edge startTimer goto s13;
+    edge turnCCW goto s67;
+    edge turnCW goto s67;
+    edge moveFW goto s67;
+    edge sendBB goto s68;
+    edge receiveAB goto s8;
+    edge receiveAG goto s8;
+    edge receiveOB goto s69;
+    edge receiveOG goto s8;
+    edge receiveBB goto s8;
+    edge receiveBG goto s8;
+  location s17:
+    edge startTimer goto s29;
+    edge receiveAB goto s9;
+    edge receiveAG goto s9;
+    edge receiveOB goto s9;
+    edge receiveOG goto s9;
+    edge receiveBB goto s103;
+    edge receiveBG goto s133;
+  location s18:
+    edge startTimer goto s30;
+    edge turnCCW goto s92;
+    edge turnCW goto s92;
+    edge moveFW goto s92;
+    edge sendBG goto s93;
+    edge receiveAB goto s10;
+    edge receiveAG goto s10;
+    edge receiveOB goto s10;
+    edge receiveOG goto s94;
+    edge receiveBB goto s10;
+    edge receiveBG goto s10;
+  location s19:
+    edge startTimer goto s20;
+    edge turnCCW goto s21;
+    edge turnCW goto s21;
+    edge moveFW goto s21;
+    edge getMessage goto s22;
+    edge join goto s23;
+  location s20:
+    edge timeout goto s48;
+    edge turnCCW goto s82;
+    edge turnCW goto s82;
+    edge moveFW goto s82;
+    edge getMessage goto s35;
+    edge join goto s119;
+  location s21:
+    edge startTimer goto s82;
+    edge moveEnded goto s19;
+    edge getMessage goto s36;
+    edge join goto s83;
+  location s22:
+    edge startTimer goto s35;
+    edge turnCCW goto s36;
+    edge turnCW goto s36;
+    edge moveFW goto s36;
+    edge receiveAB goto s19;
+    edge receiveAG goto s19;
+    edge receiveBB goto s19;
+    edge receiveBG goto s19;
+    edge join goto s37;
+  location s23:
+    edge startTimer goto s119;
+    edge getMessage goto s37;
+  location s24:
+    marked;
+    edge startTimer goto s25;
+    edge turnCCW goto s26;
+    edge turnCW goto s26;
+    edge moveFW goto s26;
+    edge getMessage goto s27;
+    edge join goto s28;
+  location s25:
+    edge turnCCW goto s121;
+    edge turnCW goto s121;
+    edge moveFW goto s121;
+    edge getMessage goto s61;
+    edge join goto s143;
+  location s26:
+    edge startTimer goto s121;
+    edge moveEnded goto s24;
+    edge getMessage goto s59;
+    edge join goto s122;
+  location s27:
+    edge startTimer goto s61;
+    edge turnCCW goto s59;
+    edge turnCW goto s59;
+    edge moveFW goto s59;
+    edge receiveAB goto s24;
+    edge receiveAG goto s24;
+    edge receiveBB goto s24;
+    edge receiveBG goto s24;
+    edge join goto s62;
+  location s28:
+    marked;
+    edge startTimer goto s143;
+    edge getMessage goto s62;
+  location s29:
+    edge receiveAB goto s4;
+    edge receiveAG goto s4;
+    edge receiveOB goto s4;
+    edge receiveOG goto s4;
+    edge receiveBB goto s129;
+    edge receiveBG goto s134;
+  location s30:
+    edge turnCCW goto s98;
+    edge turnCW goto s98;
+    edge moveFW goto s98;
+    edge sendBG goto s99;
+    edge receiveAB goto s5;
+    edge receiveAG goto s5;
+    edge receiveOB goto s5;
+    edge receiveOG goto s100;
+    edge receiveBB goto s5;
+    edge receiveBG goto s5;
+  location s31:
+    edge startTimer goto s32;
+    edge getMessage goto s33;
+    edge ignoreOG goto s34;
+  location s32:
+    edge timeout goto s72;
+    edge getMessage goto s46;
+    edge ignoreOG goto s118;
+  location s33:
+    edge startTimer goto s46;
+    edge receiveAB goto s31;
+    edge receiveAG goto s31;
+    edge receiveOB goto s31;
+    edge receiveOG goto s31;
+    edge ignoreOG goto s47;
+  location s34:
+    edge startTimer goto s118;
+    edge getMessage goto s47;
+  location s35:
+    edge timeout goto s51;
+    edge turnCCW goto s85;
+    edge turnCW goto s85;
+    edge moveFW goto s85;
+    edge receiveAB goto s20;
+    edge receiveAG goto s20;
+    edge receiveBB goto s20;
+    edge receiveBG goto s20;
+    edge join goto s124;
+  location s36:
+    edge startTimer goto s85;
+    edge moveEnded goto s22;
+    edge receiveAB goto s21;
+    edge receiveAG goto s21;
+    edge receiveBB goto s21;
+    edge receiveBG goto s21;
+    edge join goto s86;
+  location s37:
+    edge startTimer goto s124;
+    edge receiveAB goto s150;
+    edge receiveAG goto s150;
+    edge receiveOB goto s150;
+    edge receiveOG goto s150;
+    edge receiveBB goto s150;
+    edge receiveBG goto s150;
+  location s38:
+    marked;
+    edge startTimer goto s39;
+    edge getMessage goto s40;
+    edge ignoreOG goto s41;
+  location s39:
+    edge getMessage goto s79;
+    edge ignoreOG goto s130;
+  location s40:
+    edge startTimer goto s79;
+    edge receiveAB goto s38;
+    edge receiveAG goto s38;
+    edge receiveOB goto s38;
+    edge receiveOG goto s38;
+    edge ignoreOG goto s81;
+  location s41:
+    marked;
+    edge startTimer goto s130;
+    edge getMessage goto s81;
+  location s42:
+    edge startTimer goto s43;
+    edge getMessage goto s44;
+    edge ignoreOB goto s45;
+  location s43:
+    edge timeout goto s110;
+    edge getMessage goto s70;
+    edge ignoreOB goto s131;
+  location s44:
+    edge startTimer goto s70;
+    edge receiveAB goto s42;
+    edge receiveAG goto s42;
+    edge receiveOB goto s42;
+    edge receiveOG goto s42;
+    edge ignoreOB goto s71;
+  location s45:
+    edge startTimer goto s131;
+    edge getMessage goto s71;
+  location s46:
+    edge timeout goto s74;
+    edge receiveAB goto s32;
+    edge receiveAG goto s32;
+    edge receiveOB goto s32;
+    edge receiveOG goto s32;
+    edge ignoreOG goto s104;
+  location s47:
+    edge startTimer goto s104;
+    edge receiveAB goto s34;
+    edge receiveAG goto s34;
+    edge receiveOB goto s34;
+    edge receiveOG goto s34;
+    edge receiveBB goto s105;
+    edge receiveBG goto s31;
+  location s48:
+    edge startTimer goto s49;
+    edge turnCCW goto s50;
+    edge turnCW goto s50;
+    edge moveFW goto s50;
+    edge msgStop goto s24;
+    edge getMessage goto s51;
+    edge join goto s52;
+  location s49:
+    edge turnCCW goto s53;
+    edge turnCW goto s53;
+    edge moveFW goto s53;
+    edge msgStop goto s25;
+    edge getMessage goto s56;
+    edge join goto s84;
+  location s50:
+    edge startTimer goto s53;
+    edge moveEnded goto s48;
+    edge msgStop goto s26;
+    edge getMessage goto s54;
+    edge join goto s55;
+  location s51:
+    edge startTimer goto s56;
+    edge turnCCW goto s54;
+    edge turnCW goto s54;
+    edge moveFW goto s54;
+    edge msgStop goto s27;
+    edge receiveAB goto s48;
+    edge receiveAG goto s48;
+    edge receiveBB goto s48;
+    edge receiveBG goto s48;
+    edge join goto s57;
+  location s52:
+    edge startTimer goto s84;
+    edge msgStop goto s28;
+    edge getMessage goto s57;
+  location s53:
+    edge moveEnded goto s49;
+    edge msgStop goto s121;
+    edge getMessage goto s58;
+    edge join goto s123;
+  location s54:
+    edge startTimer goto s58;
+    edge moveEnded goto s51;
+    edge msgStop goto s59;
+    edge receiveAB goto s50;
+    edge receiveAG goto s50;
+    edge receiveBB goto s50;
+    edge receiveBG goto s50;
+    edge join goto s60;
+  location s55:
+    edge startTimer goto s123;
+    edge moveStop goto s52;
+    edge moveEnded goto s52;
+    edge msgStop goto s122;
+    edge getMessage goto s60;
+  location s56:
+    edge turnCCW goto s58;
+    edge turnCW goto s58;
+    edge moveFW goto s58;
+    edge msgStop goto s61;
+    edge receiveAB goto s49;
+    edge receiveAG goto s49;
+    edge receiveBB goto s49;
+    edge receiveBG goto s49;
+    edge join goto s87;
+  location s57:
+    edge startTimer goto s87;
+    edge msgStop goto s62;
+    edge receiveAB goto s190;
+    edge receiveAG goto s190;
+    edge receiveOB goto s190;
+    edge receiveOG goto s190;
+    edge receiveBB goto s190;
+    edge receiveBG goto s190;
+  location s58:
+    edge moveEnded goto s56;
+    edge msgStop goto s126;
+    edge receiveAB goto s53;
+    edge receiveAG goto s53;
+    edge receiveBB goto s53;
+    edge receiveBG goto s53;
+    edge join goto s128;
+  location s59:
+    edge startTimer goto s126;
+    edge moveEnded goto s27;
+    edge receiveAB goto s26;
+    edge receiveAG goto s26;
+    edge receiveBB goto s26;
+    edge receiveBG goto s26;
+    edge join goto s127;
+  location s60:
+    edge startTimer goto s128;
+    edge moveStop goto s57;
+    edge moveEnded goto s57;
+    edge msgStop goto s127;
+    edge receiveAB goto s236;
+    edge receiveAG goto s236;
+    edge receiveOB goto s236;
+    edge receiveOG goto s236;
+    edge receiveBB goto s236;
+    edge receiveBG goto s236;
+  location s61:
+    edge turnCCW goto s126;
+    edge turnCW goto s126;
+    edge moveFW goto s126;
+    edge receiveAB goto s25;
+    edge receiveAG goto s25;
+    edge receiveBB goto s25;
+    edge receiveBG goto s25;
+    edge join goto s145;
+  location s62:
+    edge startTimer goto s145;
+    edge receiveAB goto s147;
+    edge receiveAG goto s147;
+    edge receiveOB goto s147;
+    edge receiveOG goto s147;
+    edge receiveBB goto s147;
+    edge receiveBG goto s147;
+  location s63:
+    marked;
+    edge startTimer goto s64;
+    edge getMessage goto s65;
+    edge ignoreOB goto s66;
+  location s64:
+    edge getMessage goto s116;
+    edge ignoreOB goto s169;
+  location s65:
+    edge startTimer goto s116;
+    edge receiveAB goto s63;
+    edge receiveAG goto s63;
+    edge receiveOB goto s63;
+    edge receiveOG goto s63;
+    edge ignoreOB goto s117;
+  location s66:
+    marked;
+    edge startTimer goto s169;
+    edge getMessage goto s117;
+  location s67:
+    edge startTimer goto s95;
+    edge moveEnded goto s16;
+    edge sendBB goto s192;
+    edge receiveAB goto s14;
+    edge receiveAG goto s14;
+    edge receiveOB goto s171;
+    edge receiveOG goto s14;
+    edge receiveBB goto s14;
+    edge receiveBG goto s14;
+  location s68:
+    edge startTimer goto s96;
+    edge turnCCW goto s192;
+    edge turnCW goto s192;
+    edge moveFW goto s192;
+    edge receiveAB goto s15;
+    edge receiveAG goto s15;
+    edge receiveOB goto s193;
+    edge receiveOG goto s15;
+    edge receiveBB goto s15;
+    edge receiveBG goto s15;
+  location s69:
+    marked;
+    edge startTimer goto s97;
+    edge turnCCW goto s171;
+    edge turnCW goto s171;
+    edge moveFW goto s171;
+    edge sendAB goto s19;
+    edge getMessage goto s153;
+  location s70:
+    edge timeout goto s112;
+    edge receiveAB goto s43;
+    edge receiveAG goto s43;
+    edge receiveOB goto s43;
+    edge receiveOG goto s43;
+    edge ignoreOB goto s137;
+  location s71:
+    edge startTimer goto s137;
+    edge receiveAB goto s45;
+    edge receiveAG goto s45;
+    edge receiveOB goto s45;
+    edge receiveOG goto s45;
+    edge receiveBB goto s42;
+    edge receiveBG goto s183;
+  location s72:
+    edge startTimer goto s73;
+    edge msgStop goto s38;
+    edge getMessage goto s74;
+    edge ignoreOG goto s75;
+  location s73:
+    edge msgStop goto s39;
+    edge getMessage goto s76;
+    edge ignoreOG goto s77;
+  location s74:
+    edge startTimer goto s76;
+    edge msgStop goto s40;
+    edge receiveAB goto s72;
+    edge receiveAG goto s72;
+    edge receiveOB goto s72;
+    edge receiveOG goto s72;
+    edge ignoreOG goto s78;
+  location s75:
+    edge startTimer goto s77;
+    edge msgStop goto s41;
+    edge getMessage goto s78;
+  location s76:
+    edge msgStop goto s79;
+    edge receiveAB goto s73;
+    edge receiveAG goto s73;
+    edge receiveOB goto s73;
+    edge receiveOG goto s73;
+    edge ignoreOG goto s80;
+  location s77:
+    edge msgStop goto s130;
+    edge getMessage goto s80;
+  location s78:
+    edge startTimer goto s80;
+    edge msgStop goto s81;
+    edge receiveAB goto s75;
+    edge receiveAG goto s75;
+    edge receiveOB goto s75;
+    edge receiveOG goto s75;
+    edge receiveBB goto s106;
+    edge receiveBG goto s72;
+  location s79:
+    edge receiveAB goto s39;
+    edge receiveAG goto s39;
+    edge receiveOB goto s39;
+    edge receiveOG goto s39;
+    edge ignoreOG goto s107;
+  location s80:
+    edge msgStop goto s107;
+    edge receiveAB goto s77;
+    edge receiveAG goto s77;
+    edge receiveOB goto s77;
+    edge receiveOG goto s77;
+    edge receiveBB goto s108;
+    edge receiveBG goto s73;
+  location s81:
+    edge startTimer goto s107;
+    edge receiveAB goto s41;
+    edge receiveAG goto s41;
+    edge receiveOB goto s41;
+    edge receiveOG goto s41;
+    edge receiveBB goto s109;
+    edge receiveBG goto s38;
+  location s82:
+    edge timeout goto s50;
+    edge moveEnded goto s20;
+    edge getMessage goto s85;
+    edge join goto s120;
+  location s83:
+    edge startTimer goto s120;
+    edge moveStop goto s23;
+    edge moveEnded goto s23;
+    edge getMessage goto s86;
+  location s84:
+    edge msgStop goto s143;
+    edge getMessage goto s87;
+  location s85:
+    edge timeout goto s54;
+    edge moveEnded goto s35;
+    edge receiveAB goto s82;
+    edge receiveAG goto s82;
+    edge receiveBB goto s82;
+    edge receiveBG goto s82;
+    edge join goto s125;
+  location s86:
+    edge startTimer goto s125;
+    edge moveStop goto s37;
+    edge moveEnded goto s37;
+    edge receiveAB goto s234;
+    edge receiveAG goto s234;
+    edge receiveOB goto s234;
+    edge receiveOG goto s234;
+    edge receiveBB goto s234;
+    edge receiveBG goto s234;
+  location s87:
+    edge msgStop goto s145;
+    edge receiveAB goto s191;
+    edge receiveAG goto s191;
+    edge receiveOB goto s191;
+    edge receiveOG goto s191;
+    edge receiveBB goto s191;
+    edge receiveBG goto s191;
+  location s88:
+    edge startTimer goto s90;
+    edge moveEnded goto s10;
+    edge sendBG goto s132;
+    edge getMessage goto s92;
+  location s89:
+    edge startTimer goto s91;
+    edge turnCCW goto s132;
+    edge turnCW goto s132;
+    edge moveFW goto s132;
+    edge getMessage goto s93;
+  location s90:
+    edge moveEnded goto s5;
+    edge sendBG goto s152;
+    edge getMessage goto s98;
+  location s91:
+    edge timeout goto s197;
+    edge turnCCW goto s152;
+    edge turnCW goto s152;
+    edge moveFW goto s152;
+    edge getMessage goto s99;
+  location s92:
+    edge startTimer goto s98;
+    edge moveEnded goto s18;
+    edge sendBG goto s135;
+    edge receiveAB goto s88;
+    edge receiveAG goto s88;
+    edge receiveOB goto s88;
+    edge receiveOG goto s136;
+    edge receiveBB goto s88;
+    edge receiveBG goto s88;
+  location s93:
+    edge startTimer goto s99;
+    edge turnCCW goto s135;
+    edge turnCW goto s135;
+    edge moveFW goto s135;
+    edge receiveAB goto s89;
+    edge receiveAG goto s89;
+    edge receiveOB goto s89;
+    edge receiveOG goto s181;
+    edge receiveBB goto s89;
+    edge receiveBG goto s89;
+  location s94:
+    marked;
+    edge startTimer goto s100;
+    edge turnCCW goto s136;
+    edge turnCW goto s136;
+    edge moveFW goto s136;
+    edge sendAG goto s19;
+    edge getMessage goto s178;
+  location s95:
+    edge moveEnded goto s13;
+    edge sendBB goto s238;
+    edge receiveAB goto s11;
+    edge receiveAG goto s11;
+    edge receiveOB goto s173;
+    edge receiveOG goto s11;
+    edge receiveBB goto s11;
+    edge receiveBG goto s11;
+  location s96:
+    edge timeout goto s239;
+    edge turnCCW goto s238;
+    edge turnCW goto s238;
+    edge moveFW goto s238;
+    edge receiveAB goto s12;
+    edge receiveAG goto s12;
+    edge receiveOB goto s232;
+    edge receiveOG goto s12;
+    edge receiveBB goto s12;
+    edge receiveBG goto s12;
+  location s97:
+    edge turnCCW goto s173;
+    edge turnCW goto s173;
+    edge moveFW goto s173;
+    edge sendAB goto s20;
+    edge getMessage goto s154;
+  location s98:
+    edge moveEnded goto s30;
+    edge sendBG goto s157;
+    edge receiveAB goto s90;
+    edge receiveAG goto s90;
+    edge receiveOB goto s90;
+    edge receiveOG goto s158;
+    edge receiveBB goto s90;
+    edge receiveBG goto s90;
+  location s99:
+    edge timeout goto s194;
+    edge turnCCW goto s157;
+    edge turnCW goto s157;
+    edge moveFW goto s157;
+    edge receiveAB goto s91;
+    edge receiveAG goto s91;
+    edge receiveOB goto s91;
+    edge receiveOG goto s265;
+    edge receiveBB goto s91;
+    edge receiveBG goto s91;
+  location s100:
+    edge turnCCW goto s158;
+    edge turnCW goto s158;
+    edge moveFW goto s158;
+    edge sendAG goto s20;
+    edge getMessage goto s179;
+  location s101:
+    edge startTimer goto s102;
+    edge sendOB goto s71;
+    edge receiveAB goto s103;
+    edge receiveAG goto s103;
+    edge receiveOB goto s103;
+    edge receiveOG goto s103;
+  location s102:
+    edge sendOB goto s137;
+    edge receiveAB goto s129;
+    edge receiveAG goto s129;
+    edge receiveOB goto s129;
+    edge receiveOG goto s129;
+  location s103:
+    marked;
+    edge startTimer goto s129;
+    edge sendOB goto s45;
+    edge getMessage goto s101;
+  location s104:
+    edge timeout goto s78;
+    edge receiveAB goto s118;
+    edge receiveAG goto s118;
+    edge receiveOB goto s118;
+    edge receiveOG goto s118;
+    edge receiveBB goto s140;
+    edge receiveBG goto s32;
+  location s105:
+    edge startTimer goto s140;
+    edge getMessage goto s274;
+  location s106:
+    edge startTimer goto s108;
+    edge msgStop goto s109;
+    edge getMessage goto s217;
+  location s107:
+    edge receiveAB goto s130;
+    edge receiveAG goto s130;
+    edge receiveOB goto s130;
+    edge receiveOG goto s130;
+    edge receiveBB goto s168;
+    edge receiveBG goto s39;
+  location s108:
+    edge msgStop goto s168;
+    edge getMessage goto s218;
+  location s109:
+    marked;
+    edge startTimer goto s168;
+    edge sendOB goto s172;
+    edge getMessage goto s213;
+  location s110:
+    edge startTimer goto s111;
+    edge msgStop goto s63;
+    edge getMessage goto s112;
+    edge ignoreOB goto s113;
+  location s111:
+    edge msgStop goto s64;
+    edge getMessage goto s114;
+    edge ignoreOB goto s115;
+  location s112:
+    edge startTimer goto s114;
+    edge msgStop goto s65;
+    edge receiveAB goto s110;
+    edge receiveAG goto s110;
+    edge receiveOB goto s110;
+    edge receiveOG goto s110;
+    edge ignoreOB goto s141;
+  location s113:
+    edge startTimer goto s115;
+    edge msgStop goto s66;
+    edge getMessage goto s141;
+  location s114:
+    edge msgStop goto s116;
+    edge receiveAB goto s111;
+    edge receiveAG goto s111;
+    edge receiveOB goto s111;
+    edge receiveOG goto s111;
+    edge ignoreOB goto s142;
+  location s115:
+    edge msgStop goto s169;
+    edge getMessage goto s142;
+  location s116:
+    edge receiveAB goto s64;
+    edge receiveAG goto s64;
+    edge receiveOB goto s64;
+    edge receiveOG goto s64;
+    edge ignoreOB goto s170;
+  location s117:
+    edge startTimer goto s170;
+    edge receiveAB goto s66;
+    edge receiveAG goto s66;
+    edge receiveOB goto s66;
+    edge receiveOG goto s66;
+    edge receiveBB goto s63;
+    edge receiveBG goto s164;
+  location s118:
+    edge timeout goto s75;
+    edge getMessage goto s104;
+  location s119:
+    edge timeout goto s52;
+    edge getMessage goto s124;
+  location s120:
+    edge timeout goto s55;
+    edge moveStop goto s119;
+    edge moveEnded goto s119;
+    edge getMessage goto s125;
+  location s121:
+    edge moveEnded goto s25;
+    edge getMessage goto s126;
+    edge join goto s144;
+  location s122:
+    edge startTimer goto s144;
+    edge moveStop goto s28;
+    edge moveEnded goto s28;
+    edge getMessage goto s127;
+  location s123:
+    edge moveStop goto s84;
+    edge moveEnded goto s84;
+    edge msgStop goto s144;
+    edge getMessage goto s128;
+  location s124:
+    edge timeout goto s57;
+    edge receiveAB goto s151;
+    edge receiveAG goto s151;
+    edge receiveOB goto s151;
+    edge receiveOG goto s151;
+    edge receiveBB goto s151;
+    edge receiveBG goto s151;
+  location s125:
+    edge timeout goto s60;
+    edge moveStop goto s124;
+    edge moveEnded goto s124;
+    edge receiveAB goto s235;
+    edge receiveAG goto s235;
+    edge receiveOB goto s235;
+    edge receiveOG goto s235;
+    edge receiveBB goto s235;
+    edge receiveBG goto s235;
+  location s126:
+    edge moveEnded goto s61;
+    edge receiveAB goto s121;
+    edge receiveAG goto s121;
+    edge receiveBB goto s121;
+    edge receiveBG goto s121;
+    edge join goto s146;
+  location s127:
+    edge startTimer goto s146;
+    edge moveStop goto s62;
+    edge moveEnded goto s62;
+    edge receiveAB goto s175;
+    edge receiveAG goto s175;
+    edge receiveOB goto s175;
+    edge receiveOG goto s175;
+    edge receiveBB goto s175;
+    edge receiveBG goto s175;
+  location s128:
+    edge moveStop goto s87;
+    edge moveEnded goto s87;
+    edge msgStop goto s146;
+    edge receiveAB goto s237;
+    edge receiveAG goto s237;
+    edge receiveOB goto s237;
+    edge receiveOG goto s237;
+    edge receiveBB goto s237;
+    edge receiveBG goto s237;
+  location s129:
+    edge sendOB goto s131;
+    edge getMessage goto s102;
+  location s130:
+    edge getMessage goto s107;
+  location s131:
+    edge timeout goto s113;
+    edge getMessage goto s137;
+  location s132:
+    edge startTimer goto s152;
+    edge moveEnded goto s89;
+    edge getMessage goto s135;
+  location s133:
+    marked;
+    edge startTimer goto s134;
+    edge sendOG goto s34;
+    edge getMessage goto s159;
+  location s134:
+    edge sendOG goto s118;
+    edge getMessage goto s160;
+  location s135:
+    edge startTimer goto s157;
+    edge moveEnded goto s93;
+    edge receiveAB goto s132;
+    edge receiveAG goto s132;
+    edge receiveOB goto s132;
+    edge receiveOG goto s251;
+    edge receiveBB goto s132;
+    edge receiveBG goto s132;
+  location s136:
+    edge startTimer goto s158;
+    edge moveEnded goto s94;
+    edge sendAG goto s21;
+    edge getMessage goto s180;
+  location s137:
+    edge timeout goto s141;
+    edge receiveAB goto s131;
+    edge receiveAG goto s131;
+    edge receiveOB goto s131;
+    edge receiveOG goto s131;
+    edge receiveBB goto s43;
+    edge receiveBG goto s189;
+  location s138:
+    edge startTimer goto s139;
+  location s139:
+    edge timeout goto s186;
+  location s140:
+    edge timeout goto s106;
+    edge getMessage goto s270;
+  location s141:
+    edge startTimer goto s142;
+    edge msgStop goto s117;
+    edge receiveAB goto s113;
+    edge receiveAG goto s113;
+    edge receiveOB goto s113;
+    edge receiveOG goto s113;
+    edge receiveBB goto s110;
+    edge receiveBG goto s209;
+  location s142:
+    edge msgStop goto s170;
+    edge receiveAB goto s115;
+    edge receiveAG goto s115;
+    edge receiveOB goto s115;
+    edge receiveOG goto s115;
+    edge receiveBB goto s111;
+    edge receiveBG goto s210;
+  location s143:
+    edge getMessage goto s145;
+  location s144:
+    edge moveStop goto s143;
+    edge moveEnded goto s143;
+    edge getMessage goto s146;
+  location s145:
+    edge receiveAB goto s148;
+    edge receiveAG goto s148;
+    edge receiveOB goto s148;
+    edge receiveOG goto s148;
+    edge receiveBB goto s148;
+    edge receiveBG goto s148;
+  location s146:
+    edge moveStop goto s145;
+    edge moveEnded goto s145;
+    edge receiveAB goto s176;
+    edge receiveAG goto s176;
+    edge receiveOB goto s176;
+    edge receiveOG goto s176;
+    edge receiveBB goto s176;
+    edge receiveBG goto s176;
+  location s147:
+    marked;
+    edge startTimer goto s148;
+    edge sendE goto s23;
+    edge getMessage goto s149;
+  location s148:
+    edge sendE goto s119;
+    edge getMessage goto s167;
+  location s149:
+    edge startTimer goto s167;
+    edge sendE goto s37;
+  location s150:
+    edge startTimer goto s151;
+    edge getMessage goto s138;
+  location s151:
+    edge timeout goto s190;
+    edge getMessage goto s139;
+  location s152:
+    edge timeout goto s200;
+    edge moveEnded goto s91;
+    edge getMessage goto s157;
+  location s153:
+    edge startTimer goto s154;
+    edge turnCCW goto s155;
+    edge turnCW goto s155;
+    edge moveFW goto s155;
+    edge sendAB goto s22;
+    edge receiveAB goto s69;
+    edge receiveAG goto s69;
+    edge receiveBB goto s69;
+    edge receiveBG goto s69;
+  location s154:
+    edge turnCCW goto s156;
+    edge turnCW goto s156;
+    edge moveFW goto s156;
+    edge sendAB goto s35;
+    edge receiveAB goto s97;
+    edge receiveAG goto s97;
+    edge receiveBB goto s97;
+    edge receiveBG goto s97;
+  location s155:
+    edge startTimer goto s156;
+    edge moveEnded goto s153;
+    edge sendAB goto s36;
+    edge receiveAB goto s171;
+    edge receiveAG goto s171;
+    edge receiveBB goto s171;
+    edge receiveBG goto s171;
+  location s156:
+    edge moveEnded goto s154;
+    edge sendAB goto s85;
+    edge receiveAB goto s173;
+    edge receiveAG goto s173;
+    edge receiveBB goto s173;
+    edge receiveBG goto s173;
+  location s157:
+    edge timeout goto s196;
+    edge moveEnded goto s99;
+    edge receiveAB goto s152;
+    edge receiveAG goto s152;
+    edge receiveOB goto s152;
+    edge receiveOG goto s266;
+    edge receiveBB goto s152;
+    edge receiveBG goto s152;
+  location s158:
+    edge moveEnded goto s100;
+    edge sendAG goto s82;
+    edge getMessage goto s182;
+  location s159:
+    edge startTimer goto s160;
+    edge sendOG goto s47;
+    edge receiveAB goto s133;
+    edge receiveAG goto s133;
+    edge receiveOB goto s133;
+    edge receiveOG goto s133;
+  location s160:
+    edge sendOG goto s104;
+    edge receiveAB goto s134;
+    edge receiveAG goto s134;
+    edge receiveOB goto s134;
+    edge receiveOG goto s134;
+  location s161:
+    edge startTimer goto s162;
+    edge sendOG goto s163;
+    edge receiveAB goto s164;
+    edge receiveAG goto s164;
+    edge receiveOB goto s164;
+    edge receiveOG goto s164;
+  location s162:
+    edge sendOG goto s165;
+    edge receiveAB goto s166;
+    edge receiveAG goto s166;
+    edge receiveOB goto s166;
+    edge receiveOG goto s166;
+  location s163:
+    edge startTimer goto s165;
+    edge receiveAB goto s172;
+    edge receiveAG goto s172;
+    edge receiveOB goto s172;
+    edge receiveOG goto s172;
+    edge receiveBB goto s211;
+    edge receiveBG goto s212;
+  location s164:
+    marked;
+    edge startTimer goto s166;
+    edge sendOG goto s172;
+    edge getMessage goto s161;
+  location s165:
+    edge timeout goto s260;
+    edge receiveAB goto s174;
+    edge receiveAG goto s174;
+    edge receiveOB goto s174;
+    edge receiveOG goto s174;
+    edge receiveBB goto s268;
+    edge receiveBG goto s269;
+  location s166:
+    edge sendOG goto s174;
+    edge getMessage goto s162;
+  location s167:
+    edge sendE goto s124;
+  location s168:
+    edge sendOB goto s174;
+    edge getMessage goto s214;
+  location s169:
+    edge getMessage goto s170;
+  location s170:
+    edge receiveAB goto s169;
+    edge receiveAG goto s169;
+    edge receiveOB goto s169;
+    edge receiveOG goto s169;
+    edge receiveBB goto s64;
+    edge receiveBG goto s166;
+  location s171:
+    edge startTimer goto s173;
+    edge moveEnded goto s69;
+    edge sendAB goto s21;
+    edge getMessage goto s155;
+  location s172:
+    edge startTimer goto s174;
+    edge getMessage goto s163;
+  location s173:
+    edge moveEnded goto s97;
+    edge sendAB goto s82;
+    edge getMessage goto s156;
+  location s174:
+    edge timeout goto s262;
+    edge getMessage goto s165;
+  location s175:
+    edge startTimer goto s176;
+    edge moveStop goto s147;
+    edge moveEnded goto s147;
+    edge sendE goto s83;
+    edge getMessage goto s177;
+  location s176:
+    edge moveStop goto s148;
+    edge moveEnded goto s148;
+    edge sendE goto s120;
+    edge getMessage goto s188;
+  location s177:
+    edge startTimer goto s188;
+    edge moveStop goto s149;
+    edge moveEnded goto s149;
+    edge sendE goto s86;
+  location s178:
+    edge startTimer goto s179;
+    edge turnCCW goto s180;
+    edge turnCW goto s180;
+    edge moveFW goto s180;
+    edge sendAG goto s22;
+    edge receiveAB goto s94;
+    edge receiveAG goto s94;
+    edge receiveBB goto s94;
+    edge receiveBG goto s94;
+  location s179:
+    edge turnCCW goto s182;
+    edge turnCW goto s182;
+    edge moveFW goto s182;
+    edge sendAG goto s35;
+    edge receiveAB goto s100;
+    edge receiveAG goto s100;
+    edge receiveBB goto s100;
+    edge receiveBG goto s100;
+  location s180:
+    edge startTimer goto s182;
+    edge moveEnded goto s178;
+    edge sendAG goto s36;
+    edge receiveAB goto s136;
+    edge receiveAG goto s136;
+    edge receiveBB goto s136;
+    edge receiveBG goto s136;
+  location s181:
+    edge startTimer goto s265;
+    edge turnCCW goto s251;
+    edge turnCW goto s251;
+    edge moveFW goto s251;
+    edge getMessage goto s279;
+  location s182:
+    edge moveEnded goto s179;
+    edge sendAG goto s85;
+    edge receiveAB goto s158;
+    edge receiveAG goto s158;
+    edge receiveBB goto s158;
+    edge receiveBG goto s158;
+  location s183:
+    edge startTimer goto s189;
+    edge getMessage goto s184;
+  location s184:
+    edge startTimer goto s185;
+    edge receiveAB goto s183;
+    edge receiveAG goto s183;
+    edge receiveOB goto s183;
+    edge receiveOG goto s183;
+  location s185:
+    edge timeout goto s215;
+    edge receiveAB goto s189;
+    edge receiveAG goto s189;
+    edge receiveOB goto s189;
+    edge receiveOG goto s189;
+  location s186:
+    edge startTimer goto s187;
+    edge msgStop goto s149;
+  location s187:
+    edge msgStop goto s167;
+  location s188:
+    edge moveStop goto s167;
+    edge moveEnded goto s167;
+    edge sendE goto s125;
+  location s189:
+    edge timeout goto s209;
+    edge getMessage goto s185;
+  location s190:
+    edge startTimer goto s191;
+    edge msgStop goto s147;
+    edge getMessage goto s186;
+  location s191:
+    edge msgStop goto s148;
+    edge getMessage goto s187;
+  location s192:
+    edge startTimer goto s238;
+    edge moveEnded goto s68;
+    edge receiveAB goto s231;
+    edge receiveAG goto s231;
+    edge receiveOB goto s233;
+    edge receiveOG goto s231;
+    edge receiveBB goto s231;
+    edge receiveBG goto s231;
+  location s193:
+    edge startTimer goto s232;
+    edge turnCCW goto s233;
+    edge turnCW goto s233;
+    edge moveFW goto s233;
+    edge getMessage goto s206;
+  location s194:
+    edge startTimer goto s195;
+    edge turnCCW goto s196;
+    edge turnCW goto s196;
+    edge moveFW goto s196;
+    edge msgStop goto s18;
+    edge receiveAB goto s197;
+    edge receiveAG goto s197;
+    edge receiveOB goto s197;
+    edge receiveOG goto s198;
+    edge receiveBB goto s197;
+    edge receiveBG goto s197;
+  location s195:
+    edge turnCCW goto s199;
+    edge turnCW goto s199;
+    edge moveFW goto s199;
+    edge msgStop goto s30;
+    edge receiveAB goto s202;
+    edge receiveAG goto s202;
+    edge receiveOB goto s202;
+    edge receiveOG goto s203;
+    edge receiveBB goto s202;
+    edge receiveBG goto s202;
+  location s196:
+    edge startTimer goto s199;
+    edge moveEnded goto s194;
+    edge msgStop goto s92;
+    edge receiveAB goto s200;
+    edge receiveAG goto s200;
+    edge receiveOB goto s200;
+    edge receiveOG goto s201;
+    edge receiveBB goto s200;
+    edge receiveBG goto s200;
+  location s197:
+    edge startTimer goto s202;
+    edge turnCCW goto s200;
+    edge turnCW goto s200;
+    edge moveFW goto s200;
+    edge msgStop goto s10;
+    edge getMessage goto s194;
+  location s198:
+    edge startTimer goto s203;
+    edge turnCCW goto s201;
+    edge turnCW goto s201;
+    edge moveFW goto s201;
+    edge msgStop goto s94;
+    edge getMessage goto s255;
+  location s199:
+    edge moveEnded goto s195;
+    edge msgStop goto s98;
+    edge receiveAB goto s204;
+    edge receiveAG goto s204;
+    edge receiveOB goto s204;
+    edge receiveOG goto s205;
+    edge receiveBB goto s204;
+    edge receiveBG goto s204;
+  location s200:
+    edge startTimer goto s204;
+    edge moveEnded goto s197;
+    edge msgStop goto s88;
+    edge getMessage goto s196;
+  location s201:
+    edge startTimer goto s205;
+    edge moveEnded goto s198;
+    edge msgStop goto s136;
+    edge getMessage goto s257;
+  location s202:
+    edge turnCCW goto s204;
+    edge turnCW goto s204;
+    edge moveFW goto s204;
+    edge msgStop goto s5;
+    edge getMessage goto s195;
+  location s203:
+    edge turnCCW goto s205;
+    edge turnCW goto s205;
+    edge moveFW goto s205;
+    edge msgStop goto s100;
+    edge getMessage goto s256;
+  location s204:
+    edge moveEnded goto s202;
+    edge msgStop goto s90;
+    edge getMessage goto s199;
+  location s205:
+    edge moveEnded goto s203;
+    edge msgStop goto s158;
+    edge getMessage goto s259;
+  location s206:
+    edge startTimer goto s207;
+    edge turnCCW goto s208;
+    edge turnCW goto s208;
+    edge moveFW goto s208;
+    edge receiveAB goto s193;
+    edge receiveAG goto s193;
+    edge receiveBB goto s193;
+    edge receiveBG goto s193;
+  location s207:
+    edge timeout goto s252;
+    edge turnCCW goto s267;
+    edge turnCW goto s267;
+    edge moveFW goto s267;
+    edge receiveAB goto s232;
+    edge receiveAG goto s232;
+    edge receiveBB goto s232;
+    edge receiveBG goto s232;
+  location s208:
+    edge startTimer goto s267;
+    edge moveEnded goto s206;
+    edge receiveAB goto s233;
+    edge receiveAG goto s233;
+    edge receiveBB goto s233;
+    edge receiveBG goto s233;
+  location s209:
+    edge startTimer goto s210;
+    edge msgStop goto s164;
+    edge getMessage goto s215;
+  location s210:
+    edge msgStop goto s166;
+    edge getMessage goto s216;
+  location s211:
+    edge startTimer goto s268;
+    edge getMessage goto s275;
+  location s212:
+    edge startTimer goto s269;
+    edge getMessage goto s276;
+  location s213:
+    edge startTimer goto s214;
+    edge sendOB goto s163;
+    edge receiveAB goto s109;
+    edge receiveAG goto s109;
+    edge receiveOB goto s109;
+    edge receiveOG goto s109;
+  location s214:
+    edge sendOB goto s165;
+    edge receiveAB goto s168;
+    edge receiveAG goto s168;
+    edge receiveOB goto s168;
+    edge receiveOG goto s168;
+  location s215:
+    edge startTimer goto s216;
+    edge msgStop goto s161;
+    edge receiveAB goto s209;
+    edge receiveAG goto s209;
+    edge receiveOB goto s209;
+    edge receiveOG goto s209;
+  location s216:
+    edge msgStop goto s162;
+    edge receiveAB goto s210;
+    edge receiveAG goto s210;
+    edge receiveOB goto s210;
+    edge receiveOG goto s210;
+  location s217:
+    edge startTimer goto s218;
+    edge msgStop goto s213;
+    edge receiveAB goto s106;
+    edge receiveAG goto s106;
+    edge receiveOB goto s106;
+    edge receiveOG goto s106;
+  location s218:
+    edge msgStop goto s214;
+    edge receiveAB goto s108;
+    edge receiveAG goto s108;
+    edge receiveOB goto s108;
+    edge receiveOG goto s108;
+  location s219:
+    edge startTimer goto s220;
+    edge msgStop goto s101;
+    edge receiveAB goto s221;
+    edge receiveAG goto s221;
+    edge receiveOB goto s221;
+    edge receiveOG goto s221;
+  location s220:
+    edge msgStop goto s102;
+    edge receiveAB goto s225;
+    edge receiveAG goto s225;
+    edge receiveOB goto s225;
+    edge receiveOG goto s225;
+  location s221:
+    edge startTimer goto s225;
+    edge msgStop goto s103;
+    edge getMessage goto s219;
+  location s222:
+    edge startTimer goto s223;
+    edge msgStop goto s159;
+    edge receiveAB goto s224;
+    edge receiveAG goto s224;
+    edge receiveOB goto s224;
+    edge receiveOG goto s224;
+  location s223:
+    edge msgStop goto s160;
+    edge receiveAB goto s226;
+    edge receiveAG goto s226;
+    edge receiveOB goto s226;
+    edge receiveOG goto s226;
+  location s224:
+    edge startTimer goto s226;
+    edge msgStop goto s133;
+    edge getMessage goto s222;
+  location s225:
+    edge msgStop goto s129;
+    edge getMessage goto s220;
+  location s226:
+    edge msgStop goto s134;
+    edge getMessage goto s223;
+  location s227:
+    edge startTimer goto s228;
+    edge moveStop goto s138;
+    edge moveEnded goto s138;
+  location s228:
+    edge timeout goto s229;
+    edge moveStop goto s139;
+    edge moveEnded goto s139;
+  location s229:
+    edge startTimer goto s230;
+    edge moveStop goto s186;
+    edge moveEnded goto s186;
+    edge msgStop goto s177;
+  location s230:
+    edge moveStop goto s187;
+    edge moveEnded goto s187;
+    edge msgStop goto s188;
+  location s231:
+    edge startTimer goto s264;
+    edge moveEnded goto s15;
+    edge getMessage goto s192;
+  location s232:
+    edge timeout goto s243;
+    edge turnCCW goto s273;
+    edge turnCW goto s273;
+    edge moveFW goto s273;
+    edge getMessage goto s207;
+  location s233:
+    edge startTimer goto s273;
+    edge moveEnded goto s193;
+    edge getMessage goto s208;
+  location s234:
+    edge startTimer goto s235;
+    edge moveStop goto s150;
+    edge moveEnded goto s150;
+    edge getMessage goto s227;
+  location s235:
+    edge timeout goto s236;
+    edge moveStop goto s151;
+    edge moveEnded goto s151;
+    edge getMessage goto s228;
+  location s236:
+    edge startTimer goto s237;
+    edge moveStop goto s190;
+    edge moveEnded goto s190;
+    edge msgStop goto s175;
+    edge getMessage goto s229;
+  location s237:
+    edge moveStop goto s191;
+    edge moveEnded goto s191;
+    edge msgStop goto s176;
+    edge getMessage goto s230;
+  location s238:
+    edge timeout goto s241;
+    edge moveEnded goto s96;
+    edge receiveAB goto s264;
+    edge receiveAG goto s264;
+    edge receiveOB goto s273;
+    edge receiveOG goto s264;
+    edge receiveBB goto s264;
+    edge receiveBG goto s264;
+  location s239:
+    edge startTimer goto s240;
+    edge turnCCW goto s241;
+    edge turnCW goto s241;
+    edge moveFW goto s241;
+    edge msgStop goto s16;
+    edge receiveAB goto s242;
+    edge receiveAG goto s242;
+    edge receiveOB goto s243;
+    edge receiveOG goto s242;
+    edge receiveBB goto s242;
+    edge receiveBG goto s242;
+  location s240:
+    edge turnCCW goto s244;
+    edge turnCW goto s244;
+    edge moveFW goto s244;
+    edge msgStop goto s13;
+    edge receiveAB goto s247;
+    edge receiveAG goto s247;
+    edge receiveOB goto s248;
+    edge receiveOG goto s247;
+    edge receiveBB goto s247;
+    edge receiveBG goto s247;
+  location s241:
+    edge startTimer goto s244;
+    edge moveEnded goto s239;
+    edge msgStop goto s67;
+    edge receiveAB goto s245;
+    edge receiveAG goto s245;
+    edge receiveOB goto s246;
+    edge receiveOG goto s245;
+    edge receiveBB goto s245;
+    edge receiveBG goto s245;
+  location s242:
+    edge startTimer goto s247;
+    edge turnCCW goto s245;
+    edge turnCW goto s245;
+    edge moveFW goto s245;
+    edge msgStop goto s8;
+    edge getMessage goto s239;
+  location s243:
+    edge startTimer goto s248;
+    edge turnCCW goto s246;
+    edge turnCW goto s246;
+    edge moveFW goto s246;
+    edge msgStop goto s69;
+    edge getMessage goto s252;
+  location s244:
+    edge moveEnded goto s240;
+    edge msgStop goto s95;
+    edge receiveAB goto s249;
+    edge receiveAG goto s249;
+    edge receiveOB goto s250;
+    edge receiveOG goto s249;
+    edge receiveBB goto s249;
+    edge receiveBG goto s249;
+  location s245:
+    edge startTimer goto s249;
+    edge moveEnded goto s242;
+    edge msgStop goto s14;
+    edge getMessage goto s241;
+  location s246:
+    edge startTimer goto s250;
+    edge moveEnded goto s243;
+    edge msgStop goto s171;
+    edge getMessage goto s254;
+  location s247:
+    edge turnCCW goto s249;
+    edge turnCW goto s249;
+    edge moveFW goto s249;
+    edge msgStop goto s3;
+    edge getMessage goto s240;
+  location s248:
+    edge turnCCW goto s250;
+    edge turnCW goto s250;
+    edge moveFW goto s250;
+    edge msgStop goto s97;
+    edge getMessage goto s253;
+  location s249:
+    edge moveEnded goto s247;
+    edge msgStop goto s11;
+    edge getMessage goto s244;
+  location s250:
+    edge moveEnded goto s248;
+    edge msgStop goto s173;
+    edge getMessage goto s258;
+  location s251:
+    edge startTimer goto s266;
+    edge moveEnded goto s181;
+    edge getMessage goto s280;
+  location s252:
+    edge startTimer goto s253;
+    edge turnCCW goto s254;
+    edge turnCW goto s254;
+    edge moveFW goto s254;
+    edge msgStop goto s153;
+    edge receiveAB goto s243;
+    edge receiveAG goto s243;
+    edge receiveBB goto s243;
+    edge receiveBG goto s243;
+  location s253:
+    edge turnCCW goto s258;
+    edge turnCW goto s258;
+    edge moveFW goto s258;
+    edge msgStop goto s154;
+    edge receiveAB goto s248;
+    edge receiveAG goto s248;
+    edge receiveBB goto s248;
+    edge receiveBG goto s248;
+  location s254:
+    edge startTimer goto s258;
+    edge moveEnded goto s252;
+    edge msgStop goto s155;
+    edge receiveAB goto s246;
+    edge receiveAG goto s246;
+    edge receiveBB goto s246;
+    edge receiveBG goto s246;
+  location s255:
+    edge startTimer goto s256;
+    edge turnCCW goto s257;
+    edge turnCW goto s257;
+    edge moveFW goto s257;
+    edge msgStop goto s178;
+    edge receiveAB goto s198;
+    edge receiveAG goto s198;
+    edge receiveBB goto s198;
+    edge receiveBG goto s198;
+  location s256:
+    edge turnCCW goto s259;
+    edge turnCW goto s259;
+    edge moveFW goto s259;
+    edge msgStop goto s179;
+    edge receiveAB goto s203;
+    edge receiveAG goto s203;
+    edge receiveBB goto s203;
+    edge receiveBG goto s203;
+  location s257:
+    edge startTimer goto s259;
+    edge moveEnded goto s255;
+    edge msgStop goto s180;
+    edge receiveAB goto s201;
+    edge receiveAG goto s201;
+    edge receiveBB goto s201;
+    edge receiveBG goto s201;
+  location s258:
+    edge moveEnded goto s253;
+    edge msgStop goto s156;
+    edge receiveAB goto s250;
+    edge receiveAG goto s250;
+    edge receiveBB goto s250;
+    edge receiveBG goto s250;
+  location s259:
+    edge moveEnded goto s256;
+    edge msgStop goto s182;
+    edge receiveAB goto s205;
+    edge receiveAG goto s205;
+    edge receiveBB goto s205;
+    edge receiveBG goto s205;
+  location s260:
+    edge startTimer goto s261;
+    edge msgStop goto s17;
+    edge receiveAB goto s262;
+    edge receiveAG goto s262;
+    edge receiveOB goto s262;
+    edge receiveOG goto s262;
+    edge receiveBB goto s221;
+    edge receiveBG goto s224;
+  location s261:
+    edge msgStop goto s29;
+    edge receiveAB goto s263;
+    edge receiveAG goto s263;
+    edge receiveOB goto s263;
+    edge receiveOG goto s263;
+    edge receiveBB goto s225;
+    edge receiveBG goto s226;
+  location s262:
+    edge startTimer goto s263;
+    edge msgStop goto s9;
+    edge getMessage goto s260;
+  location s263:
+    edge msgStop goto s4;
+    edge getMessage goto s261;
+  location s264:
+    edge timeout goto s245;
+    edge moveEnded goto s12;
+    edge getMessage goto s238;
+  location s265:
+    edge timeout goto s198;
+    edge turnCCW goto s266;
+    edge turnCW goto s266;
+    edge moveFW goto s266;
+    edge getMessage goto s277;
+  location s266:
+    edge timeout goto s201;
+    edge moveEnded goto s265;
+    edge getMessage goto s278;
+  location s267:
+    edge timeout goto s254;
+    edge moveEnded goto s207;
+    edge receiveAB goto s273;
+    edge receiveAG goto s273;
+    edge receiveBB goto s273;
+    edge receiveBG goto s273;
+  location s268:
+    edge timeout goto s221;
+    edge getMessage goto s271;
+  location s269:
+    edge timeout goto s224;
+    edge getMessage goto s272;
+  location s270:
+    edge timeout goto s217;
+    edge receiveAB goto s140;
+    edge receiveAG goto s140;
+    edge receiveOB goto s140;
+    edge receiveOG goto s140;
+  location s271:
+    edge timeout goto s219;
+    edge receiveAB goto s268;
+    edge receiveAG goto s268;
+    edge receiveOB goto s268;
+    edge receiveOG goto s268;
+  location s272:
+    edge timeout goto s222;
+    edge receiveAB goto s269;
+    edge receiveAG goto s269;
+    edge receiveOB goto s269;
+    edge receiveOG goto s269;
+  location s273:
+    edge timeout goto s246;
+    edge moveEnded goto s232;
+    edge getMessage goto s267;
+  location s274:
+    edge startTimer goto s270;
+    edge receiveAB goto s105;
+    edge receiveAG goto s105;
+    edge receiveOB goto s105;
+    edge receiveOG goto s105;
+  location s275:
+    edge startTimer goto s271;
+    edge receiveAB goto s211;
+    edge receiveAG goto s211;
+    edge receiveOB goto s211;
+    edge receiveOG goto s211;
+  location s276:
+    edge startTimer goto s272;
+    edge receiveAB goto s212;
+    edge receiveAG goto s212;
+    edge receiveOB goto s212;
+    edge receiveOG goto s212;
+  location s277:
+    edge timeout goto s255;
+    edge turnCCW goto s278;
+    edge turnCW goto s278;
+    edge moveFW goto s278;
+    edge receiveAB goto s265;
+    edge receiveAG goto s265;
+    edge receiveBB goto s265;
+    edge receiveBG goto s265;
+  location s278:
+    edge timeout goto s257;
+    edge moveEnded goto s277;
+    edge receiveAB goto s266;
+    edge receiveAG goto s266;
+    edge receiveBB goto s266;
+    edge receiveBG goto s266;
+  location s279:
+    edge startTimer goto s277;
+    edge turnCCW goto s280;
+    edge turnCW goto s280;
+    edge moveFW goto s280;
+    edge receiveAB goto s181;
+    edge receiveAG goto s181;
+    edge receiveBB goto s181;
+    edge receiveBG goto s181;
+  location s280:
+    edge startTimer goto s278;
+    edge moveEnded goto s279;
+    edge receiveAB goto s251;
+    edge receiveAG goto s251;
+    edge receiveBB goto s251;
+    edge receiveBG goto s251;
+end

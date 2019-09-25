@@ -1,0 +1,10 @@
+controllable ignoreOG;
+controllable ignoreOB;
+automaton IgnoreOffer:
+  alphabet ignoreOG, ignoreOB;
+  location s1:
+    initial;
+    marked;
+    edge ignoreOB;
+    edge ignoreOG;
+end

@@ -1,0 +1,28 @@
+controllable prepareA;
+controllable eat;
+controllable switchA;
+controllable prepareB;
+controllable switchB;
+automaton statespace:
+  alphabet prepareA, eat, switchA, prepareB, switchB;
+  location loc1:
+    initial;
+    marked;
+    edge prepareA goto loc2;
+    edge prepareB goto loc3;
+  location loc2:
+    marked;
+    edge prepareB goto loc4;
+  location loc3:
+    marked;
+    edge prepareA goto loc4;
+  location loc4:
+    marked;
+    edge switchA goto loc5;
+  location loc5:
+    marked;
+    edge switchB goto loc6;
+  location loc6:
+    marked;
+    edge eat goto loc1;
+end

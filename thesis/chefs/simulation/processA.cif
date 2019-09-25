@@ -6,11 +6,7 @@ automaton processA:
   location s1:
     initial;
     marked;
-    edge prepareA goto s2;
-  location s2:
-    marked;
-    edge switchA goto s3;
-  location s3:
-    marked;
+    edge prepareA goto s1;
+    edge switchA goto s1;
     edge eatA goto s1;
 end

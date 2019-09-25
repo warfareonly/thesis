@@ -1,0 +1,21 @@
+controllable getMessage;
+controllable receiveBG;
+controllable receiveBB;
+controllable receiveOG;
+controllable receiveOB;
+controllable receiveAG;
+controllable receiveAB;
+automaton MessageReceiving:
+  alphabet getMessage, receiveBG, receiveBB, receiveOG, receiveOB, receiveAG, receiveAB;
+  location s2:
+    edge receiveAB goto s1;
+    edge receiveAG goto s1;
+    edge receiveOB goto s1;
+    edge receiveOG goto s1;
+    edge receiveBB goto s1;
+    edge receiveBG goto s1;
+  location s1:
+    initial;
+    marked;
+    edge getMessage goto s2;
+end

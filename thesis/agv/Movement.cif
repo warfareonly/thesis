@@ -1,0 +1,17 @@
+controllable moveFW;
+controllable turnCW;
+controllable turnCCW;
+controllable moveEnded;
+controllable moveStop;
+automaton Movement:
+  alphabet moveFW, turnCW, turnCCW, moveEnded, moveStop;
+  location s2:
+    edge moveStop goto s1;
+    edge moveEnded goto s1;
+  location s1:
+    initial;
+    marked;
+    edge turnCCW goto s2;
+    edge turnCW goto s2;
+    edge moveFW goto s2;
+end

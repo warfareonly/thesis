@@ -1,54 +1,90 @@
-controllable gotoTableB;
-controllable gotoTableA;
-controllable drinksB;
-controllable foodB;
-controllable drinksA;
-controllable foodA;
-controllable kitchenA;
-controllable kitchenB;
+controllable switchB;
+controllable eatB;
+controllable prepareB;
+controllable switchA;
+controllable eatA;
+controllable prepareA;
 automaton statespace:
-  alphabet gotoTableB, gotoTableA, drinksB, foodB, drinksA, foodA, kitchenA, kitchenB;
+  alphabet switchB, eatB, prepareB, switchA, eatA, prepareA;
   location loc1:
     initial;
     marked;
-    edge gotoTableB goto loc2;
-    edge gotoTableA goto loc3;
+    edge switchB;
+    edge eatB;
+    edge prepareB goto loc2;
+    edge switchA;
+    edge eatA;
+    edge prepareA goto loc3;
   location loc2:
     marked;
-    edge gotoTableA goto loc4;
-    edge drinksB goto loc5;
-    edge foodB goto loc5;
+    edge switchB;
+    edge eatB;
+    edge prepareB;
+    edge switchA;
+    edge eatA;
+    edge prepareA goto loc4;
   location loc3:
     marked;
-    edge gotoTableB goto loc4;
-    edge drinksA goto loc6;
-    edge foodA goto loc6;
+    edge switchB;
+    edge eatB;
+    edge prepareB goto loc4;
+    edge switchA;
+    edge eatA;
+    edge prepareA;
   location loc4:
     marked;
-    edge drinksB goto loc7;
-    edge foodB goto loc7;
-    edge drinksA goto loc8;
-    edge foodA goto loc8;
+    edge switchB;
+    edge eatB;
+    edge prepareB;
+    edge switchA goto loc5;
+    edge eatA;
+    edge prepareA;
   location loc5:
     marked;
-    edge gotoTableA goto loc7;
-    edge kitchenB goto loc1;
+    edge switchB goto loc6;
+    edge eatB;
+    edge prepareB;
+    edge switchA;
+    edge eatA;
+    edge prepareA;
   location loc6:
     marked;
-    edge gotoTableB goto loc8;
-    edge kitchenA goto loc1;
+    edge switchB;
+    edge eatB goto loc7;
+    edge prepareB;
+    edge switchA;
+    edge eatA goto loc8;
+    edge prepareA;
   location loc7:
     marked;
-    edge drinksA goto loc9;
-    edge foodA goto loc9;
-    edge kitchenB goto loc3;
+    edge switchB;
+    edge eatB;
+    edge prepareB goto loc9;
+    edge switchA;
+    edge eatA goto loc1;
+    edge prepareA;
   location loc8:
     marked;
-    edge drinksB goto loc9;
-    edge foodB goto loc9;
-    edge kitchenA goto loc2;
+    edge switchB;
+    edge eatB goto loc1;
+    edge prepareB;
+    edge switchA;
+    edge eatA;
+    edge prepareA goto loc10;
   location loc9:
     marked;
-    edge kitchenA goto loc5;
-    edge kitchenB goto loc6;
+    edge switchB;
+    edge eatB;
+    edge prepareB;
+    edge switchA;
+    edge eatA goto loc2;
+    edge prepareA;
+  location loc10:
+    marked;
+    edge switchB;
+    edge eatB goto loc3;
+    edge prepareB;
+    edge switchA;
+    edge eatA;
+    edge prepareA;
 end

@@ -1,0 +1,109 @@
+controllable new_tx_rcd;
+controllable tx_vdx_dn;
+controllable new_blk_rcvd;
+controllable nxt_svblk_rdy;
+controllable vblk_broadcasted;
+controllable vblk_chained;
+controllable nxt_blkp_started;
+controllable cp_solved;
+automaton minimal:
+  alphabet new_tx_rcd, tx_vdx_dn, new_blk_rcvd, nxt_svblk_rdy, vblk_broadcasted, vblk_chained, nxt_blkp_started, cp_solved;
+  location s1:
+    edge vblk_chained goto s2;
+    edge vblk_broadcasted goto s3;
+    edge new_tx_rcd goto s4;
+  location s2:
+    edge nxt_blkp_started goto s5;
+    edge new_tx_rcd goto s10;
+  location s3:
+    edge new_tx_rcd goto s11;
+  location s4:
+    edge vblk_chained goto s10;
+    edge vblk_broadcasted goto s11;
+    edge tx_vdx_dn goto s12;
+  location s5:
+    initial;
+    marked;
+    edge new_blk_rcvd goto s1;
+    edge new_tx_rcd goto s6;
+  location s6:
+    edge new_blk_rcvd goto s4;
+    edge tx_vdx_dn goto s7;
+  location s7:
+    edge nxt_svblk_rdy goto s8;
+    edge new_blk_rcvd goto s1;
+    edge new_tx_rcd goto s9;
+  location s8:
+    edge cp_solved goto s16;
+    edge vblk_chained goto s17;
+    edge new_blk_rcvd goto s1;
+    edge new_tx_rcd goto s18;
+  location s9:
+    edge nxt_svblk_rdy goto s18;
+    edge new_blk_rcvd goto s4;
+    edge tx_vdx_dn goto s7;
+  location s10:
+    edge nxt_blkp_started goto s6;
+    edge tx_vdx_dn goto s13;
+  location s11:
+    edge tx_vdx_dn goto s3;
+  location s12:
+    edge vblk_chained goto s13;
+    edge vblk_broadcasted goto s3;
+    edge nxt_svblk_rdy goto s14;
+    edge new_tx_rcd goto s15;
+  location s13:
+    edge nxt_blkp_started goto s7;
+    edge new_tx_rcd goto s22;
+  location s14:
+    edge vblk_chained goto s3;
+    edge new_tx_rcd goto s23;
+  location s15:
+    edge vblk_chained goto s22;
+    edge vblk_broadcasted goto s11;
+    edge nxt_svblk_rdy goto s23;
+    edge tx_vdx_dn goto s12;
+  location s16:
+    edge vblk_chained goto s3;
+    edge vblk_broadcasted goto s2;
+    edge new_tx_rcd goto s19;
+  location s17:
+    edge cp_solved goto s3;
+    edge new_tx_rcd goto s20;
+  location s18:
+    edge cp_solved goto s19;
+    edge vblk_chained goto s20;
+    edge new_blk_rcvd goto s4;
+    edge tx_vdx_dn goto s21;
+  location s19:
+    edge vblk_chained goto s11;
+    edge vblk_broadcasted goto s10;
+    edge tx_vdx_dn goto s24;
+  location s20:
+    edge cp_solved goto s11;
+    edge tx_vdx_dn goto s17;
+  location s21:
+    edge cp_solved goto s24;
+    edge vblk_chained goto s17;
+    edge new_blk_rcvd goto s1;
+    edge new_tx_rcd goto s26;
+  location s22:
+    edge nxt_blkp_started goto s9;
+    edge tx_vdx_dn goto s13;
+  location s23:
+    edge vblk_chained goto s11;
+    edge tx_vdx_dn goto s14;
+  location s24:
+    edge vblk_chained goto s3;
+    edge vblk_broadcasted goto s13;
+    edge new_tx_rcd goto s25;
+  location s25:
+    edge vblk_chained goto s11;
+    edge vblk_broadcasted goto s22;
+    edge tx_vdx_dn goto s24;
+  location s26:
+    edge cp_solved goto s25;
+    edge vblk_chained goto s20;
+    edge new_blk_rcvd goto s4;
+    edge tx_vdx_dn goto s21;
+end
